@@ -40,6 +40,10 @@ page_label          equ      $c887
 page_label_end      equ      $c888
 calibrationValue    equ      $c889
 gameScale           equ      $c890
+romnumber           equ      $c88a
+highScoreSendFlag   equ      $c88b
+
+
 ;***************************************************************************
 ; SYSTEM AREA of USER RAM SECTION ($CB00-$CBEA)
 ;***************************************************************************
@@ -72,6 +76,7 @@ rpccopyloop
                     sta      ,y+
                     cmpx     #rpcfndatend
                     bne      rpccopyloop
+
 ; copy LED RPC function to Vectrex USER RAM
 rpccopystart2
                     ldx      #rpcfndat2
@@ -81,6 +86,7 @@ rpccopyloop2
                     sta      ,y+
                     cmpx     #rpcfndatend2
                     bne      rpccopyloop2
+
 init_vars
 ; init menu var
                     jsr      init_page_cursor
@@ -93,14 +99,42 @@ init_vars
                     sta      calibrationValue
                     lda      #1
                     sta      gameScale
+;Check cold start flag and only clear on cold start
+                    ldd      #$7321
+                    cmpd     Vec_Cold_Flag
+                    beq      loop
+                    lda      #0
+                    sta      highScoreSendFlag
 loop
+; Send high score flag to STM
+                    lda      highScoreSendFlag
+                    beq      loop_cont1             ; Skip saving high score if flag is not 0xA5
+                    lda      #0
+                    sta      highScoreSendFlag      ; Clear high score flag
+store_hs_in_parmram
+                    ldd      $cbeb                  ; Create a subroutine to save highs score
+                    sta      $7f00
+                    stb      $7f01
+                    ldd      $cbed
+                    sta      $7f02
+                    stb      $7f03
+                    ldd      $cbef
+                    sta      $7f04
+                    stb      $7f05
+                    lda      #10                          ; rpc call to saveHighScore()
+                    ldx      #loop_cont1                  ; Load return point for jump instruction
+                    jmp      rpcfn2                       ; Call
+loop_cont1
 ; Rainbow Step LEDs
                     lda      #4                           ; LED step rate
                     sta      $7ffe                        ; Store in parmRam[254]
                     lda      #5                           ; rpc call to rainbowStep()
+                    ldx      #loop_cont_main              ; load x with return jmp address
                     jmp      rpcfn2                       ; Call
-loop_cont
+loop_cont_main
+				
 ; Recal video stuff
+do_recal
                     jsr      Wait_Recal
                     jsr      Intensity_5F
 ; display vextreme logo
@@ -234,6 +268,18 @@ skipymove
                     leau     a,u                          ;fetch addr of string, page
                     pulu     pc
 
+;Js has been touched. Ignore input until it returns.
+;(ToDo: input repeating?)
+dowaitjszero
+                    jsr      Joy_Digital
+                    lda      Vec_Joy_1_X
+                    bne      nozero
+                    lda      Vec_Joy_1_Y
+                    bne      nozero
+                    sta      waitjs
+nozero
+                    jmp      loop
+
 button_routines
                     fdb      nobuttons                    ; 0x00 no buttons
                     fdb      dirup                        ; 0x01 b1
@@ -264,30 +310,47 @@ dopage
                     jsr      handlepage
                     jmp      loop
 
-startgame                                                          ;Start the game.
+startgame                                                 ;Start the game.
                     lda      page                         ;Calculate the number of the ROM
                     lsla                                  ; (page * 4) + cursor
                     lsla                                  ;  |
                     adda     cursor                       ;  |
+                    sta      romnumber                    ;Store ROM number
                     sta      $7ffe                        ;Store in special cart location
-                    lda      #1                           ;rpc call to load a rom
+                    lda      #1                           ;rpc call to doChangeRom()
+                    ldx      #startgame_hs_cont           ; Load return point for jump instruction
+                    jmp      rpcfn2                       ;Call
+startgame_hs_cont
+; 0x7F00 - 0x7F05 should have high score.  Note we must do byte reads to memory from 0x0000 to 0x7FFF
+                    lda      $ff7                         ; Should be a 0x77 of this is a game
+                    cmpa     #$77
+                    bne      startgame_hs_done            ; TODO - Jump location??? 
+
+                    lda      $ff0
+                    ldb      $ff1
+                    std      $cbeb
+                    lda      $ff2
+                    ldb      $ff3
+                    std      $cbed
+                    lda      $ff4
+                    ldb      $ff5
+                    std      $cbef
+                    lda      #$0x80
+                    sta      $cbf1
+
+                    ldb      #1
+                    stb      highScoreSendFlag            ; Set high score flag to 0x01
+                    stb      $ff7                         ; Set flag at 0xFF7 to 0x01
+
+startgame_hs_done
+                    lda      romnumber
+                    sta      $7ffe                        ;Store romnumber in special cart location
+                    lda      #11                          ;rpc call to doStartRom()
                     jmp      rpcfn                        ;Call
 
 dirup
                     lda      #3                           ;rpc call to change up a directory
                     jmp      rpcfn                        ;Call
-
-;Js has been touched. Ignore input until it returns.
-;(ToDo: input repeating?)
-dowaitjszero
-                    jsr      Joy_Digital
-                    lda      Vec_Joy_1_X
-                    bne      nozero
-                    lda      Vec_Joy_1_Y
-                    bne      nozero
-                    sta      waitjs
-nozero
-                    jmp      loop
 
 handlepage
                     pshs     a,b
@@ -345,7 +408,7 @@ init_page_cursor
 ;Rpc function. Because this makes the cart unavailable, this
 ;will copied to SRAM. Call as rpcfn.
 rpcfndat
-                    sta      $7fff
+                    sta      $7fff						; Trigger doChangeRom() in romemu.S
 rpcwaitloop
                     lda      $0
                     cmpa     # 'g'
@@ -358,12 +421,11 @@ rpcwaitloop
                     ldu      #rpcfn+(vextreme_marker-rpcfndat) ; needs to be relative to where it's copied in ram
 headerloop
                     lda      ,x+
-                    cmpa     ,u+
+                    cmpa     ,u+	
                     bne      newrom
                     cmpx     #$1A
                     bne      headerloop
-                    jsr      init_page_cursor
-                    jmp      loop_cont ;start address
+                    jmp      loop_cont_main ;start address
 newrom
                     ldu      #$f000
                     pshs     u
@@ -372,7 +434,14 @@ vextreme_marker
                     fcb      "VEXTREME",$80   ; for matching against cart header
 rpcfndatend
 
+
 ; LED RPC2 function (needed to skip init_page_cursor conditionally)
+; This will block here because when we do reads on the 6809 the romemu.S
+; code is supposed to detect the read and then inject the correct data
+; so that it is successfull.  However, since romemu.S is off handling the
+; function the the rpc told it to perform, the reads will not be handled
+; properly and bad data will be give to the 6809.
+; Input: X register points to addres for return JMP instruction
 rpcfndat2
                     sta      $7fff
 rpcwaitloop2
@@ -382,8 +451,9 @@ rpcwaitloop2
                     lda      $1
                     cmpa     # ' '
                     bne      rpcwaitloop2
-                    jmp      loop_cont ;start address
+                    jmp      ,x
 rpcfndatend2
+
 ;***************************************************************************
 ; SUBROUTINE SECTION
 ;***************************************************************************

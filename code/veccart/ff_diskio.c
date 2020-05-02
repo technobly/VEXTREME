@@ -23,7 +23,7 @@
 /*-----------------------------------------------------------------------*/
 
 DSTATUS disk_status (
-	BYTE pdrv		/* Physical drive nmuber to identify the drive */
+	BYTE pdrv		/* Physical drive number to identify the drive */
 )
 {
 	return 0; //SPI is always available
@@ -56,7 +56,7 @@ DRESULT disk_read (
 	UINT count		/* Number of sectors to read */
 )
 {
-	int i;
+	unsigned int i;
 	for (i=0; i<count; i++) {
 		flashReadBlk(sector+i, buff+(i*512));
 	}
@@ -77,13 +77,22 @@ DRESULT disk_write (
 	UINT count			/* Number of sectors to write */
 )
 {
-	DRESULT res;
-	int result;
+	unsigned int i;
 
-//Not implemented for now. WARNING: If this is ever needed for the SPI flash, flashTick should
-//also be called every 100mS or else the final sector cache never gets written!
+	if (count > 255)
+	{
+		return RES_PARERR;
+	}
 
-	return RES_PARERR;
+	/**
+	 * Traverse through each sectors writing
+	 */
+	for (i=0; i<count; i++) 
+	{
+		flashWriteBlk(sector+i, buff+(i*512));
+	}
+
+	return RES_OK;
 }
 #endif
 
