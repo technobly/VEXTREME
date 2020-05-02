@@ -1,6 +1,7 @@
 BINARY=veccart
 OBJS=main.o menu.o romemu.o msc.o xprintf.o usb_msc.o ff_diskio.o \
-		fatfs/ff.o fatfs/option/unicode.o flash.o led.o delay.o
+		fatfs/ff.o fatfs/option/unicode.o flash.o led.o delay.o \
+		highscore.o
 
 LIBNAME = opencm3_stm32f4
 ARCH_FLAGS = -mfloat-abi=hard -mfpu=fpv4-sp-d16 -mthumb -mcpu=cortex-m4 -DSTM32F4
