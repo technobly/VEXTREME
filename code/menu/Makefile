@@ -10,15 +10,15 @@ docker-build: Dockerfile
 all: docker
 
 docker:
-	docker run --rm -v `pwd`:/build -u `id -u ${USER}`:`id -g ${USER}` asm6809 make multicart.bin
+	docker run --rm -v `pwd`:/build -u `id -u ${USER}`:`id -g ${USER}` asm6809 make menu.bin
 
-multicart.bin: multicart.asm
+menu.bin: menu.asm
 	$(AS)  -B -o $@ $^
 
 clean:
-	rm -f multicart.bin
+	rm -f menu.bin
 
-copy: multicart.bin
+copy: menu.bin
 	sudo mount /dev/sde1 /mnt
-	sudo cp multicart.bin /mnt
+	sudo cp menu.bin /mnt
 	sudo umount /mnt

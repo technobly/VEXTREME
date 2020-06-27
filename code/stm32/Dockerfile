@@ -11,4 +11,4 @@ RUN git clone https://github.com/libopencm3/libopencm3.git \
     && git checkout 90753950bbe10e87b8caabfb0bd6e1d195bb24b8 \
     && TARGETS=stm32/f4 make
 
-WORKDIR /build/veccart
+WORKDIR /build/stm32

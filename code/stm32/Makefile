@@ -43,7 +43,7 @@ endif
 CFLAGS += -DHW_VER=$(HW_VER_VAL)
 ASFLAGS += -DHW_VER=$(HW_VER_VAL)
 
-BINARY=veccart
+BINARY=stm32
 OBJS=main.o menu.o romemu.o msc.o xprintf.o usb_msc.o ff_diskio.o \
 		fatfs/ff.o fatfs/option/unicode.o flash.o led.o delay.o \
 		highscore.o
@@ -79,26 +79,26 @@ LDFLAGS		+= --static -nostartfiles -L$(TOOLCHAIN_DIR)/lib  \
 
 # Unzipped release files to code/releases/
 # Specify release version like so
-# make flash-bin VER=v0.1
+# make flash-bin HW_VER=v0.3 SW_VER=v0.24
 flash-release:
-	dfu-util -a 0 -d 0483:df11 -s 0x08000000 -D ../releases/$(VER)/stm32/veccart.bin
+	dfu-util -a 0 -d 0483:df11 -s 0x08000000 -D ../releases/$(SW_VER)/stm32/hardware-$(HW_VER)/stm32-sw.$(SW_VER)-test.hw.$(HW_VER).bin
 
 # Specify bin like so
-# make flash-bin BIN=../releases/v0.1/stm32/veccart.bin
+# make flash-bin BIN=../releases/v0.24/stm32/hardware-v0.3/stm32-sw.v0.24-test.hw.v0.3.bin
 flash-bin:
 	dfu-util -a 0 -d 0483:df11 -s 0x08000000 -D $(BIN)
 
-all: multicart.ld docker
+all: menu.ld docker
 
 docker-build: Dockerfile
 	docker build . -t stm32-build
 
 docker:
-	docker run --rm -t -v `pwd`:/build/veccart -u `id -u ${USER}`:`id -g ${USER}` stm32-build make images $(HW_VER_ARGS)
+	docker run --rm -t -v `pwd`:/build/stm32 -u `id -u ${USER}`:`id -g ${USER}` stm32-build make images $(HW_VER_ARGS)
 
 # '$ make bash' puts you in the docker container interactive shell for debugging
 bash:
-	docker run --rm -it -v `pwd`:/build/veccart -u `id -u ${USER}`:`id -g ${USER}` stm32-build bash
+	docker run --rm -it -v `pwd`:/build/stm32 -u `id -u ${USER}`:`id -g ${USER}` stm32-build bash
 
 images: $(BINARY).images
 flash: $(BINARY).flash
@@ -121,22 +121,22 @@ rom.o: rom.inc rom.c rom.h
 %.list: %.elf
 	$(VERBOSE)$(OBJDUMP) -S $(*).elf > $(*).list
 
-%.elf: $(OBJS) $(LDSCRIPT) multicart.ld
+%.elf: $(OBJS) $(LDSCRIPT) menu.ld
 	$(LD) -o $(*).elf $(OBJS) $(LDFLAGS)
 	$(PREFIX)-size $(*).elf
 
 %.o: %.c Makefile
 	$(CC) $(CFLAGS) -o $@ -c $<
 
-multicart.bin:
-	make -C ../multicart/ clean docker-build all
-	cp ../multicart/multicart.bin .
+menu.bin:
+	make -C ../menu/ clean docker-build all
+	cp ../menu/menu.bin .
 
-multicart.ld: multicart.bin
+menu.ld: menu.bin
 	cat $< | hexdump -v -e '"BYTE(0x" 1/1 "%02X" ")\n"' > $@
 
 clean:
-	rm -f multicart.ld
+	rm -f menu.ld
 	rm -f $(OBJS)
 	rm -f *.elf
 	rm -f *.bin

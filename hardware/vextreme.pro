@@ -12,7 +12,7 @@ LibDir=
 [pcbnew]
 version=1
 PageLayoutDescrFile=
-LastNetListRead=veccart.net
+LastNetListRead=vextreme.net
 CopperLayerCount=2
 BoardThickness=1.6
 AllowMicroVias=0

@@ -6,7 +6,7 @@ encoding utf-8
 Sheet 1 1
 Title "VEXTREME Vectrex Multicart"
 Date "2019-12-01"
-Rev "v0.2"
+Rev "v0.3"
 Comp ""
 Comment1 ""
 Comment2 ""
@@ -14,7 +14,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L veccart-rescue:GND-veccart-rescue #PWR07
+L vextreme-rescue:GND-vextreme-rescue #PWR07
 U 1 1 59F16914
 P 1700 5300
 F 0 "#PWR07" H 1700 5050 50  0001 C CNN
@@ -143,7 +143,7 @@ F 3 "~" H 4600 6200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L veccart-rescue:GND-veccart-rescue #PWR0101
+L vextreme-rescue:GND-vextreme-rescue #PWR0101
 U 1 1 5D00E463
 P 3850 6350
 F 0 "#PWR0101" H 3850 6100 50  0001 C CNN
@@ -154,7 +154,7 @@ F 3 "" H 3850 6350 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L veccart-rescue:GND-veccart-rescue #PWR0102
+L vextreme-rescue:GND-vextreme-rescue #PWR0102
 U 1 1 5D00E892
 P 4600 6350
 F 0 "#PWR0102" H 4600 6100 50  0001 C CNN
@@ -167,7 +167,7 @@ $EndComp
 Wire Wire Line
 	4250 6200 4250 6350
 $Comp
-L veccart-rescue:GND-veccart-rescue #PWR0103
+L vextreme-rescue:GND-vextreme-rescue #PWR0103
 U 1 1 5D00F858
 P 4250 6350
 F 0 "#PWR0103" H 4250 6100 50  0001 C CNN
@@ -214,7 +214,7 @@ $EndComp
 Text GLabel 4950 2350 2    50   Input ~ 0
 USB-IN
 $Comp
-L veccart-rescue:GND-veccart-rescue #PWR0105
+L vextreme-rescue:GND-vextreme-rescue #PWR0105
 U 1 1 5D01B9D7
 P 5650 4300
 F 0 "#PWR0105" H 5650 4050 50  0001 C CNN
@@ -253,7 +253,7 @@ F 3 "~" H 7250 3800 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L veccart-rescue:GND-veccart-rescue #PWR0106
+L vextreme-rescue:GND-vextreme-rescue #PWR0106
 U 1 1 5D023148
 P 7250 3950
 F 0 "#PWR0106" H 7250 3700 50  0001 C CNN
@@ -412,7 +412,7 @@ F 3 "" H 7350 1100 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L veccart-rescue:+5V-veccart-rescue #PWR0112
+L vextreme-rescue:+5V-vextreme-rescue #PWR0112
 U 1 1 5D05FE50
 P 7350 750
 F 0 "#PWR0112" H 7350 600 50  0001 C CNN
@@ -515,7 +515,7 @@ F 3 "" H 4600 1100 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L veccart-rescue:+5V-veccart-rescue #PWR0117
+L vextreme-rescue:+5V-vextreme-rescue #PWR0117
 U 1 1 5D06ED8C
 P 1750 1050
 F 0 "#PWR0117" H 1750 900 50  0001 C CNN
@@ -545,7 +545,7 @@ Wire Wire Line
 	4250 4750 4350 4750
 Connection ~ 4350 4750
 $Comp
-L veccart-rescue:GND-veccart-rescue #PWR0119
+L vextreme-rescue:GND-vextreme-rescue #PWR0119
 U 1 1 5D07FB9D
 P 4700 4850
 F 0 "#PWR0119" H 4700 4600 50  0001 C CNN
@@ -698,7 +698,7 @@ Connection ~ 8150 1900
 Wire Wire Line
 	8150 1900 8150 2000
 $Comp
-L veccart-rescue:GND-veccart-rescue #PWR0124
+L vextreme-rescue:GND-vextreme-rescue #PWR0124
 U 1 1 5D0A1129
 P 8150 2000
 F 0 "#PWR0124" H 8150 1750 50  0001 C CNN
@@ -766,7 +766,7 @@ F 3 "" H 5700 3250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L veccart-rescue:GND-veccart-rescue #PWR0126
+L vextreme-rescue:GND-vextreme-rescue #PWR0126
 U 1 1 5D0F5289
 P 9800 2150
 F 0 "#PWR0126" H 9800 1900 50  0001 C CNN
@@ -777,7 +777,7 @@ F 3 "" H 9800 2150 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L veccart-rescue:+5V-veccart-rescue #PWR0127
+L vextreme-rescue:+5V-vextreme-rescue #PWR0127
 U 1 1 5D0F55E9
 P 9800 1150
 F 0 "#PWR0127" H 9800 1000 50  0001 C CNN
@@ -788,7 +788,7 @@ F 3 "" H 9800 1150 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L veccart-rescue:+5V-veccart-rescue #PWR0128
+L vextreme-rescue:+5V-vextreme-rescue #PWR0128
 U 1 1 5D0F60DC
 P 3850 5900
 F 0 "#PWR0128" H 3850 5750 50  0001 C CNN
@@ -897,7 +897,7 @@ $EndComp
 Wire Wire Line
 	10500 1400 10350 1400
 $Comp
-L veccart-rescue:GND-veccart-rescue #PWR0130
+L vextreme-rescue:GND-vextreme-rescue #PWR0130
 U 1 1 5D0AE42B
 P 10350 1400
 F 0 "#PWR0130" H 10350 1150 50  0001 C CNN
@@ -914,7 +914,7 @@ RXD
 Text GLabel 3200 5900 1    50   Input ~ 0
 USB-IN
 $Comp
-L veccart-rescue:GND-veccart-rescue #PWR0118
+L vextreme-rescue:GND-vextreme-rescue #PWR0118
 U 1 1 5DEA6FB0
 P 1700 7400
 F 0 "#PWR0118" H 1700 7150 50  0001 C CNN
@@ -925,7 +925,7 @@ F 3 "" H 1700 7400 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L veccart-rescue:GND-veccart-rescue #PWR0131
+L vextreme-rescue:GND-vextreme-rescue #PWR0131
 U 1 1 5DEA771E
 P 1400 7400
 F 0 "#PWR0131" H 1400 7150 50  0001 C CNN
@@ -966,7 +966,7 @@ Wire Wire Line
 Wire Wire Line
 	3250 6200 3100 6200
 $Comp
-L veccart-rescue:GND-veccart-rescue #PWR0132
+L vextreme-rescue:GND-vextreme-rescue #PWR0132
 U 1 1 5DF1039D
 P 3450 6100
 F 0 "#PWR0132" H 3450 5850 50  0001 C CNN
@@ -982,7 +982,7 @@ U 1 1 5D00696D
 P 1700 6500
 F 0 "J1" H 1350 7350 50  0000 C CNN
 F 1 "USB_C_Receptacle_USB2.0" H 1800 7250 50  0000 C CNN
-F 2 "veccart:USB_C_Receptacle_HRO_TYPE-C-31-M-12" H 4529 2716 50  0001 C CNN
+F 2 "vextreme:USB_C_Receptacle_HRO_TYPE-C-31-M-12" H 4529 2716 50  0001 C CNN
 F 3 "~" H 1850 6450 50  0001 C CNN
 	1    1700 6500
 	1    0    0    -1  
@@ -1045,7 +1045,7 @@ SCLK
 Text GLabel 7400 4850 0    60   Input ~ 0
 SDAT
 $Comp
-L veccart-rescue:GND-veccart-rescue #PWR0135
+L vextreme-rescue:GND-vextreme-rescue #PWR0135
 U 1 1 5E1C4F53
 P 7700 5250
 F 0 "#PWR0135" H 7700 5000 50  0001 C CNN
@@ -1056,7 +1056,7 @@ F 3 "" H 7700 5250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L veccart-rescue:+5V-veccart-rescue #PWR0136
+L vextreme-rescue:+5V-vextreme-rescue #PWR0136
 U 1 1 5E1C55CA
 P 7700 4650
 F 0 "#PWR0136" H 7700 4500 50  0001 C CNN
@@ -1067,7 +1067,7 @@ F 3 "" H 7700 4650 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L veccart-rescue:GND-veccart-rescue #PWR0137
+L vextreme-rescue:GND-vextreme-rescue #PWR0137
 U 1 1 5E1CFFED
 P 8350 5250
 F 0 "#PWR0137" H 8350 5000 50  0001 C CNN
@@ -1078,7 +1078,7 @@ F 3 "" H 8350 5250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L veccart-rescue:+5V-veccart-rescue #PWR0138
+L vextreme-rescue:+5V-vextreme-rescue #PWR0138
 U 1 1 5E1CFFF7
 P 8350 4650
 F 0 "#PWR0138" H 8350 4500 50  0001 C CNN
@@ -1093,7 +1093,7 @@ Wire Wire Line
 Wire Wire Line
 	5100 3150 4950 3150
 $Comp
-L veccart-rescue:GND-veccart-rescue #PWR0133
+L vextreme-rescue:GND-vextreme-rescue #PWR0133
 U 1 1 5E222AFD
 P 9000 5250
 F 0 "#PWR0133" H 9000 5000 50  0001 C CNN
@@ -1104,7 +1104,7 @@ F 3 "" H 9000 5250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L veccart-rescue:+5V-veccart-rescue #PWR0134
+L vextreme-rescue:+5V-vextreme-rescue #PWR0134
 U 1 1 5E222B03
 P 9000 4650
 F 0 "#PWR0134" H 9000 4500 50  0001 C CNN
@@ -1115,7 +1115,7 @@ F 3 "" H 9000 4650 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L veccart-rescue:GND-veccart-rescue #PWR0139
+L vextreme-rescue:GND-vextreme-rescue #PWR0139
 U 1 1 5E22D72D
 P 9650 5250
 F 0 "#PWR0139" H 9650 5000 50  0001 C CNN
@@ -1126,7 +1126,7 @@ F 3 "" H 9650 5250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L veccart-rescue:+5V-veccart-rescue #PWR0140
+L vextreme-rescue:+5V-vextreme-rescue #PWR0140
 U 1 1 5E22D733
 P 9650 4650
 F 0 "#PWR0140" H 9650 4500 50  0001 C CNN
@@ -1137,7 +1137,7 @@ F 3 "" H 9650 4650 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L veccart-rescue:GND-veccart-rescue #PWR0141
+L vextreme-rescue:GND-vextreme-rescue #PWR0141
 U 1 1 5E232EFC
 P 10300 5250
 F 0 "#PWR0141" H 10300 5000 50  0001 C CNN
@@ -1148,7 +1148,7 @@ F 3 "" H 10300 5250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L veccart-rescue:+5V-veccart-rescue #PWR0142
+L vextreme-rescue:+5V-vextreme-rescue #PWR0142
 U 1 1 5E232F02
 P 10300 4650
 F 0 "#PWR0142" H 10300 4500 50  0001 C CNN
@@ -1159,7 +1159,7 @@ F 3 "" H 10300 4650 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L veccart-rescue:GND-veccart-rescue #PWR0143
+L vextreme-rescue:GND-vextreme-rescue #PWR0143
 U 1 1 5E237D78
 P 7700 6300
 F 0 "#PWR0143" H 7700 6050 50  0001 C CNN
@@ -1170,7 +1170,7 @@ F 3 "" H 7700 6300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L veccart-rescue:+5V-veccart-rescue #PWR0144
+L vextreme-rescue:+5V-vextreme-rescue #PWR0144
 U 1 1 5E237D7E
 P 7700 5700
 F 0 "#PWR0144" H 7700 5550 50  0001 C CNN
@@ -1181,7 +1181,7 @@ F 3 "" H 7700 5700 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L veccart-rescue:GND-veccart-rescue #PWR0145
+L vextreme-rescue:GND-vextreme-rescue #PWR0145
 U 1 1 5E23C8F2
 P 8350 6300
 F 0 "#PWR0145" H 8350 6050 50  0001 C CNN
@@ -1192,7 +1192,7 @@ F 3 "" H 8350 6300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L veccart-rescue:+5V-veccart-rescue #PWR0146
+L vextreme-rescue:+5V-vextreme-rescue #PWR0146
 U 1 1 5E23C8F8
 P 8350 5700
 F 0 "#PWR0146" H 8350 5550 50  0001 C CNN
@@ -1203,7 +1203,7 @@ F 3 "" H 8350 5700 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L veccart-rescue:GND-veccart-rescue #PWR0147
+L vextreme-rescue:GND-vextreme-rescue #PWR0147
 U 1 1 5E241687
 P 9000 6300
 F 0 "#PWR0147" H 9000 6050 50  0001 C CNN
@@ -1214,7 +1214,7 @@ F 3 "" H 9000 6300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L veccart-rescue:+5V-veccart-rescue #PWR0148
+L vextreme-rescue:+5V-vextreme-rescue #PWR0148
 U 1 1 5E24168D
 P 9000 5700
 F 0 "#PWR0148" H 9000 5550 50  0001 C CNN
@@ -1225,7 +1225,7 @@ F 3 "" H 9000 5700 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L veccart-rescue:GND-veccart-rescue #PWR0149
+L vextreme-rescue:GND-vextreme-rescue #PWR0149
 U 1 1 5E247B45
 P 9650 6300
 F 0 "#PWR0149" H 9650 6050 50  0001 C CNN
@@ -1236,7 +1236,7 @@ F 3 "" H 9650 6300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L veccart-rescue:+5V-veccart-rescue #PWR0150
+L vextreme-rescue:+5V-vextreme-rescue #PWR0150
 U 1 1 5E247B4B
 P 9650 5700
 F 0 "#PWR0150" H 9650 5550 50  0001 C CNN
@@ -1247,7 +1247,7 @@ F 3 "" H 9650 5700 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L veccart-rescue:GND-veccart-rescue #PWR0151
+L vextreme-rescue:GND-vextreme-rescue #PWR0151
 U 1 1 5E24CDAA
 P 10300 6300
 F 0 "#PWR0151" H 10300 6050 50  0001 C CNN
@@ -1258,7 +1258,7 @@ F 3 "" H 10300 6300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L veccart-rescue:+5V-veccart-rescue #PWR0152
+L vextreme-rescue:+5V-vextreme-rescue #PWR0152
 U 1 1 5E24CDB0
 P 10300 5700
 F 0 "#PWR0152" H 10300 5550 50  0001 C CNN
@@ -1345,7 +1345,7 @@ Wire Wire Line
 	6700 7500 6650 7500
 Connection ~ 6700 7300
 $Comp
-L veccart-rescue:GND-veccart-rescue #PWR0153
+L vextreme-rescue:GND-vextreme-rescue #PWR0153
 U 1 1 5E4F4996
 P 6700 7500
 F 0 "#PWR0153" H 6700 7250 50  0001 C CNN
@@ -1366,8 +1366,8 @@ Wire Wire Line
 Connection ~ 6700 6500
 Wire Wire Line
 	6700 6500 6700 6300
-Text Notes 7650 4150 0    50   ~ 0
-v0.2 Changelog\n——————————————————————\n- Replaced USB-B-mini with USB-C and centered USB on cart\n- Extended the PCB by 1.7 mm to get the USB-C connector as close to the case\n   exterior as possible.\n- Widened the PCB to 48.0 mm so that there’s less side to side play in the cartridge slot.\n- Moved outer mounting holes into the proper locations\n- Reversed D3 and R4 order to get D3 closer to edge of the PCB, but it turned\n   out we added something else there!\n- Added 10 APA102-2020 addressable RGB LED lights (max. draw 245mA) …\n   qualify with USB-IN (PA9) for 100% brightness, else 50%\n- Added 47uF cap for peak currents required for RGB LEDs.\n- Added V-IRQ connection to PB9 for 128KB bank-switching\n- Grounded unused floating inputs on U3 to reduce current consumption\n- Adjusted Y1 to use 12pF load crystal resonator with 18pF load caps (see equation)\n- Lots of clean up and tweaking all over PCB\n- Added revision to PCB\n- Added “VEXTREME” to PCB\n- Added a ground pour under the STM32\n- Made the contacts on the edge connector thinner (1.52mm) and made sure they were\n   spaced properly (2.54mm).\n- Started moving footprints to the libs/veccart.pretty library so you know where they \n   will be!
+Text Notes 7700 2750 0    50   ~ 0
+v0.3 Changelog\n——————————————————————\n- Fixed PCB fingers (removed soldermask ink around fingers, made them 8.8mm\n   x 1.52mm, spaced 1.2mm from board edge, and 18.0mm from 3.6mm hole)\n- Increased hole sizes to 3.7mm, 4.2mm, 5.2mm\n- Made all pads on addressable LEDs the same size\n
 Text Notes 8000 900  0    50   ~ 0
 CL = (C8 * C9)/(C8 + C9) + Cstray\n(324pF/36pF) + 4pF = 13pF (close to 12pF Y1 CL requirement)\n
 $Comp
@@ -1476,7 +1476,7 @@ U 1 1 5E24CDA4
 P 10300 6000
 F 0 "D13" H 10150 6250 50  0000 C CNN
 F 1 "APA102-2020" H 10600 5750 50  0000 C CNN
-F 2 "veccart:LED-APA102-2020_6_REV_2" H 10350 5700 50  0001 L TNN
+F 2 "vextreme:LED-APA102-2020_6_REV_2" H 10350 5700 50  0001 L TNN
 F 3 "http://www.led-color.com/upload/201604/APA102-2020%20SMD%20LED.pdf" H 10400 5625 50  0001 L TNN
 	1    10300 6000
 	1    0    0    -1  
@@ -1487,7 +1487,7 @@ U 1 1 5E247B3F
 P 9650 6000
 F 0 "D12" H 9500 6250 50  0000 C CNN
 F 1 "APA102-2020" H 9950 5750 50  0000 C CNN
-F 2 "veccart:LED-APA102-2020_6_REV_2" H 9700 5700 50  0001 L TNN
+F 2 "vextreme:LED-APA102-2020_6_REV_2" H 9700 5700 50  0001 L TNN
 F 3 "http://www.led-color.com/upload/201604/APA102-2020%20SMD%20LED.pdf" H 9750 5625 50  0001 L TNN
 	1    9650 6000
 	1    0    0    -1  
@@ -1498,7 +1498,7 @@ U 1 1 5E241681
 P 9000 6000
 F 0 "D11" H 8850 6250 50  0000 C CNN
 F 1 "APA102-2020" H 9300 5750 50  0000 C CNN
-F 2 "veccart:LED-APA102-2020_6_REV_2" H 9050 5700 50  0001 L TNN
+F 2 "vextreme:LED-APA102-2020_6_REV_2" H 9050 5700 50  0001 L TNN
 F 3 "http://www.led-color.com/upload/201604/APA102-2020%20SMD%20LED.pdf" H 9100 5625 50  0001 L TNN
 	1    9000 6000
 	1    0    0    -1  
@@ -1509,7 +1509,7 @@ U 1 1 5E23C8EC
 P 8350 6000
 F 0 "D10" H 8200 6250 50  0000 C CNN
 F 1 "APA102-2020" H 8650 5750 50  0000 C CNN
-F 2 "veccart:LED-APA102-2020_6_REV_2" H 8400 5700 50  0001 L TNN
+F 2 "vextreme:LED-APA102-2020_6_REV_2" H 8400 5700 50  0001 L TNN
 F 3 "http://www.led-color.com/upload/201604/APA102-2020%20SMD%20LED.pdf" H 8450 5625 50  0001 L TNN
 	1    8350 6000
 	1    0    0    -1  
@@ -1520,7 +1520,7 @@ U 1 1 5E237D72
 P 7700 6000
 F 0 "D9" H 7550 6250 50  0000 C CNN
 F 1 "APA102-2020" H 8000 5750 50  0000 C CNN
-F 2 "veccart:LED-APA102-2020_6_REV_2" H 7750 5700 50  0001 L TNN
+F 2 "vextreme:LED-APA102-2020_6_REV_2" H 7750 5700 50  0001 L TNN
 F 3 "http://www.led-color.com/upload/201604/APA102-2020%20SMD%20LED.pdf" H 7800 5625 50  0001 L TNN
 	1    7700 6000
 	1    0    0    -1  
@@ -1531,7 +1531,7 @@ U 1 1 5E232EF6
 P 10300 4950
 F 0 "D8" H 10150 5200 50  0000 C CNN
 F 1 "APA102-2020" H 10600 4700 50  0000 C CNN
-F 2 "veccart:LED-APA102-2020_6_REV_2" H 10350 4650 50  0001 L TNN
+F 2 "vextreme:LED-APA102-2020_6_REV_2" H 10350 4650 50  0001 L TNN
 F 3 "http://www.led-color.com/upload/201604/APA102-2020%20SMD%20LED.pdf" H 10400 4575 50  0001 L TNN
 	1    10300 4950
 	1    0    0    -1  
@@ -1542,7 +1542,7 @@ U 1 1 5E22D727
 P 9650 4950
 F 0 "D7" H 9500 5200 50  0000 C CNN
 F 1 "APA102-2020" H 9950 4700 50  0000 C CNN
-F 2 "veccart:LED-APA102-2020_6_REV_2" H 9700 4650 50  0001 L TNN
+F 2 "vextreme:LED-APA102-2020_6_REV_2" H 9700 4650 50  0001 L TNN
 F 3 "http://www.led-color.com/upload/201604/APA102-2020%20SMD%20LED.pdf" H 9750 4575 50  0001 L TNN
 	1    9650 4950
 	1    0    0    -1  
@@ -1553,7 +1553,7 @@ U 1 1 5E222AF7
 P 9000 4950
 F 0 "D6" H 8850 5200 50  0000 C CNN
 F 1 "APA102-2020" H 9300 4700 50  0000 C CNN
-F 2 "veccart:LED-APA102-2020_6_REV_2" H 9050 4650 50  0001 L TNN
+F 2 "vextreme:LED-APA102-2020_6_REV_2" H 9050 4650 50  0001 L TNN
 F 3 "http://www.led-color.com/upload/201604/APA102-2020%20SMD%20LED.pdf" H 9100 4575 50  0001 L TNN
 	1    9000 4950
 	1    0    0    -1  
@@ -1564,18 +1564,18 @@ U 1 1 5E1CFFE3
 P 8350 4950
 F 0 "D5" H 8200 5200 50  0000 C CNN
 F 1 "APA102-2020" H 8650 4700 50  0000 C CNN
-F 2 "veccart:LED-APA102-2020_6_REV_2" H 8400 4650 50  0001 L TNN
+F 2 "vextreme:LED-APA102-2020_6_REV_2" H 8400 4650 50  0001 L TNN
 F 3 "http://www.led-color.com/upload/201604/APA102-2020%20SMD%20LED.pdf" H 8450 4575 50  0001 L TNN
 	1    8350 4950
 	1    0    0    -1  
 $EndComp
 $Comp
-L veccart-rescue:vectrex-edge-connector-veccart-rescue CON1
+L vextreme-rescue:vectrex-edge-connector-vextreme-rescue CON1
 U 1 1 59F1631A
 P 1800 3500
 F 0 "CON1" H 1450 5350 60  0000 C CNN
 F 1 "vectrex-edge-connector" V 1400 3250 60  0000 C CNN
-F 2 "veccart:vectrex-edge-connector-thinner-no-soldermask" H 1800 4200 60  0001 C CNN
+F 2 "vextreme:vectrex-edge-connector-thinner-no-soldermask" H 1800 4200 60  0001 C CNN
 F 3 "" H 1800 4200 60  0001 C CNN
 	1    1800 3500
 	1    0    0    -1  
@@ -1586,7 +1586,7 @@ U 1 1 5E1BB363
 P 7700 4950
 F 0 "D4" H 7550 5200 50  0000 C CNN
 F 1 "APA102-2020" H 8000 4700 50  0000 C CNN
-F 2 "veccart:LED-APA102-2020_6_REV_2" H 7750 4650 50  0001 L TNN
+F 2 "vextreme:LED-APA102-2020_6_REV_2" H 7750 4650 50  0001 L TNN
 F 3 "http://www.led-color.com/upload/201604/APA102-2020%20SMD%20LED.pdf" H 7800 4575 50  0001 L TNN
 	1    7700 4950
 	1    0    0    -1  
@@ -1618,7 +1618,7 @@ F 3 "~" H 6800 5100 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L veccart-rescue:GND-veccart-rescue #PWR0154
+L vextreme-rescue:GND-vextreme-rescue #PWR0154
 U 1 1 5DEB047F
 P 6800 5250
 F 0 "#PWR0154" H 6800 5000 50  0001 C CNN
@@ -1629,7 +1629,7 @@ F 3 "" H 6800 5250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L veccart-rescue:+5V-veccart-rescue #PWR0155
+L vextreme-rescue:+5V-vextreme-rescue #PWR0155
 U 1 1 5DEB5A91
 P 6800 4950
 F 0 "#PWR0155" H 6800 4800 50  0001 C CNN
