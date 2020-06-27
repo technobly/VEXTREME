@@ -50,12 +50,12 @@
 
 // Externs
 extern GameFileRecord* pActiveGameData;
-extern char multicart_start;
-extern char multicart_end;
+extern char menu_start;
+extern char menu_end;
 
 //Memory for the menu ROM and the running cartridge.
 //We keep both in memory so we can quickly exchange them when a reset has been detected.
-const int menuIndex = 0xfff; // fixed location in multicart.bin
+const int menuIndex = 0xfff; // fixed location in menu.bin
 char menuData[8*1024];
 char devmodeData[2*1024];
 char* romData = menuData;
@@ -106,9 +106,9 @@ extern void romemu(void);
 
 // Load a ROM into cartridge memory
 void loadMenu() {
-  bool use_embedded_menu = (f_stat("/multicart.bin", &cart_file_info) != FR_OK);
+	bool use_embedded_menu = (f_stat("/menu.bin", &cart_file_info) != FR_OK);
 
-  loadRomWithHighScore("/multicart.bin", false, use_embedded_menu);
+	loadRomWithHighScore("/menu.bin", false, use_embedded_menu);
 }
 
 void loadRom(char *fn) {
@@ -129,8 +129,8 @@ void loadRomWithHighScore(char *fn, bool load_hs_mode, bool use_embedded_menu) {
 		n = sizeof(menuData);
 	}
 	if (romData == menuData && use_embedded_menu == true) {
-		xprintf("Copying %lu bytes of menu data... ", &multicart_end - &multicart_start);
-		memcpy(menuData, &multicart_start, &multicart_end - &multicart_start);
+		xprintf("Copying %lu bytes of menu data... ", &menu_end - &menu_start);
+		memcpy(menuData, &menu_start, &menu_end - &menu_start);
 		xprintf("OK!\n");
 	} else {
 		fr = f_open(&f, fn, FA_READ);

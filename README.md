@@ -1,7 +1,7 @@
 VEXTREME Vectrex Multicart
 ===
 
-We're carrying on and pushing forward the amazing work of [Sprite_tm](http://spritesmods.com/?art=veccart&page=1) and his Extreme Vectrex Multicart. He posted the code (GPLv3 License) and lots of screens of the PCB/initial schematic, but he never released the PCB. It's a great base for an inexpensive and open multicart, for developers and players alike!
+We're carrying on and pushing forward the amazing work of [Sprite_tm](http://spritesmods.com/?art=veccart&page=1) and his Extreme Vectrex Multicart. He posted the code (GPLv3 License) and lots of screens of the PCB/initial schematic, but he never released the PCB. It's a great base for an inexpensive and open vectrex multicart, for developers and players alike!
 
 :warning: Please read this NOTICE of Current Development :warning:
 ===
@@ -25,16 +25,16 @@ Join the [VEXTREME Discord server](https://discord.gg/VDssGVJ) to chat with us a
 BOM and Parts ordering
 ===
 
-All the parts are described in [veccart.csv](bom/veccart.csv)
+All the parts are described in Bill of Materials [vextreme-v0.x.csv](bom/)
 
 Also, you can use this [Digi-Key shared cart](https://www.digikey.com/short/zpdmtp) if you're in a hurry.  It has will have part references right on the packages for you!
 
 Ordering PCB's
 ===
 
-OSHPark is a good place to order with purple or the new "after dark" theme color scheme.  You can upload the KiCad [veccart.kicad_pcb](hardware/veccart.kicad_pcb) there directly.  I would download this entire Github repo ZIP file first though instead of just trying to save the PCB file from your browser.
+OSHPark is a good place to order with purple or the new "after dark" theme color scheme.  You can upload the KiCad [vextreme.kicad_pcb](hardware/vextreme.kicad_pcb) there directly.  I would download this entire Github repo ZIP file first though instead of just trying to save the PCB file from your browser.
 
-Another way to order PCB's is by using the included [gerbers](hardware/gerbers) and uploading those with all of the necessary specs to companies like [PCBWay](https://www.pcbway.com) or [JLCPCB](https://jlcpcb.com)
+Another way to order PCB's is by using the included [gerbers-vextreme-v0.x.zip](gerbers) and uploading those with all of the necessary specs to companies like [PCBWay](https://www.pcbway.com) or [JLCPCB](https://jlcpcb.com)
 
 Building and Flashing STM firmware
 ===
@@ -48,7 +48,7 @@ Building and Flashing STM firmware
 
 ### Build the stm32-build docker image
 ```
-code/veccart $ make docker-build
+code/stm32 $ make docker-build
 ```
 
 ### Connect the 2-pin jumper and then connect the cart to USB
@@ -73,7 +73,7 @@ Found DFU: [0483:df11] ver=2200, devnum=22, cfg=1, intf=0, path="20-1.4.3", alt=
 
 ### Build and flash the STM32 image via dfu-util
 ```
-code/veccart $ make clean all flash USE_HW=v0.3
+code/stm32 $ make clean all flash USE_HW=v0.3
 
 // NOTE: Use v0.2 above if you have v0.2 HW, or you may use v0.3 if you make the proper mods to your board.  See "Modifying v0.2 to v0.3"
 
@@ -93,7 +93,7 @@ Building and Flashing the multicart's menu
 
 ### Build the asm6809 docker image
 ```
-code/multicart $ make docker-build
+code/menu $ make docker-build
 ```
 
 ### Connect the cart to USB with the 2-pin jumper removed
@@ -110,18 +110,18 @@ code/multicart $ make docker-build
 ### Build and flash the multicart menu binary
 ```
 // Mac OS
-code/multicart $ make clean all && cp multicart.bin /Volumes/VEXTREME/
+code/menu $ make clean all && cp menu.bin /Volumes/VEXTREME/
 
 // optionally add this to the above command to unmount, after you figure out which drive it is
 $ diskutil list
 && diskutil unmountDisk /dev/disk3
 
 // Linux
-code/multicart $ make copy
+code/menu $ make copy
 
 // You should end up with something like this, and the binary should have been copied to the root of your multicart drive
 
-asm6809  -B -o multicart.bin multicart.asm
+asm6809  -B -o menu.bin menu.asm
 ```
 
 Modifying v0.2 to v0.3

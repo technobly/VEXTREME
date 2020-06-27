@@ -13,9 +13,9 @@ SECTIONS {
 
         /* ... */
 
-        multicart_start = .;
-        INCLUDE "multicart.ld" ;
-        multicart_end = .;
+        menu_start = .;
+        INCLUDE "menu.ld" ;
+        menu_end = .;
 
        /* ... */
     }

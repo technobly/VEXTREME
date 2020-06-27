@@ -1,4 +1,3 @@
 (fp_lib_table
-  (lib (name veccart)(type KiCad)(uri ${KIPRJMOD}/libs/veccart.pretty)(options "")(descr ""))
-  (lib (name vectrex-cart)(type KiCad)(uri ${KIPRJMOD}/vectrex-cart.pretty)(options "")(descr ""))
+  (lib (name vextreme)(type KiCad)(uri ${KIPRJMOD}/libs/vextreme.pretty)(options "")(descr ""))
 )

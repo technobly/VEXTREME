@@ -56,5 +56,5 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
-# generated filed for multicart menu pulled from other directory (don't want it checked in here)
-multicart.ld
+# generated file for vectrex menu pulled from other directory (don't want it checked in here)
+menu.ld

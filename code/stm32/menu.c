@@ -14,7 +14,7 @@ void loadListing(char *fdir, dir_listing *listing, const int fnptrs, const int s
 	char buff[sizeof(listing->f_entry->fname)];
 	char *name;
 
-	int ptrpos = fnptrs;  // fixed location in multicart.bin for 512 filename pointers (from &ptrpos ~ &strpos)
+	int ptrpos = fnptrs;  // fixed location in menu.bin for 512 filename pointers (from &ptrpos ~ &strpos)
 	int strpos = strptrs; // filename data starts here
 
 	int i;

@@ -14,8 +14,8 @@ RED="\033[31m"
 NOC="\033[0m"
 
 # Execute in ci/ folder
-STM32_DIR=../veccart
-MENU_DIR=../multicart
+STM32_DIR=../stm32
+MENU_DIR=../menu
 RELEASE_DIR=../releases
 SOURCE_RELEASE=v0.23
 SOURCE_RELEASE_URL=https://github.com/technobly/VEXTREME/releases/download/v0.23/VEXTREME-v0.23.zip
@@ -39,23 +39,23 @@ main() {
     try mkdir -p $RELEASE_DIR/$USE_SW
     try mkdir -p $RELEASE_DIR/$USE_SW/stm32
     try mkdir -p $RELEASE_DIR/$USE_SW/stm32/hardware-$USE_HW
-    try cp veccart.bin $RELEASE_DIR/$USE_SW/stm32/hardware-$USE_HW/stm32-sw.$USE_SW.hw.$USE_HW.bin
-    try cp veccart.elf $RELEASE_DIR/$USE_SW/stm32/hardware-$USE_HW/stm32-sw.$USE_SW.hw.$USE_HW.elf
-    try cp veccart.hex $RELEASE_DIR/$USE_SW/stm32/hardware-$USE_HW/stm32-sw.$USE_SW.hw.$USE_HW.hex
-    try cp veccart.list $RELEASE_DIR/$USE_SW/stm32/hardware-$USE_HW/stm32-sw.$USE_SW.hw.$USE_HW.list
+    try cp stm32.bin $RELEASE_DIR/$USE_SW/stm32/hardware-$USE_HW/stm32-sw.$USE_SW.hw.$USE_HW.bin
+    try cp stm32.elf $RELEASE_DIR/$USE_SW/stm32/hardware-$USE_HW/stm32-sw.$USE_SW.hw.$USE_HW.elf
+    try cp stm32.hex $RELEASE_DIR/$USE_SW/stm32/hardware-$USE_HW/stm32-sw.$USE_SW.hw.$USE_HW.hex
+    try cp stm32.list $RELEASE_DIR/$USE_SW/stm32/hardware-$USE_HW/stm32-sw.$USE_SW.hw.$USE_HW.list
 
     USE_HW=v0.3
     try make clean all -s USE_HW=$USE_HW #&> /dev/null
     try mkdir -p $RELEASE_DIR/$USE_SW/stm32/hardware-$USE_HW
-    try cp veccart.bin $RELEASE_DIR/$USE_SW/stm32/hardware-$USE_HW/stm32-sw.$USE_SW.hw.$USE_HW.bin
-    try cp veccart.elf $RELEASE_DIR/$USE_SW/stm32/hardware-$USE_HW/stm32-sw.$USE_SW.hw.$USE_HW.elf
-    try cp veccart.hex $RELEASE_DIR/$USE_SW/stm32/hardware-$USE_HW/stm32-sw.$USE_SW.hw.$USE_HW.hex
-    try cp veccart.list $RELEASE_DIR/$USE_SW/stm32/hardware-$USE_HW/stm32-sw.$USE_SW.hw.$USE_HW.list
+    try cp stm32.bin $RELEASE_DIR/$USE_SW/stm32/hardware-$USE_HW/stm32-sw.$USE_SW.hw.$USE_HW.bin
+    try cp stm32.elf $RELEASE_DIR/$USE_SW/stm32/hardware-$USE_HW/stm32-sw.$USE_SW.hw.$USE_HW.elf
+    try cp stm32.hex $RELEASE_DIR/$USE_SW/stm32/hardware-$USE_HW/stm32-sw.$USE_SW.hw.$USE_HW.hex
+    try cp stm32.list $RELEASE_DIR/$USE_SW/stm32/hardware-$USE_HW/stm32-sw.$USE_SW.hw.$USE_HW.list
 
     try cd $MENU_DIR
     try make clean all #&> /dev/null
     try mkdir -p $RELEASE_DIR/$USE_SW/VEXTREME
-    try cp multicart.bin $RELEASE_DIR/$USE_SW/VEXTREME/multicart.bin
+    try cp menu.bin $RELEASE_DIR/$USE_SW/VEXTREME/menu.bin
     try cp $RELEASE_DIR/$SOURCE_RELEASE/VEXTREME/vec.bin $RELEASE_DIR/$USE_SW/VEXTREME/vec.bin
     try cp -R $RELEASE_DIR/$SOURCE_RELEASE/VEXTREME/roms $RELEASE_DIR/$USE_SW/VEXTREME/roms
 

@@ -863,7 +863,7 @@ buttons_label
 ;***************************************************************************
 ; MENU SECTION
 ;***************************************************************************
-;Test multicart list data. This gets overwritten by the firmware running in the
+;Test menu list data. This gets overwritten by the firmware running in the
 ;STM with actual cartridge data.
                     org      $fff
 lastselcart
