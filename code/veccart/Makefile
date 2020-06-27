@@ -56,14 +56,13 @@ CC		= $(PREFIX)-gcc
 LD		= $(PREFIX)-gcc
 OBJCOPY	= $(PREFIX)-objcopy
 OBJDUMP	= $(PREFIX)-objdump
-
 # Uncomment this line if you want to use the installed (not local) library.
 #TOOLCHAIN_DIR = `dirname \`which $(CC)\``/../$(PREFIX)
 TOOLCHAIN_DIR=../libopencm3
 CFLAGS		+= -O3 -g -Wextra -Wshadow -Wimplicit-function-declaration -Wredundant-decls \
 		-Wmissing-prototypes -Wstrict-prototypes -fno-common -ffunction-sections -fdata-sections \
 		-MD -Wall -Wundef -I$(TOOLCHAIN_DIR)/include $(ARCH_FLAGS)
-ASFLAGS += $(ARCH_FLAGS)
+ASFLAGS	+= $(ARCH_FLAGS)
 
 LDSCRIPT	= stm32f411rct6.ld
 #../libopencm3/lib/lib$(LIBNAME).ld
@@ -89,7 +88,7 @@ flash-release:
 flash-bin:
 	dfu-util -a 0 -d 0483:df11 -s 0x08000000 -D $(BIN)
 
-all: docker
+all: multicart.ld docker
 
 docker-build: Dockerfile
 	docker build . -t stm32-build
@@ -100,7 +99,6 @@ docker:
 # '$ make bash' puts you in the docker container interactive shell for debugging
 bash:
 	docker run --rm -it -v `pwd`:/build/veccart -u `id -u ${USER}`:`id -g ${USER}` stm32-build bash
-
 
 images: $(BINARY).images
 flash: $(BINARY).flash
@@ -131,20 +129,21 @@ rom.o: rom.inc rom.c rom.h
 	$(CC) $(CFLAGS) -o $@ -c $<
 
 multicart.bin:
-	make -C ../multicart/ docker-build
-	make -C ../multicart/
+	make -C ../multicart/ clean docker-build all
 	cp ../multicart/multicart.bin .
 
 multicart.ld: multicart.bin
 	cat $< | hexdump -v -e '"BYTE(0x" 1/1 "%02X" ")\n"' > $@
 
 clean:
+	rm -f multicart.ld
 	rm -f $(OBJS)
 	rm -f *.elf
 	rm -f *.bin
 	rm -f *.hex
 	rm -f *.srec
 	rm -f *.list
+	rm -f *.map
 	rm -rf *.d
 
 %.flash: %.bin
