@@ -212,79 +212,79 @@ F 3 "http://www.mccsemi.com/up_pdf/MBR0520~MBR0580(SOD123).pdf" H 1750 1200 50  
 	0    1    1    0   
 $EndComp
 Text GLabel 4950 2350 2    50   Input ~ 0
-USB-IN
+USB-5V
 $Comp
 L vextreme:GND #PWR0105
 U 1 1 5D01B9D7
-P 5650 4300
-F 0 "#PWR0105" H 5650 4050 50  0001 C CNN
-F 1 "GND" H 5650 4150 50  0000 C CNN
-F 2 "" H 5650 4300 50  0001 C CNN
-F 3 "" H 5650 4300 50  0001 C CNN
-	1    5650 4300
+P 6250 4650
+F 0 "#PWR0105" H 6250 4400 50  0001 C CNN
+F 1 "GND" H 6250 4500 50  0000 C CNN
+F 2 "" H 6250 4650 50  0001 C CNN
+F 3 "" H 6250 4650 50  0001 C CNN
+	1    6250 4650
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	5650 4200 5400 4200
+	6250 4550 6000 4550
 Wire Wire Line
-	5400 4200 5400 3650
+	6000 4550 6000 4000
 Wire Wire Line
-	5400 3650 6950 3650
+	6000 4000 7550 4000
 Wire Wire Line
-	6950 3650 6950 4000
+	7550 4000 7550 4350
 Wire Wire Line
-	6950 4000 6950 4100
-Connection ~ 6950 4000
-Text GLabel 5650 4000 0    50   Input ~ 0
+	7550 4350 7550 4450
+Connection ~ 7550 4350
+Text GLabel 6250 4350 0    50   Input ~ 0
 CSn
-Text GLabel 5650 4100 0    50   Input ~ 0
+Text GLabel 6250 4450 0    50   Input ~ 0
 DO
-Text GLabel 6950 4300 2    50   Input ~ 0
+Text GLabel 7550 4650 2    50   Input ~ 0
 DI
 $Comp
 L vextreme:C C4
 U 1 1 5D022EBD
-P 7250 3800
-F 0 "C4" H 7365 3846 50  0000 L CNN
-F 1 "100nF" H 7365 3755 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7288 3650 50  0001 C CNN
-F 3 "~" H 7250 3800 50  0001 C CNN
-	1    7250 3800
+P 7850 4150
+F 0 "C4" H 7965 4196 50  0000 L CNN
+F 1 "100nF" H 7965 4105 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7888 4000 50  0001 C CNN
+F 3 "~" H 7850 4150 50  0001 C CNN
+	1    7850 4150
 	1    0    0    -1  
 $EndComp
 $Comp
 L vextreme:GND #PWR0106
 U 1 1 5D023148
-P 7250 3950
-F 0 "#PWR0106" H 7250 3700 50  0001 C CNN
-F 1 "GND" H 7250 3800 50  0000 C CNN
-F 2 "" H 7250 3950 50  0001 C CNN
-F 3 "" H 7250 3950 50  0001 C CNN
-	1    7250 3950
+P 7850 4300
+F 0 "#PWR0106" H 7850 4050 50  0001 C CNN
+F 1 "GND" H 7850 4150 50  0000 C CNN
+F 2 "" H 7850 4300 50  0001 C CNN
+F 3 "" H 7850 4300 50  0001 C CNN
+	1    7850 4300
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	6950 3650 7250 3650
-Connection ~ 6950 3650
+	7550 4000 7850 4000
+Connection ~ 7550 4000
 Wire Wire Line
-	7250 3650 7400 3650
+	7850 4000 8000 4000
 Wire Wire Line
-	7400 3650 7400 3600
-Connection ~ 7250 3650
+	8000 4000 8000 3950
+Connection ~ 7850 4000
 $Comp
 L vextreme:+3.3V #PWR0107
 U 1 1 5D025C55
-P 7400 3600
-F 0 "#PWR0107" H 7400 3450 50  0001 C CNN
-F 1 "+3.3V" H 7415 3773 50  0000 C CNN
-F 2 "" H 7400 3600 50  0001 C CNN
-F 3 "" H 7400 3600 50  0001 C CNN
-	1    7400 3600
+P 8000 3950
+F 0 "#PWR0107" H 8000 3800 50  0001 C CNN
+F 1 "+3.3V" H 8015 4123 50  0000 C CNN
+F 2 "" H 8000 3950 50  0001 C CNN
+F 3 "" H 8000 3950 50  0001 C CNN
+	1    8000 3950
 	1    0    0    -1  
 $EndComp
 Text GLabel 4950 3550 2    50   Input ~ 0
 DO
-Text GLabel 6950 4200 2    50   Input ~ 0
+Text GLabel 7550 4550 2    50   Input ~ 0
 CLK
 Text GLabel 4950 3450 2    50   Input ~ 0
 CLK
@@ -517,12 +517,12 @@ $EndComp
 $Comp
 L vextreme:+5V #PWR0117
 U 1 1 5D06ED8C
-P 1750 1050
-F 0 "#PWR0117" H 1750 900 50  0001 C CNN
-F 1 "+5V" H 1750 1190 50  0000 C CNN
-F 2 "" H 1750 1050 50  0001 C CNN
-F 3 "" H 1750 1050 50  0001 C CNN
-	1    1750 1050
+P 1750 1000
+F 0 "#PWR0117" H 1750 850 50  0001 C CNN
+F 1 "+5V" H 1750 1140 50  0000 C CNN
+F 2 "" H 1750 1000 50  0001 C CNN
+F 3 "" H 1750 1000 50  0001 C CNN
+	1    1750 1000
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -640,7 +640,7 @@ L vextreme:Jumper_NO_Small JP1
 U 1 1 5D08D66D
 P 2800 1550
 F 0 "JP1" V 2846 1502 50  0000 R CNN
-F 1 "Jumper_NO_Small" V 2755 1502 50  0000 R CNN
+F 1 "Jumper_NO_Small" V 2750 1500 50  0000 R CNN
 F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 2800 1550 50  0001 C CNN
 F 3 "~" H 2800 1550 50  0001 C CNN
 	1    2800 1550
@@ -650,12 +650,12 @@ Connection ~ 2800 1650
 $Comp
 L vextreme:+3.3V #PWR0123
 U 1 1 5D08DC37
-P 2800 1450
-F 0 "#PWR0123" H 2800 1300 50  0001 C CNN
-F 1 "+3.3V" H 2815 1623 50  0000 C CNN
-F 2 "" H 2800 1450 50  0001 C CNN
-F 3 "" H 2800 1450 50  0001 C CNN
-	1    2800 1450
+P 2800 1250
+F 0 "#PWR0123" H 2800 1100 50  0001 C CNN
+F 1 "+3.3V" H 2815 1423 50  0000 C CNN
+F 2 "" H 2800 1250 50  0001 C CNN
+F 3 "" H 2800 1250 50  0001 C CNN
+	1    2800 1250
 	1    0    0    -1  
 $EndComp
 Text GLabel 3550 2550 0    50   Input ~ 0
@@ -665,68 +665,66 @@ OSC_OUT
 $Comp
 L vextreme:C C8
 U 1 1 5D0921F6
-P 8400 1350
-F 0 "C8" V 8148 1350 50  0000 C CNN
-F 1 "18pF" V 8239 1350 50  0000 C CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8438 1200 50  0001 C CNN
-F 3 "~" H 8400 1350 50  0001 C CNN
-	1    8400 1350
+P 8400 1050
+F 0 "C8" V 8148 1050 50  0000 C CNN
+F 1 "18pF" V 8239 1050 50  0000 C CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8438 900 50  0001 C CNN
+F 3 "~" H 8400 1050 50  0001 C CNN
+	1    8400 1050
 	0    1    1    0   
 $EndComp
 $Comp
 L vextreme:C C9
 U 1 1 5D093433
-P 8400 1900
-F 0 "C9" V 8148 1900 50  0000 C CNN
-F 1 "18pF" V 8239 1900 50  0000 C CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8438 1750 50  0001 C CNN
-F 3 "~" H 8400 1900 50  0001 C CNN
-	1    8400 1900
+P 8400 1600
+F 0 "C9" V 8148 1600 50  0000 C CNN
+F 1 "18pF" V 8239 1600 50  0000 C CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8438 1450 50  0001 C CNN
+F 3 "~" H 8400 1600 50  0001 C CNN
+	1    8400 1600
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	8550 1900 8650 1900
+	8550 1600 8650 1600
 Wire Wire Line
-	8650 1900 8650 1800
+	8650 1600 8650 1500
 Wire Wire Line
-	8250 1350 8150 1350
+	8250 1050 8150 1050
 Wire Wire Line
-	8150 1350 8150 1900
+	8150 1050 8150 1600
 Wire Wire Line
-	8150 1900 8250 1900
-Connection ~ 8150 1900
+	8150 1600 8250 1600
+Connection ~ 8150 1600
 Wire Wire Line
-	8150 1900 8150 2000
+	8150 1600 8150 1700
 $Comp
 L vextreme:GND #PWR0124
 U 1 1 5D0A1129
-P 8150 2000
-F 0 "#PWR0124" H 8150 1750 50  0001 C CNN
-F 1 "GND" H 8150 1850 50  0000 C CNN
-F 2 "" H 8150 2000 50  0001 C CNN
-F 3 "" H 8150 2000 50  0001 C CNN
-	1    8150 2000
+P 8150 1700
+F 0 "#PWR0124" H 8150 1450 50  0001 C CNN
+F 1 "GND" H 8150 1550 50  0000 C CNN
+F 2 "" H 8150 1700 50  0001 C CNN
+F 3 "" H 8150 1700 50  0001 C CNN
+	1    8150 1700
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	8550 1350 8650 1350
-Text GLabel 8950 1350 2    50   Input ~ 0
+	8550 1050 8650 1050
+Text GLabel 8950 1050 2    50   Input ~ 0
 OSC_IN
-Text GLabel 8950 1900 2    50   Input ~ 0
+Text GLabel 8950 1600 2    50   Input ~ 0
 OSC_OUT
 Wire Wire Line
-	8650 1500 8650 1350
-Connection ~ 8650 1350
+	8650 1200 8650 1050
+Connection ~ 8650 1050
 Wire Wire Line
-	8650 1350 8950 1350
+	8650 1050 8950 1050
 Wire Wire Line
-	8650 1900 8950 1900
-Connection ~ 8650 1900
-Wire Wire Line
-	5800 2450 5800 3250
-Text GLabel 6400 3350 2    60   Input ~ 0
+	8650 1600 8950 1600
+Connection ~ 8650 1600
+Text GLabel 6350 3650 2    60   Input ~ 0
 V-OE
-Text GLabel 6400 3150 2    60   Input ~ 0
+Text GLabel 6350 3550 2    60   Input ~ 0
 V-CE
 Text GLabel 4950 4550 2    60   Input ~ 0
 V-CE
@@ -768,23 +766,23 @@ $EndComp
 $Comp
 L vextreme:GND #PWR0126
 U 1 1 5D0F5289
-P 9800 2150
-F 0 "#PWR0126" H 9800 1900 50  0001 C CNN
-F 1 "GND" H 9800 2000 50  0000 C CNN
-F 2 "" H 9800 2150 50  0001 C CNN
-F 3 "" H 9800 2150 50  0001 C CNN
-	1    9800 2150
+P 6050 3750
+F 0 "#PWR0126" H 6050 3500 50  0001 C CNN
+F 1 "GND" H 6050 3600 50  0000 C CNN
+F 2 "" H 6050 3750 50  0001 C CNN
+F 3 "" H 6050 3750 50  0001 C CNN
+	1    6050 3750
 	1    0    0    -1  
 $EndComp
 $Comp
 L vextreme:+5V #PWR0127
 U 1 1 5D0F55E9
-P 9800 1150
-F 0 "#PWR0127" H 9800 1000 50  0001 C CNN
-F 1 "+5V" H 9800 1290 50  0000 C CNN
-F 2 "" H 9800 1150 50  0001 C CNN
-F 3 "" H 9800 1150 50  0001 C CNN
-	1    9800 1150
+P 6050 3450
+F 0 "#PWR0127" H 6050 3300 50  0001 C CNN
+F 1 "+5V" H 6050 3590 50  0000 C CNN
+F 2 "" H 6050 3450 50  0001 C CNN
+F 3 "" H 6050 3450 50  0001 C CNN
+	1    6050 3450
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -845,8 +843,6 @@ Text GLabel 2350 4350 2    50   Input ~ 0
 C_A13
 Text GLabel 2350 4450 2    50   Input ~ 0
 C_A14
-Text GLabel 1850 1450 2    50   Input ~ 0
-C_VCC
 Text GLabel 4950 3750 2    50   Input ~ 0
 TXD
 Text GLabel 4950 3850 2    50   Input ~ 0
@@ -884,81 +880,61 @@ P_D7
 Text GLabel 5800 1450 0    50   Input ~ 0
 P_D7
 $Comp
-L Connector:Conn_01x06_Male J2
+L Connector:Conn_01x03_Male J2
 U 1 1 5D0ADA96
-P 10700 1600
-F 0 "J2" H 10800 1900 50  0000 R CNN
-F 1 "Conn_01x06_Male" H 11100 1250 50  0000 R CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical" H 10700 1600 50  0001 C CNN
-F 3 "~" H 10700 1600 50  0001 C CNN
-	1    10700 1600
+P 10700 1200
+F 0 "J2" H 10800 1500 50  0000 R CNN
+F 1 "Conn_01x03_Male" H 11100 1000 50  0000 R CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 10700 1200 50  0001 C CNN
+F 3 "~" H 10700 1200 50  0001 C CNN
+	1    10700 1200
 	-1   0    0    -1  
 $EndComp
-Wire Wire Line
-	10500 1400 10350 1400
 $Comp
 L vextreme:GND #PWR0130
 U 1 1 5D0AE42B
-P 10350 1400
-F 0 "#PWR0130" H 10350 1150 50  0001 C CNN
-F 1 "GND" H 10350 1250 50  0000 C CNN
-F 2 "" H 10350 1400 50  0001 C CNN
-F 3 "" H 10350 1400 50  0001 C CNN
-	1    10350 1400
+P 10200 1100
+F 0 "#PWR0130" H 10200 850 50  0001 C CNN
+F 1 "GND" H 10200 950 50  0000 C CNN
+F 2 "" H 10200 1100 50  0001 C CNN
+F 3 "" H 10200 1100 50  0001 C CNN
+	1    10200 1100
 	1    0    0    -1  
 $EndComp
-Text GLabel 10500 1800 0    50   Input ~ 0
+Text GLabel 10500 1300 0    50   Input ~ 0
 TXD
-Text GLabel 10500 1700 0    50   Input ~ 0
+Text GLabel 10500 1200 0    50   Input ~ 0
 RXD
-Text GLabel 3200 5900 1    50   Input ~ 0
-USB-IN
+Text GLabel 3100 5550 2    50   Input ~ 0
+USB-5V
 $Comp
 L vextreme:GND #PWR0118
 U 1 1 5DEA6FB0
-P 1700 7400
-F 0 "#PWR0118" H 1700 7150 50  0001 C CNN
-F 1 "GND" H 1700 7250 50  0000 C CNN
-F 2 "" H 1700 7400 50  0001 C CNN
-F 3 "" H 1700 7400 50  0001 C CNN
-	1    1700 7400
+P 1150 7400
+F 0 "#PWR0118" H 1150 7150 50  0001 C CNN
+F 1 "GND" H 1150 7250 50  0000 C CNN
+F 2 "" H 1150 7400 50  0001 C CNN
+F 3 "" H 1150 7400 50  0001 C CNN
+	1    1150 7400
 	1    0    0    -1  
 $EndComp
 $Comp
 L vextreme:GND #PWR0131
 U 1 1 5DEA771E
-P 1400 7400
-F 0 "#PWR0131" H 1400 7150 50  0001 C CNN
-F 1 "GND" H 1400 7250 50  0000 C CNN
-F 2 "" H 1400 7400 50  0001 C CNN
-F 3 "" H 1400 7400 50  0001 C CNN
-	1    1400 7400
+P 850 7400
+F 0 "#PWR0131" H 850 7150 50  0001 C CNN
+F 1 "GND" H 850 7250 50  0000 C CNN
+F 2 "" H 850 7400 50  0001 C CNN
+F 3 "" H 850 7400 50  0001 C CNN
+	1    850  7400
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	2300 5900 3350 5900
+	2300 6500 2300 6400
 Wire Wire Line
-	2300 6400 2400 6400
+	2200 6600 2200 6700
 Wire Wire Line
-	2300 6500 2400 6500
-Wire Wire Line
-	2400 6500 2400 6400
-Connection ~ 2400 6400
-Wire Wire Line
-	2400 6400 2550 6400
-Wire Wire Line
-	2300 6700 2400 6700
-Wire Wire Line
-	2300 6600 2400 6600
-Wire Wire Line
-	2400 6600 2400 6700
-Connection ~ 2400 6700
-Wire Wire Line
-	2400 6700 2550 6700
-Wire Wire Line
-	2300 6100 2550 6100
-Wire Wire Line
-	2300 6200 2800 6200
+	2200 6700 2550 6700
 Wire Wire Line
 	2850 6100 3250 6100
 Wire Wire Line
@@ -979,12 +955,12 @@ $EndComp
 $Comp
 L Connector:USB_C_Receptacle_USB2.0 J1
 U 1 1 5D00696D
-P 1700 6500
-F 0 "J1" H 1350 7350 50  0000 C CNN
-F 1 "USB_C_Receptacle_USB2.0" H 1800 7250 50  0000 C CNN
-F 2 "vextreme:USB_C_Receptacle_HRO_TYPE-C-31-M-12" H 4529 2716 50  0001 C CNN
-F 3 "~" H 1850 6450 50  0001 C CNN
-	1    1700 6500
+P 1150 6500
+F 0 "J1" H 800 7350 50  0000 C CNN
+F 1 "USB_C_Receptacle_USB2.0" H 1250 7250 50  0000 C CNN
+F 2 "vextreme:USB_C_Receptacle_HRO_TYPE-C-31-M-12" H 3979 2716 50  0001 C CNN
+F 3 "~" H 1300 6450 50  0001 C CNN
+	1    1150 6500
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -1040,274 +1016,44 @@ Text GLabel 4950 4350 2    60   Input ~ 0
 SCLK
 Text GLabel 4950 4450 2    60   Input ~ 0
 SDAT
-Text GLabel 7400 4950 0    60   Input ~ 0
+Text GLabel 7750 5950 0    60   Input ~ 0
 SCLK
-Text GLabel 7400 4850 0    60   Input ~ 0
+Text GLabel 7750 5850 0    60   Input ~ 0
 SDAT
-$Comp
-L vextreme:GND #PWR0135
-U 1 1 5E1C4F53
-P 7700 5250
-F 0 "#PWR0135" H 7700 5000 50  0001 C CNN
-F 1 "GND" H 7700 5100 50  0000 C CNN
-F 2 "" H 7700 5250 50  0001 C CNN
-F 3 "" H 7700 5250 50  0001 C CNN
-	1    7700 5250
-	1    0    0    -1  
-$EndComp
-$Comp
-L vextreme:+5V #PWR0136
-U 1 1 5E1C55CA
-P 7700 4650
-F 0 "#PWR0136" H 7700 4500 50  0001 C CNN
-F 1 "+5V" H 7700 4790 50  0000 C CNN
-F 2 "" H 7700 4650 50  0001 C CNN
-F 3 "" H 7700 4650 50  0001 C CNN
-	1    7700 4650
-	1    0    0    -1  
-$EndComp
-$Comp
-L vextreme:GND #PWR0137
-U 1 1 5E1CFFED
-P 8350 5250
-F 0 "#PWR0137" H 8350 5000 50  0001 C CNN
-F 1 "GND" H 8350 5100 50  0000 C CNN
-F 2 "" H 8350 5250 50  0001 C CNN
-F 3 "" H 8350 5250 50  0001 C CNN
-	1    8350 5250
-	1    0    0    -1  
-$EndComp
-$Comp
-L vextreme:+5V #PWR0138
-U 1 1 5E1CFFF7
-P 8350 4650
-F 0 "#PWR0138" H 8350 4500 50  0001 C CNN
-F 1 "+5V" H 8350 4790 50  0000 C CNN
-F 2 "" H 8350 4650 50  0001 C CNN
-F 3 "" H 8350 4650 50  0001 C CNN
-	1    8350 4650
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	5700 3150 5700 3250
 Wire Wire Line
 	5100 3150 4950 3150
 $Comp
-L vextreme:GND #PWR0133
-U 1 1 5E222AFD
-P 9000 5250
-F 0 "#PWR0133" H 9000 5000 50  0001 C CNN
-F 1 "GND" H 9000 5100 50  0000 C CNN
-F 2 "" H 9000 5250 50  0001 C CNN
-F 3 "" H 9000 5250 50  0001 C CNN
-	1    9000 5250
-	1    0    0    -1  
-$EndComp
-$Comp
-L vextreme:+5V #PWR0134
-U 1 1 5E222B03
-P 9000 4650
-F 0 "#PWR0134" H 9000 4500 50  0001 C CNN
-F 1 "+5V" H 9000 4790 50  0000 C CNN
-F 2 "" H 9000 4650 50  0001 C CNN
-F 3 "" H 9000 4650 50  0001 C CNN
-	1    9000 4650
-	1    0    0    -1  
-$EndComp
-$Comp
-L vextreme:GND #PWR0139
+L vextreme-rescue:GND-vextreme-rescue #PWR0139
 U 1 1 5E22D72D
-P 9650 5250
-F 0 "#PWR0139" H 9650 5000 50  0001 C CNN
-F 1 "GND" H 9650 5100 50  0000 C CNN
-F 2 "" H 9650 5250 50  0001 C CNN
-F 3 "" H 9650 5250 50  0001 C CNN
-	1    9650 5250
+P 8100 6250
+F 0 "#PWR0139" H 8100 6000 50  0001 C CNN
+F 1 "GND" H 8100 6100 50  0000 C CNN
+F 2 "" H 8100 6250 50  0001 C CNN
+F 3 "" H 8100 6250 50  0001 C CNN
+	1    8100 6250
 	1    0    0    -1  
 $EndComp
 $Comp
 L vextreme:+5V #PWR0140
 U 1 1 5E22D733
-P 9650 4650
-F 0 "#PWR0140" H 9650 4500 50  0001 C CNN
-F 1 "+5V" H 9650 4790 50  0000 C CNN
-F 2 "" H 9650 4650 50  0001 C CNN
-F 3 "" H 9650 4650 50  0001 C CNN
-	1    9650 4650
-	1    0    0    -1  
-$EndComp
-$Comp
-L vextreme:GND #PWR0141
-U 1 1 5E232EFC
-P 10300 5250
-F 0 "#PWR0141" H 10300 5000 50  0001 C CNN
-F 1 "GND" H 10300 5100 50  0000 C CNN
-F 2 "" H 10300 5250 50  0001 C CNN
-F 3 "" H 10300 5250 50  0001 C CNN
-	1    10300 5250
-	1    0    0    -1  
-$EndComp
-$Comp
-L vextreme:+5V #PWR0142
-U 1 1 5E232F02
-P 10300 4650
-F 0 "#PWR0142" H 10300 4500 50  0001 C CNN
-F 1 "+5V" H 10300 4790 50  0000 C CNN
-F 2 "" H 10300 4650 50  0001 C CNN
-F 3 "" H 10300 4650 50  0001 C CNN
-	1    10300 4650
-	1    0    0    -1  
-$EndComp
-$Comp
-L vextreme:GND #PWR0143
-U 1 1 5E237D78
-P 7700 6300
-F 0 "#PWR0143" H 7700 6050 50  0001 C CNN
-F 1 "GND" H 7700 6150 50  0000 C CNN
-F 2 "" H 7700 6300 50  0001 C CNN
-F 3 "" H 7700 6300 50  0001 C CNN
-	1    7700 6300
-	1    0    0    -1  
-$EndComp
-$Comp
-L vextreme:+5V #PWR0144
-U 1 1 5E237D7E
-P 7700 5700
-F 0 "#PWR0144" H 7700 5550 50  0001 C CNN
-F 1 "+5V" H 7700 5840 50  0000 C CNN
-F 2 "" H 7700 5700 50  0001 C CNN
-F 3 "" H 7700 5700 50  0001 C CNN
-	1    7700 5700
-	1    0    0    -1  
-$EndComp
-$Comp
-L vextreme:GND #PWR0145
-U 1 1 5E23C8F2
-P 8350 6300
-F 0 "#PWR0145" H 8350 6050 50  0001 C CNN
-F 1 "GND" H 8350 6150 50  0000 C CNN
-F 2 "" H 8350 6300 50  0001 C CNN
-F 3 "" H 8350 6300 50  0001 C CNN
-	1    8350 6300
-	1    0    0    -1  
-$EndComp
-$Comp
-L vextreme:+5V #PWR0146
-U 1 1 5E23C8F8
-P 8350 5700
-F 0 "#PWR0146" H 8350 5550 50  0001 C CNN
-F 1 "+5V" H 8350 5840 50  0000 C CNN
-F 2 "" H 8350 5700 50  0001 C CNN
-F 3 "" H 8350 5700 50  0001 C CNN
-	1    8350 5700
-	1    0    0    -1  
-$EndComp
-$Comp
-L vextreme:GND #PWR0147
-U 1 1 5E241687
-P 9000 6300
-F 0 "#PWR0147" H 9000 6050 50  0001 C CNN
-F 1 "GND" H 9000 6150 50  0000 C CNN
-F 2 "" H 9000 6300 50  0001 C CNN
-F 3 "" H 9000 6300 50  0001 C CNN
-	1    9000 6300
-	1    0    0    -1  
-$EndComp
-$Comp
-L vextreme:+5V #PWR0148
-U 1 1 5E24168D
-P 9000 5700
-F 0 "#PWR0148" H 9000 5550 50  0001 C CNN
-F 1 "+5V" H 9000 5840 50  0000 C CNN
-F 2 "" H 9000 5700 50  0001 C CNN
-F 3 "" H 9000 5700 50  0001 C CNN
-	1    9000 5700
-	1    0    0    -1  
-$EndComp
-$Comp
-L vextreme:GND #PWR0149
-U 1 1 5E247B45
-P 9650 6300
-F 0 "#PWR0149" H 9650 6050 50  0001 C CNN
-F 1 "GND" H 9650 6150 50  0000 C CNN
-F 2 "" H 9650 6300 50  0001 C CNN
-F 3 "" H 9650 6300 50  0001 C CNN
-	1    9650 6300
-	1    0    0    -1  
-$EndComp
-$Comp
-L vextreme:+5V #PWR0150
-U 1 1 5E247B4B
-P 9650 5700
-F 0 "#PWR0150" H 9650 5550 50  0001 C CNN
-F 1 "+5V" H 9650 5840 50  0000 C CNN
-F 2 "" H 9650 5700 50  0001 C CNN
-F 3 "" H 9650 5700 50  0001 C CNN
-	1    9650 5700
-	1    0    0    -1  
-$EndComp
-$Comp
-L vextreme:GND #PWR0151
-U 1 1 5E24CDAA
-P 10300 6300
-F 0 "#PWR0151" H 10300 6050 50  0001 C CNN
-F 1 "GND" H 10300 6150 50  0000 C CNN
-F 2 "" H 10300 6300 50  0001 C CNN
-F 3 "" H 10300 6300 50  0001 C CNN
-	1    10300 6300
-	1    0    0    -1  
-$EndComp
-$Comp
-L vextreme:+5V #PWR0152
-U 1 1 5E24CDB0
-P 10300 5700
-F 0 "#PWR0152" H 10300 5550 50  0001 C CNN
-F 1 "+5V" H 10300 5840 50  0000 C CNN
-F 2 "" H 10300 5700 50  0001 C CNN
-F 3 "" H 10300 5700 50  0001 C CNN
-	1    10300 5700
+P 8100 5650
+F 0 "#PWR0140" H 8100 5500 50  0001 C CNN
+F 1 "+5V" H 8100 5790 50  0000 C CNN
+F 2 "" H 8100 5650 50  0001 C CNN
+F 3 "" H 8100 5650 50  0001 C CNN
+	1    8100 5650
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	8000 4850 8050 4850
+	7750 5850 7800 5850
 Wire Wire Line
-	8000 4950 8050 4950
+	7750 5950 7800 5950
 Wire Wire Line
-	8650 4850 8700 4850
+	8400 5850 8450 5850
 Wire Wire Line
-	8650 4950 8700 4950
-Wire Wire Line
-	9300 4850 9350 4850
-Wire Wire Line
-	9300 4950 9350 4950
-Wire Wire Line
-	9950 4850 10000 4850
-Wire Wire Line
-	9950 4950 10000 4950
-Wire Wire Line
-	8000 5900 8050 5900
-Wire Wire Line
-	8000 6000 8050 6000
-Wire Wire Line
-	8650 5900 8700 5900
-Wire Wire Line
-	8650 6000 8700 6000
-Wire Wire Line
-	9300 5900 9350 5900
-Wire Wire Line
-	9300 6000 9350 6000
-Wire Wire Line
-	9950 5900 10000 5900
-Wire Wire Line
-	9950 6000 10000 6000
-Text GLabel 10600 4950 2    60   Input ~ 0
-SCLK_CONT
-Text GLabel 10600 4850 2    60   Input ~ 0
-SDAT_CONT
-Text GLabel 7400 6000 0    60   Input ~ 0
-SCLK_CONT
-Text GLabel 7400 5900 0    60   Input ~ 0
-SDAT_CONT
+	8400 5950 8450 5950
 Wire Wire Line
 	7350 750  7350 800 
 Wire Wire Line
@@ -1328,113 +1074,21 @@ Wire Wire Line
 	2850 6400 3100 6400
 Wire Wire Line
 	2850 6700 3100 6700
-Wire Wire Line
-	6700 6800 6650 6800
-Wire Wire Line
-	6700 6800 6700 7000
-Wire Wire Line
-	6700 7000 6650 7000
-Wire Wire Line
-	6700 7000 6700 7300
-Wire Wire Line
-	6700 7300 6650 7300
-Connection ~ 6700 7000
-Wire Wire Line
-	6700 7300 6700 7500
-Wire Wire Line
-	6700 7500 6650 7500
-Connection ~ 6700 7300
-$Comp
-L vextreme:GND #PWR0153
-U 1 1 5E4F4996
-P 6700 7500
-F 0 "#PWR0153" H 6700 7250 50  0001 C CNN
-F 1 "GND" H 6700 7350 50  0000 C CNN
-F 2 "" H 6700 7500 50  0001 C CNN
-F 3 "" H 6700 7500 50  0001 C CNN
-	1    6700 7500
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6700 6300 6650 6300
-Wire Wire Line
-	6700 6800 6700 6500
-Connection ~ 6700 6800
-Wire Wire Line
-	6650 6500 6700 6500
-Connection ~ 6700 6500
-Wire Wire Line
-	6700 6500 6700 6300
-Text Notes 7700 2750 0    50   ~ 0
-v0.3 Changelog\n——————————————————————\n- Fixed PCB fingers (removed soldermask ink around fingers, made them 8.8mm\n   x 1.52mm, spaced 1.2mm from board edge, and 18.0mm from 3.6mm hole)\n- Increased hole sizes to 3.7mm, 4.2mm, 5.2mm\n- Made all pads on addressable LEDs the same size\n
-Text Notes 8000 900  0    50   ~ 0
+Text Notes 7750 3550 0    50   ~ 0
+v0.3 Changelog\n——————————————————————\n- Fixed PCB fingers (removed soldermask ink around fingers, made them 8.8mm\n   x 1.52mm, spaced 1.2mm from board edge, and 18.0mm from 3.6mm hole)\n- Increased hole sizes to 3.7mm, 4.2mm, 5.2mm\n- Made all pads on addressable LEDs the same size\n- Remove D8 - D13, spacing remaining 4 LEDs evenly (13mm)\n- Change debugging header to 3-pin\n- Add 3-pin header to output LED signals (drive 1000’s of LEDs if you want)\n- Added SW1 for programming, and SW2 for STM32 reset\n- Changed C13 from 47uF to 10uF\n- Added cut & solder jumper to convert SW2 to a User Button\n- Added test points for main voltage rails\n- Connected Vectrex 5V directly to PA10\n- Connected V-OE to PB10, changed U3 to single OR gate, and added R7 for\n   optional way to assert U4 /OE in the future potentially.
+Text Notes 8000 700  0    50   ~ 0
 CL = (C8 * C9)/(C8 + C9) + Cstray\n(324pF/36pF) + 4pF = 13pF (close to 12pF Y1 CL requirement)\n
 $Comp
 L vextreme:Crystal Y1
 U 1 1 5D00550C
-P 8650 1650
-F 0 "Y1" V 8550 1850 50  0000 C CNN
-F 1 "8MHz" V 8650 1900 50  0000 C CNN
-F 2 "Crystal:Crystal_SMD_5032-2Pin_5.0x3.2mm_HandSoldering" H 8650 1650 50  0001 C CNN
-F 3 "https://abracon.com/Resonators/abm3.pdf" H 8650 1650 50  0001 C CNN
-F 4 "12pF" V 8750 1900 50  0000 C CNN "Cload"
-	1    8650 1650
+P 8650 1350
+F 0 "Y1" V 8550 1550 50  0000 C CNN
+F 1 "8MHz" V 8650 1600 50  0000 C CNN
+F 2 "Crystal:Crystal_SMD_5032-2Pin_5.0x3.2mm_HandSoldering" H 8650 1350 50  0001 C CNN
+F 3 "https://abracon.com/Resonators/abm3.pdf" H 8650 1350 50  0001 C CNN
+F 4 "12pF" V 8750 1600 50  0000 C CNN "Cload"
+	1    8650 1350
 	0    1    1    0   
-$EndComp
-$Comp
-L 74xx:74LS32 U3
-U 1 1 5E583E79
-P 6350 6400
-F 0 "U3" H 6300 6200 50  0000 C CNN
-F 1 "74HC32" H 6350 6600 50  0000 C CNN
-F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 6350 6400 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT32.pdf" H 6350 6400 50  0001 C CNN
-	1    6350 6400
-	-1   0    0    1   
-$EndComp
-$Comp
-L 74xx:74LS32 U3
-U 4 1 5E4D3564
-P 6350 7400
-F 0 "U3" H 6300 7200 50  0000 C CNN
-F 1 "74HC32" H 6350 7600 50  0000 C CNN
-F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 6350 7400 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT32.pdf" H 6350 7400 50  0001 C CNN
-	4    6350 7400
-	-1   0    0    1   
-$EndComp
-$Comp
-L 74xx:74LS32 U3
-U 2 1 5E4C00D6
-P 6350 6900
-F 0 "U3" H 6300 6700 50  0000 C CNN
-F 1 "74HC32" H 6350 7100 50  0000 C CNN
-F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 6350 6900 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT32.pdf" H 6350 6900 50  0001 C CNN
-	2    6350 6900
-	-1   0    0    1   
-$EndComp
-$Comp
-L 74xx:74LS32 U3
-U 3 1 5CFED423
-P 6100 3250
-F 0 "U3" H 6050 3050 50  0000 C CNN
-F 1 "74HC32" H 6100 3450 50  0000 C CNN
-F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 6100 3250 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT32.pdf" H 6100 3250 50  0001 C CNN
-	3    6100 3250
-	-1   0    0    1   
-$EndComp
-$Comp
-L 74xx:74LS32 U3
-U 5 1 5D0EB89A
-P 9800 1650
-F 0 "U3" H 9900 2000 50  0000 C CNN
-F 1 "74HC32" H 10000 1300 50  0000 C CNN
-F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 9800 1650 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT32.pdf" H 9800 1650 50  0001 C CNN
-	5    9800 1650
-	1    0    0    -1  
 $EndComp
 $Comp
 L MCU_ST_STM32F4:STM32F411RCTx U2
@@ -1461,111 +1115,23 @@ $EndComp
 $Comp
 L vextreme:W25Q128 U5
 U 1 1 5CFEAE1F
-P 6300 4150
-F 0 "U5" H 6300 4450 50  0000 C CNN
-F 1 "W25Q128" H 6300 3850 50  0000 C CNN
-F 2 "Package_SO:SOIC-8_5.23x5.23mm_P1.27mm" H 6600 4250 50  0001 C CNN
-F 3 "https://www.pjrc.com/teensy/W25Q128FV.pdf" H 6600 4250 50  0001 C CNN
-	1    6300 4150
+P 6900 4500
+F 0 "U5" H 6900 4800 50  0000 C CNN
+F 1 "W25Q128" H 6900 4200 50  0000 C CNN
+F 2 "Package_SO:SOIC-8_5.23x5.23mm_P1.27mm" H 7200 4600 50  0001 C CNN
+F 3 "https://www.pjrc.com/teensy/W25Q128FV.pdf" H 7200 4600 50  0001 C CNN
+	1    6900 4500
 	1    0    0    -1  
 $EndComp
 $Comp
-L vextreme:APA102-2020 D13
-U 1 1 5E24CDA4
-P 10300 6000
-F 0 "D13" H 10150 6250 50  0000 C CNN
-F 1 "APA102-2020" H 10600 5750 50  0000 C CNN
-F 2 "vextreme:LED-APA102-2020_6_REV_2" H 10350 5700 50  0001 L TNN
-F 3 "http://www.led-color.com/upload/201604/APA102-2020%20SMD%20LED.pdf" H 10400 5625 50  0001 L TNN
-	1    10300 6000
-	1    0    0    -1  
-$EndComp
-$Comp
-L vextreme:APA102-2020 D12
-U 1 1 5E247B3F
-P 9650 6000
-F 0 "D12" H 9500 6250 50  0000 C CNN
-F 1 "APA102-2020" H 9950 5750 50  0000 C CNN
-F 2 "vextreme:LED-APA102-2020_6_REV_2" H 9700 5700 50  0001 L TNN
-F 3 "http://www.led-color.com/upload/201604/APA102-2020%20SMD%20LED.pdf" H 9750 5625 50  0001 L TNN
-	1    9650 6000
-	1    0    0    -1  
-$EndComp
-$Comp
-L vextreme:APA102-2020 D11
-U 1 1 5E241681
-P 9000 6000
-F 0 "D11" H 8850 6250 50  0000 C CNN
-F 1 "APA102-2020" H 9300 5750 50  0000 C CNN
-F 2 "vextreme:LED-APA102-2020_6_REV_2" H 9050 5700 50  0001 L TNN
-F 3 "http://www.led-color.com/upload/201604/APA102-2020%20SMD%20LED.pdf" H 9100 5625 50  0001 L TNN
-	1    9000 6000
-	1    0    0    -1  
-$EndComp
-$Comp
-L vextreme:APA102-2020 D10
-U 1 1 5E23C8EC
-P 8350 6000
-F 0 "D10" H 8200 6250 50  0000 C CNN
-F 1 "APA102-2020" H 8650 5750 50  0000 C CNN
-F 2 "vextreme:LED-APA102-2020_6_REV_2" H 8400 5700 50  0001 L TNN
-F 3 "http://www.led-color.com/upload/201604/APA102-2020%20SMD%20LED.pdf" H 8450 5625 50  0001 L TNN
-	1    8350 6000
-	1    0    0    -1  
-$EndComp
-$Comp
-L vextreme:APA102-2020 D9
-U 1 1 5E237D72
-P 7700 6000
-F 0 "D9" H 7550 6250 50  0000 C CNN
-F 1 "APA102-2020" H 8000 5750 50  0000 C CNN
-F 2 "vextreme:LED-APA102-2020_6_REV_2" H 7750 5700 50  0001 L TNN
-F 3 "http://www.led-color.com/upload/201604/APA102-2020%20SMD%20LED.pdf" H 7800 5625 50  0001 L TNN
-	1    7700 6000
-	1    0    0    -1  
-$EndComp
-$Comp
-L vextreme:APA102-2020 D8
-U 1 1 5E232EF6
-P 10300 4950
-F 0 "D8" H 10150 5200 50  0000 C CNN
-F 1 "APA102-2020" H 10600 4700 50  0000 C CNN
-F 2 "vextreme:LED-APA102-2020_6_REV_2" H 10350 4650 50  0001 L TNN
-F 3 "http://www.led-color.com/upload/201604/APA102-2020%20SMD%20LED.pdf" H 10400 4575 50  0001 L TNN
-	1    10300 4950
-	1    0    0    -1  
-$EndComp
-$Comp
-L vextreme:APA102-2020 D7
+L LED:APA102-2020 D4
 U 1 1 5E22D727
-P 9650 4950
-F 0 "D7" H 9500 5200 50  0000 C CNN
-F 1 "APA102-2020" H 9950 4700 50  0000 C CNN
-F 2 "vextreme:LED-APA102-2020_6_REV_2" H 9700 4650 50  0001 L TNN
-F 3 "http://www.led-color.com/upload/201604/APA102-2020%20SMD%20LED.pdf" H 9750 4575 50  0001 L TNN
-	1    9650 4950
-	1    0    0    -1  
-$EndComp
-$Comp
-L vextreme:APA102-2020 D6
-U 1 1 5E222AF7
-P 9000 4950
-F 0 "D6" H 8850 5200 50  0000 C CNN
-F 1 "APA102-2020" H 9300 4700 50  0000 C CNN
-F 2 "vextreme:LED-APA102-2020_6_REV_2" H 9050 4650 50  0001 L TNN
-F 3 "http://www.led-color.com/upload/201604/APA102-2020%20SMD%20LED.pdf" H 9100 4575 50  0001 L TNN
-	1    9000 4950
-	1    0    0    -1  
-$EndComp
-$Comp
-L vextreme:APA102-2020 D5
-U 1 1 5E1CFFE3
-P 8350 4950
-F 0 "D5" H 8200 5200 50  0000 C CNN
-F 1 "APA102-2020" H 8650 4700 50  0000 C CNN
-F 2 "vextreme:LED-APA102-2020_6_REV_2" H 8400 4650 50  0001 L TNN
-F 3 "http://www.led-color.com/upload/201604/APA102-2020%20SMD%20LED.pdf" H 8450 4575 50  0001 L TNN
-	1    8350 4950
+P 8100 5950
+F 0 "D4" H 7950 6200 50  0000 C CNN
+F 1 "APA102-2020" H 8400 5700 50  0000 C CNN
+F 2 "vextreme:LED-APA102-2020_6_REV_2" H 8150 5650 50  0001 L TNN
+F 3 "http://www.led-color.com/upload/201604/APA102-2020%20SMD%20LED.pdf" H 8200 5575 50  0001 L TNN
+	1    8100 5950
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -1577,17 +1143,6 @@ F 1 "vectrex-edge-connector" V 1400 3250 60  0000 C CNN
 F 2 "vextreme:vectrex-edge-connector-thinner-no-soldermask" H 1800 4200 60  0001 C CNN
 F 3 "" H 1800 4200 60  0001 C CNN
 	1    1800 3500
-	1    0    0    -1  
-$EndComp
-$Comp
-L vextreme:APA102-2020 D4
-U 1 1 5E1BB363
-P 7700 4950
-F 0 "D4" H 7550 5200 50  0000 C CNN
-F 1 "APA102-2020" H 8000 4700 50  0000 C CNN
-F 2 "vextreme:LED-APA102-2020_6_REV_2" H 7750 4650 50  0001 L TNN
-F 3 "http://www.led-color.com/upload/201604/APA102-2020%20SMD%20LED.pdf" H 7800 4575 50  0001 L TNN
-	1    7700 4950
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -1608,34 +1163,485 @@ $EndComp
 $Comp
 L vextreme:C C13
 U 1 1 5DEB0479
-P 6800 5100
-F 0 "C13" H 6915 5146 50  0000 L CNN
-F 1 "47u" H 6915 5055 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6838 4950 50  0001 C CNN
-F 3 "~" H 6800 5100 50  0001 C CNN
-	1    6800 5100
+P 7150 5900
+F 0 "C13" H 7265 5946 50  0000 L CNN
+F 1 "10u" H 7265 5855 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7188 5750 50  0001 C CNN
+F 3 "~" H 7150 5900 50  0001 C CNN
+	1    7150 5900
 	1    0    0    -1  
 $EndComp
 $Comp
 L vextreme:GND #PWR0154
 U 1 1 5DEB047F
-P 6800 5250
-F 0 "#PWR0154" H 6800 5000 50  0001 C CNN
-F 1 "GND" H 6800 5100 50  0000 C CNN
-F 2 "" H 6800 5250 50  0001 C CNN
-F 3 "" H 6800 5250 50  0001 C CNN
-	1    6800 5250
+P 7150 6050
+F 0 "#PWR0154" H 7150 5800 50  0001 C CNN
+F 1 "GND" H 7150 5900 50  0000 C CNN
+F 2 "" H 7150 6050 50  0001 C CNN
+F 3 "" H 7150 6050 50  0001 C CNN
+	1    7150 6050
 	1    0    0    -1  
 $EndComp
 $Comp
 L vextreme:+5V #PWR0155
 U 1 1 5DEB5A91
-P 6800 4950
-F 0 "#PWR0155" H 6800 4800 50  0001 C CNN
-F 1 "+5V" H 6800 5090 50  0000 C CNN
-F 2 "" H 6800 4950 50  0001 C CNN
-F 3 "" H 6800 4950 50  0001 C CNN
-	1    6800 4950
+P 7150 5750
+F 0 "#PWR0155" H 7150 5600 50  0001 C CNN
+F 1 "+5V" H 7150 5890 50  0000 C CNN
+F 2 "" H 7150 5750 50  0001 C CNN
+F 3 "" H 7150 5750 50  0001 C CNN
+	1    7150 5750
 	1    0    0    -1  
 $EndComp
+$Comp
+L LED:APA102-2020 D6
+U 1 1 5E241681
+P 9450 5950
+F 0 "D6" H 9300 6200 50  0000 C CNN
+F 1 "APA102-2020" H 9750 5700 50  0000 C CNN
+F 2 "vextreme:LED-APA102-2020_6_REV_2" H 9500 5650 50  0001 L TNN
+F 3 "http://www.led-color.com/upload/201604/APA102-2020%20SMD%20LED.pdf" H 9550 5575 50  0001 L TNN
+	1    9450 5950
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED:APA102-2020 D7
+U 1 1 5E24CDA4
+P 10150 5950
+F 0 "D7" H 10000 6200 50  0000 C CNN
+F 1 "APA102-2020" H 10450 5700 50  0000 C CNN
+F 2 "vextreme:LED-APA102-2020_6_REV_2" H 10200 5650 50  0001 L TNN
+F 3 "http://www.led-color.com/upload/201604/APA102-2020%20SMD%20LED.pdf" H 10250 5575 50  0001 L TNN
+	1    10150 5950
+	1    0    0    -1  
+$EndComp
+$Comp
+L vextreme-rescue:+5V-vextreme-rescue #PWR0152
+U 1 1 5E24CDB0
+P 10150 5650
+F 0 "#PWR0152" H 10150 5500 50  0001 C CNN
+F 1 "+5V" H 10150 5790 50  0000 C CNN
+F 2 "" H 10150 5650 50  0001 C CNN
+F 3 "" H 10150 5650 50  0001 C CNN
+	1    10150 5650
+	1    0    0    -1  
+$EndComp
+$Comp
+L vextreme-rescue:GND-vextreme-rescue #PWR0151
+U 1 1 5E24CDAA
+P 10150 6250
+F 0 "#PWR0151" H 10150 6000 50  0001 C CNN
+F 1 "GND" H 10150 6100 50  0000 C CNN
+F 2 "" H 10150 6250 50  0001 C CNN
+F 3 "" H 10150 6250 50  0001 C CNN
+	1    10150 6250
+	1    0    0    -1  
+$EndComp
+$Comp
+L vextreme-rescue:+5V-vextreme-rescue #PWR0148
+U 1 1 5E24168D
+P 9450 5650
+F 0 "#PWR0148" H 9450 5500 50  0001 C CNN
+F 1 "+5V" H 9450 5790 50  0000 C CNN
+F 2 "" H 9450 5650 50  0001 C CNN
+F 3 "" H 9450 5650 50  0001 C CNN
+	1    9450 5650
+	1    0    0    -1  
+$EndComp
+$Comp
+L vextreme-rescue:GND-vextreme-rescue #PWR0147
+U 1 1 5E241687
+P 9450 6250
+F 0 "#PWR0147" H 9450 6000 50  0001 C CNN
+F 1 "GND" H 9450 6100 50  0000 C CNN
+F 2 "" H 9450 6250 50  0001 C CNN
+F 3 "" H 9450 6250 50  0001 C CNN
+	1    9450 6250
+	1    0    0    -1  
+$EndComp
+$Comp
+L vextreme-rescue:GND-vextreme-rescue #PWR0143
+U 1 1 5E237D78
+P 8750 6250
+F 0 "#PWR0143" H 8750 6000 50  0001 C CNN
+F 1 "GND" H 8750 6100 50  0000 C CNN
+F 2 "" H 8750 6250 50  0001 C CNN
+F 3 "" H 8750 6250 50  0001 C CNN
+	1    8750 6250
+	1    0    0    -1  
+$EndComp
+$Comp
+L vextreme-rescue:+5V-vextreme-rescue #PWR0144
+U 1 1 5E237D7E
+P 8750 5650
+F 0 "#PWR0144" H 8750 5500 50  0001 C CNN
+F 1 "+5V" H 8750 5790 50  0000 C CNN
+F 2 "" H 8750 5650 50  0001 C CNN
+F 3 "" H 8750 5650 50  0001 C CNN
+	1    8750 5650
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED:APA102-2020 D5
+U 1 1 5E237D72
+P 8750 5950
+F 0 "D5" H 8600 6200 50  0000 C CNN
+F 1 "APA102-2020" H 9050 5700 50  0000 C CNN
+F 2 "vextreme:LED-APA102-2020_6_REV_2" H 8800 5650 50  0001 L TNN
+F 3 "http://www.led-color.com/upload/201604/APA102-2020%20SMD%20LED.pdf" H 8850 5575 50  0001 L TNN
+	1    8750 5950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9050 5950 9150 5950
+Wire Wire Line
+	9050 5850 9150 5850
+Wire Wire Line
+	9750 5950 9850 5950
+Wire Wire Line
+	9750 5850 9850 5850
+Wire Wire Line
+	10200 1100 10500 1100
+$Comp
+L Connector:Conn_01x03_Male J3
+U 1 1 5EEA03A9
+P 10850 5850
+F 0 "J3" H 10950 6150 50  0000 R CNN
+F 1 "Conn_01x03_Male" H 11250 5650 50  0000 R CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 10850 5850 50  0001 C CNN
+F 3 "~" H 10850 5850 50  0001 C CNN
+	1    10850 5850
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	10650 5950 10450 5950
+Wire Wire Line
+	10450 5850 10650 5850
+$Comp
+L vextreme-rescue:GND-vextreme-rescue #PWR0133
+U 1 1 5EEAFF3A
+P 10500 5550
+F 0 "#PWR0133" H 10500 5300 50  0001 C CNN
+F 1 "GND" H 10500 5400 50  0000 C CNN
+F 2 "" H 10500 5550 50  0001 C CNN
+F 3 "" H 10500 5550 50  0001 C CNN
+	1    10500 5550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10650 5550 10500 5550
+Wire Wire Line
+	10650 5550 10650 5750
+$Comp
+L Switch:SW_SPST SW1
+U 1 1 5EE7EE2B
+P 2650 1450
+F 0 "SW1" V 2600 1650 50  0000 R CNN
+F 1 "K3-1296S-E2" V 2500 2050 50  0000 R CNN
+F 2 "vextreme:SW_SPDT_K3-1296S-E2" H 2650 1450 50  0001 C CNN
+F 3 "~" H 2650 1450 50  0001 C CNN
+	1    2650 1450
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	2650 1650 2800 1650
+Wire Wire Line
+	2650 1250 2800 1250
+Wire Wire Line
+	2800 1250 2800 1450
+Connection ~ 2800 1250
+$Comp
+L Switch:SW_Push SW2
+U 1 1 5EEA4DC7
+P 9850 4900
+F 0 "SW2" H 9850 5200 50  0000 C CNN
+F 1 "TS-1002S-11526C" H 9750 5100 50  0000 C CNN
+F 2 "vextreme:SW_Push_1P1T_NO_6x6mm_H11.5mm" H 9850 5100 50  0001 C CNN
+F 3 "~" H 9850 5100 50  0001 C CNN
+	1    9850 4900
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0134
+U 1 1 5EEA68C6
+P 9650 4900
+F 0 "#PWR0134" H 9650 4650 50  0001 C CNN
+F 1 "GND" H 9600 4950 50  0000 C CNN
+F 2 "" H 9650 4900 50  0001 C CNN
+F 3 "" H 9650 4900 50  0001 C CNN
+	1    9650 4900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1950 1450 1850 1450
+Connection ~ 1850 1450
+$Comp
+L Device:R R7
+U 1 1 5EEE1496
+P 5550 3950
+F 0 "R7" V 5460 3900 50  0000 C CNN
+F 1 "0" V 5550 3950 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 5480 3950 50  0001 C CNN
+F 3 "~" H 5550 3950 50  0001 C CNN
+F 4 "DNP" V 5640 3930 50  0000 C CNN "Field4"
+	1    5550 3950
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4950 3950 5400 3950
+Wire Wire Line
+	5700 3950 5800 3950
+Wire Wire Line
+	6050 3700 6050 3750
+Wire Wire Line
+	6050 3450 6050 3500
+Text GLabel 4950 4150 2    60   Input ~ 0
+V-OE
+Text Notes 5290 4180 0    50   ~ 0
+/E
+Text Notes 5270 4590 0    50   ~ 0
+A15
+Text GLabel 4950 2450 2    50   Input ~ 0
+VEC-5V
+Text GLabel 1950 1450 2    50   Input ~ 0
+VEC-5V
+Wire Wire Line
+	3100 5550 2400 5550
+Wire Wire Line
+	2400 5550 2400 5900
+Wire Wire Line
+	2400 5900 3350 5900
+$Comp
+L Connector:TestPoint TP1
+U 1 1 5EFBE655
+P 1650 1450
+F 0 "TP1" V 1750 1700 50  0000 C CNN
+F 1 "V5V" V 1650 1700 50  0000 C CNN
+F 2 "TestPoint:TestPoint_Pad_D1.5mm" H 1850 1450 50  0001 C CNN
+F 3 "~" H 1850 1450 50  0001 C CNN
+	1    1650 1450
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	1650 1450 1750 1450
+$Comp
+L Connector:TestPoint TP2
+U 1 1 5EFD3FB2
+P 1650 1050
+F 0 "TP2" V 1750 1350 50  0000 C CNN
+F 1 "5V" V 1650 1350 50  0000 C CNN
+F 2 "TestPoint:TestPoint_Pad_D1.5mm" H 1850 1050 50  0001 C CNN
+F 3 "~" H 1850 1050 50  0001 C CNN
+	1    1650 1050
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	1750 1050 1750 1000
+Wire Wire Line
+	1750 1050 1650 1050
+Connection ~ 1750 1050
+$Comp
+L Connector:TestPoint TP3
+U 1 1 5EFE3E30
+P 1600 5200
+F 0 "TP3" V 1700 5450 50  0000 C CNN
+F 1 "GND" V 1600 5450 50  0000 C CNN
+F 2 "TestPoint:TestPoint_Pad_D1.5mm" H 1800 5200 50  0001 C CNN
+F 3 "~" H 1800 5200 50  0001 C CNN
+	1    1600 5200
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	1600 5200 1700 5200
+$Comp
+L Connector:TestPoint TP4
+U 1 1 5EFF146E
+P 2400 5550
+F 0 "TP4" V 2600 5650 50  0000 C CNN
+F 1 "U5V" V 2500 5650 50  0000 C CNN
+F 2 "TestPoint:TestPoint_Pad_D1.5mm" H 2600 5550 50  0001 C CNN
+F 3 "~" H 2600 5550 50  0001 C CNN
+	1    2400 5550
+	0    -1   -1   0   
+$EndComp
+Connection ~ 2400 5550
+$Comp
+L Connector:TestPoint TP5
+U 1 1 5EFF3A70
+P 4850 5900
+F 0 "TP5" V 4750 6200 50  0000 C CNN
+F 1 "3.3V" V 4850 6200 50  0000 C CNN
+F 2 "TestPoint:TestPoint_Pad_D1.5mm" H 5050 5900 50  0001 C CNN
+F 3 "~" H 5050 5900 50  0001 C CNN
+	1    4850 5900
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4850 5900 4750 5900
+Connection ~ 4750 5900
+$Comp
+L Graphic:Logo_Open_Hardware_Small #LOGO1
+U 1 1 5EE7732D
+P 6600 7400
+F 0 "#LOGO1" H 6600 7675 50  0001 C CNN
+F 1 "Logo_Open_Hardware_Small" H 6600 7175 50  0001 C CNN
+F 2 "" H 6600 7400 50  0001 C CNN
+F 3 "~" H 6600 7400 50  0001 C CNN
+	1    6600 7400
+	1    0    0    -1  
+$EndComp
+Connection ~ 5800 3600
+Wire Wire Line
+	5800 2450 5800 3600
+Wire Wire Line
+	5800 3950 5800 3600
+$Comp
+L 74xGxx:74LVC1G32 U3
+U 1 1 5EED04ED
+P 6050 3600
+F 0 "U3" H 5850 3850 50  0000 C CNN
+F 1 "74LVC1G32" H 5700 3750 50  0000 C CNN
+F 2 "vextreme:SOT-23-5_HandSoldering" H 6050 3600 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 6050 3600 50  0001 C CNN
+	1    6050 3600
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:TestPoint SP1
+U 1 1 5EF3F178
+P 10200 5250
+F 0 "SP1" V 10200 5550 50  0001 C CNN
+F 1 "PA8" V 10200 5500 50  0000 C CNN
+F 2 "vextreme:SparePin_1x01_P2.54mm_Vertical" H 10400 5250 50  0001 C CNN
+F 3 "~" H 10400 5250 50  0001 C CNN
+	1    10200 5250
+	0    1    1    0   
+$EndComp
+$Comp
+L Connector:TestPoint SP2
+U 1 1 5EF659ED
+P 4950 2750
+F 0 "SP2" V 5050 3200 50  0001 C CNN
+F 1 "PA13" V 4950 3000 50  0000 C CNN
+F 2 "vextreme:SparePin_1x01_P2.54mm_Vertical" H 5150 2750 50  0001 C CNN
+F 3 "~" H 5150 2750 50  0001 C CNN
+	1    4950 2750
+	0    1    1    0   
+$EndComp
+$Comp
+L Connector:TestPoint SP3
+U 1 1 5EF70257
+P 4950 2850
+F 0 "SP3" V 5050 3300 50  0001 C CNN
+F 1 "PA14" V 4950 3100 50  0000 C CNN
+F 2 "vextreme:SparePin_1x01_P2.54mm_Vertical" H 5150 2850 50  0001 C CNN
+F 3 "~" H 5150 2850 50  0001 C CNN
+	1    4950 2850
+	0    1    1    0   
+$EndComp
+$Comp
+L Connector:TestPoint SP4
+U 1 1 5EF70863
+P 3550 2850
+F 0 "SP4" V 3650 3300 50  0001 C CNN
+F 1 "PD2" V 3550 3100 50  0000 C CNN
+F 2 "vextreme:SparePin_1x01_P2.54mm_Vertical" H 3750 2850 50  0001 C CNN
+F 3 "~" H 3750 2850 50  0001 C CNN
+	1    3550 2850
+	0    -1   -1   0   
+$EndComp
+Connection ~ 2400 5900
+Connection ~ 2200 6700
+Connection ~ 2300 6400
+Wire Wire Line
+	1750 6700 2200 6700
+Wire Wire Line
+	1750 6500 2300 6500
+Wire Wire Line
+	2000 6800 2000 5900
+Connection ~ 2000 6800
+Wire Wire Line
+	1900 6800 2000 6800
+Wire Wire Line
+	1900 6850 1900 6800
+$Comp
+L vextreme-rescue:GND-vextreme-rescue #PWR01
+U 1 1 5EE9BB2A
+P 2100 7350
+F 0 "#PWR01" H 2100 7100 50  0001 C CNN
+F 1 "GND" H 2100 7200 50  0000 C CNN
+F 2 "" H 2100 7350 50  0001 C CNN
+F 3 "" H 2100 7350 50  0001 C CNN
+	1    2100 7350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2000 6850 2000 6800
+$Comp
+L vextreme:TPD4E02B04DQA_passthrough U6
+U 1 1 5EE6BB32
+P 2100 7150
+F 0 "U6" H 2388 7246 50  0000 L CNN
+F 1 "TPD4E02B04DQA" H 2388 7155 50  0000 L CNN
+F 2 "vextreme:USON-10_2.5x1.0mm_P0.5mm_passthrough" H 2400 7150 50  0001 L CNN
+F 3 "http://www.ti.com/lit/ds/symlink/tpd4e02b04.pdf" H 2225 7475 50  0001 C CNN
+	1    2100 7150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1750 6200 2800 6200
+Wire Wire Line
+	1750 6100 2550 6100
+Wire Wire Line
+	1750 6600 2200 6600
+Wire Wire Line
+	1750 6400 2300 6400
+Wire Wire Line
+	1750 5900 2000 5900
+Connection ~ 2000 5900
+Wire Wire Line
+	2000 5900 2400 5900
+Wire Wire Line
+	2200 6850 2200 6700
+Wire Wire Line
+	2300 6850 2300 6500
+Wire Wire Line
+	2300 6400 2550 6400
+Connection ~ 2300 6500
+$Comp
+L Jumper:Jumper_3_Bridged12 JP2
+U 1 1 5F1FA3BC
+P 10200 4900
+F 0 "JP2" V 10150 5050 50  0000 C CNN
+F 1 "Jumper_3_Bridged12" V 10250 5350 50  0001 C CNN
+F 2 "vextreme:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm_NumberLabels" H 10200 4900 50  0001 C CNN
+F 3 "~" H 10200 4900 50  0001 C CNN
+	1    10200 4900
+	0    1    1    0   
+$EndComp
+Text GLabel 4950 2250 2    50   Input ~ 0
+PA8
+Text GLabel 10350 5150 2    50   Input ~ 0
+PA8
+Wire Wire Line
+	10350 5150 10200 5150
+Wire Wire Line
+	10200 5150 10200 5250
+Text GLabel 3550 1450 0    50   Input ~ 0
+NRST
+Text GLabel 10300 4650 2    50   Input ~ 0
+NRST
+Wire Wire Line
+	10200 4650 10300 4650
+Text Notes 9400 4500 0    50   ~ 0
+JP2 normally connected (1-2) for SW2 to\nact as hard reset for STM32.  If (1-2) cut\nand (2-3) soldered SW2 will be connected\nto pull PA8 low (should enable internal\npull-up) to use.
+Connection ~ 10200 5150
+Wire Notes Line style solid
+	9350 4050 11100 4050
+Wire Notes Line style solid
+	11100 4050 11100 5350
+Wire Notes Line style solid
+	11100 5350 9350 5350
+Wire Notes Line style solid
+	9350 5350 9350 4050
 $EndSCHEMATC
