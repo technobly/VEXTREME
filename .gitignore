@@ -25,3 +25,6 @@ fp-info-cache
 
 # Released files
 code/releases/
+
+# Built binaries
+*.bin
