@@ -1,28 +1,51 @@
 # Changelog
 
-## Hardware TODO
+## v0.24
 
-- Move v0.2's PCB fingers 18.0mm from the center of 3.5mm mounting holes, and 0.5mm from board edge, for slightly better engagement with the Vectrex cartrdige connector.
-- Remove soldermask from PCB cart fingers on top and bottom of the board.
-- R4 & D3 reference designators are swapped.
-- Remove D4 - D6 and just have addressible LEDs on the edge of the board, space the 7 LEDs evenly.
-- Move the debugging/serial port connector so it does not interfere with enclosure bosses.
-- Move V-HALT and V-CE to different pins and fix SDAT and SCLK so they are on SPI2 for hardware control. V-CE might be optimized for MSB (seems like it is in romemu.S), so move to PA15 which bumps CSn to some other pin? CSn should likely be on SPI1_SS, but it might not matter (check).  PB01 is used in an optimized way as well though.
-- Replace U3 with a single OR gate?
-- Replacement for U4 which is more available at LCSC?
-- Slightly increase the middle pads on addressible LEDs so they don't require touch up soldering
-- Route all unused GPIO to a breakout header, for hacking!
-- Add ESD protection to external connections
-- Move headers to USB-C side and edge for easier access
-- Make 2-pin jumper a right angle switch instead of a jumper?
+Hardware Changes
 
-## Software TODO
+- rename 'veccart' to 'vextreme' for hardware
+- add image for v0.3 wire mod
+- Fixes #17, make all pads on addressable LEDS the same size
+- Fixes #10 removes soldermask ink around PCB fingers
+- Fixes #11 Edge of PCB fingers should be 18.0mm from center of 3.52mm mounting hole and 1.2mm from edge, and slightly enlarged (0.2mm oversized)
+- Also aligns holes, fingers and board outline on 0.1mm grid
 
-- Add hardware SPI2 support
-- Add cartridge RAM support (specifically for Animaction $2000-$27FF, but possibly for others as well).  Any downside to letting the entire 64KB of emulated ROM to be considered as RAM and writable?
-- Add hardware version support for pin definitions
-- Add 128KB bankswitching (V-INT pin)
-- Developer mode, allow the cart to stay plugged into a computer and appear as a RAMDISK
+Software Changes
+
+- Added Turkey Pop.bin to release
+- Added HACKS/LEVEL SELECT/Mine Storm 1.bin to release
+- Fixed GCE/Mine Storm 1.bin in release
+- rename 'veccart' to 'stm32' for firmware, and rename 'multicart' to 'menu'
+- Embedded menu binary in STM32 flash image
+- Update Dockerfile distro to Arch w/ newer arm-gcc (10.1)
+- add .map file to build output
+- Dev Mode (cart.bin) and Menu (multicart.bin) should not load a high score
+- made high_score_flag readable from parmRam with new RPC ID 16, and speeds memory r/w for highscore
+- Implements #55 High Score (by @TylerBrymer PR #56)
+- Truncate filenames displayed to 16 characters and fix long filename bug
+- Reduced rainbow mode colors so that no-buzz Vectrex owners don't hear any LED modulation
+- implemented Animaction support for v0.3 hardware
+- made sys_opt.hw_ver usage clearer
+- added RAM Write debugging application and new dumpMemory() RPC ID 13
+- added a release.sh script
+- added standalone Developer Mode app (note: this is for reference only, see readme.md)
+- added Develop Mode docs
+- added Developer Mode (DM) to Menu.  Press button 2 & 3 at any time to enter DM, or hold them down when starting the Menu.  DM will also automatic re-enter when it's active.  DM is active when a cart.bin is present, and DM can be disabled by removing cart.bin manually, or through the DM menu button 1: Exit.
+- add USE_HW compile option, which must now be set.  It will not default to a specific version.  Right now specify it as USE_HW=v0.2 or USE_HW=v0.3 when running 'make clean all flash'.  It can also be exported in your environment if you wish, but don't forget about it if you update your HW ;-)
+- removed :leave from DFU commands since after flashing the stm32 binary, we are not really ready to reset and run.  The boot0 jumper must be removed before then.
+- minor changes to improve the Makefile for Windows (still WIP)
+- changed delay() and millis() to use dwt_read_cycle_counter() instead of the sys_tick_handler() because romemu.S didn't like us randomly leaving to handle interrupts, and we need these functions while we are emulating ROM.  There is a ~35s delay limit because of this.  I added an assert so I don't forget!
+- started adding some changes in fatfs to enable writes to flash memory since it was currently read-only, but ended up not needing them.  No worries though, the highscore feature will require these.  These changes thanks to @tbrymer!
+- VEXTREME now also prints it's own HW and SW revision in logs at boot time.
+- Moved start of rainbow LED code to after we are done with USB activities, so as not to load down the USB port more than necessary.  Hopefully this fixes a reported bug with Windows.
+- USB MSC can now be entered while the Vectrex is off, Ejected and left plugged in and the Vectrex can be turned on and boot a cart.bin for Developer Mode, or the VEXTREME menu.
+- USB MSC can be started and stopped from the Vectrex now, which is necessary for Developer Mode.
+- An improved reset function was added after feedback from users.  Now in v0.3 hardware you will be able to press reset at any time to get back to the Menu.  If you hold reset for ~700ms, it will reset the current running ROM/game.  In the case of booting into Developer Mode (cart.bin already on the drive root), a first reset will not go to the Menu, but rather the cart.bin.. allowing you to skip the cold boot sequence. You may modify v0.2 hardware to act like v0.3 hardware for this feature.  For now that means you will need to jumper V-OE pin 12 of the cart fingers (or U3 pin 9) to STM32 pin 29 (PB10).
+- For v0.2 hardware, you can still compile in the old functionality were a short reset would reset the running ROM/game, and if you hold reset for ~700ms you will get the Menu.
+- Also added to the reset sequence for both v0.2/v0.3 HW is that the LEDs light up CYAN after the "long" reset delay of 700ms, and stay lit as long as you are holding reset.  When you let go, they return to rainbow.  This helps you gage just how long you need to wait to hold the button for long reset.
+- Added "scsi_command: %02X\n" which logs USB MSC commands to log output, this might seem chatty, but for now let's see what we see ;-)
+- Set USB power to 500mA (was set to 100mA)
 
 ## v0.23
 
