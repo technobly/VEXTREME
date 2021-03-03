@@ -42,6 +42,7 @@
 #include "menu.h"
 #include "msc.h"
 #include "highscore.h"
+#include "settings.h"
 // #include "flash.h"
 
 //#include "rom.h"
@@ -53,16 +54,25 @@ extern GameFileRecord* pActiveGameData;
 extern char menu_start;
 extern char menu_end;
 
+#define MENU_DATA_ADDR 		0x4000							   // fixed location in menu.bin
+#define MENU_DATA_SIZE 		0x200							     // size allocated for menu data
+#define MENU_SYS_ADDR			MENU_DATA_ADDR - 0x20  // 32 bytes reserved for system data
+#define MENU_MEM_ADDR			MENU_DATA_ADDR - 0x140 // 32 bytes reserved for settings data (0x3FC0)
+#define PARM_RAM_ADDR			0x7f00
+#define PARM_RAM_SIZE			0xfe
+
 //Memory for the menu ROM and the running cartridge.
 //We keep both in memory so we can quickly exchange them when a reset has been detected.
-const int menuIndex = 0xfff; // fixed location in menu.bin
-char menuData[8*1024];
+char menuData[20*1024];				   // 16KB for menu ROM, 4KB for menu data
 char devmodeData[2*1024];
 char* romData = menuData;
 unsigned char parmRam[256];
 
 char menuDir[_MAX_LFN + 1];
 static bool isItemAFile = false; // Default to being a directory and not a file
+
+static SettingsRecord settings 			= {0};
+static bool 					settingsReady = false;
 
 union cart_and_listing {
 	dir_listing listing;
@@ -101,6 +111,39 @@ void uart_output_func(unsigned char c){
 	USART_DR(USART1) = (uint16_t) c & 0xff;
 }
 
+void applyLedSettings(bool initial) {
+	SettingsRecord *s = &settings;
+	uint8_t i = ledsNumPixels();
+	uint8_t l = settings.led_luma * 8;
+	uint32_t c = (s->led_red << 16) | (s->led_green << 8) | (s->led_blue << 0);
+
+	switch (settings.led_mode)
+	{
+	case 0:  // off
+		ledsClear();
+		ledsUpdate();
+		break;
+
+	case 1:  // rainbow
+		ledsSetBrightness(l);
+		if(initial){
+			rainbowStep(4);
+		}
+		break;
+
+	case 2:  // solid color
+		ledsSetBrightness(l);
+		while (i > 0) {
+			ledsSetPixelColor(--i, c);
+		}
+		ledsUpdate();
+		break;
+	
+	default:
+		break;
+	}
+}
+
 // Asm function
 extern void romemu(void);
 
@@ -116,6 +159,7 @@ void loadRom(char *fn) {
 }
 
 void loadRomWithHighScore(char *fn, bool load_hs_mode, bool use_embedded_menu) {
+	const int score_addr = MENU_SYS_ADDR + 0x10;
 	FIL f;
 	FRESULT fr = FR_NO_FILE; // assume no file, so we can test if we ever opened the file later
 	UINT r = 0;
@@ -175,14 +219,15 @@ void loadRomWithHighScore(char *fn, bool load_hs_mode, bool use_embedded_menu) {
 			}
 
 			// Store high score towards the end of the menu data
-			menuData[0x0ff0] = pActiveGameData->maxScore[0];
-			menuData[0x0ff1] = pActiveGameData->maxScore[1];
-			menuData[0x0ff2] = pActiveGameData->maxScore[2];
-			menuData[0x0ff3] = pActiveGameData->maxScore[3];
-			menuData[0x0ff4] = pActiveGameData->maxScore[4];
-			menuData[0x0ff5] = pActiveGameData->maxScore[5];
-			menuData[0x0ff6] = 0x80;
-			parmRam[0xe0] = 0x77; // High Score flag (IDLE:0x66, LOAD2VEC:0x77, SAVE2STM:0x88)
+			menuData[score_addr + 0x00] = pActiveGameData->maxScore[0];
+			menuData[score_addr + 0x01] = pActiveGameData->maxScore[1];
+			menuData[score_addr + 0x02] = pActiveGameData->maxScore[2];
+			menuData[score_addr + 0x03] = pActiveGameData->maxScore[3];
+			menuData[score_addr + 0x04] = pActiveGameData->maxScore[4];
+			menuData[score_addr + 0x05] = pActiveGameData->maxScore[5];
+			menuData[score_addr + 0x06] = 0x80;
+			menuData[MENU_SYS_ADDR] = 0x77; // High Score flag (IDLE:0x66, LOAD2VEC:0x77, SAVE2STM:0x88)
+			// parmRam[0xe0] = 0x77; // High Score flag (IDLE:0x66, LOAD2VEC:0x77, SAVE2STM:0x88)
 
 			// Don't start game yet, stay in menu so that the VEXTREME menu
 			// can read and store the high score
@@ -205,8 +250,16 @@ void loadRomWithHighScore(char *fn, bool load_hs_mode, bool use_embedded_menu) {
 			*ptr4++ = '0' + (sys_opt.sw_ver & 0xFF) / 10;
 			*ptr4   = '0' + (sys_opt.sw_ver & 0xFF) % 10;
 		}
-		if (load_hs_mode) {
-			parmRam[0xe0] = 0x66; // High Score flag (IDLE:0x66, LOAD2VEC:0x77, SAVE2STM:0x88)
+		// if (load_hs_mode) {
+		// 	// parmRam[0xe0] = 0x66; // High Score flag (IDLE:0x66, LOAD2VEC:0x77, SAVE2STM:0x88)
+		// 	menuData[MENU_SYS_ADDR] = 0x66;
+		// }
+
+		if(settingsReady) {
+			xprintf("Copying %lu bytes of settings data... ", sizeof(SettingsRecord));
+			// copy setting to ROM
+			memcpy(&menuData[MENU_MEM_ADDR], &settings, sizeof(SettingsRecord));
+			xprintf("OK!\n");
 		}
 	}
 	if (fr != FR_NO_FILE) {
@@ -249,10 +302,20 @@ void doChangeDir(char* dirname) {
 	}
 
 	romData=menuData;
-	loadListing(menuDir, &c_and_l.listing, menuIndex+1 , menuIndex+1+0x200, romData);
-	menuData[menuIndex]=0; //reset selection
+	loadListing(menuDir, &c_and_l.listing, MENU_DATA_ADDR, 
+	            MENU_DATA_ADDR + MENU_DATA_SIZE, romData);
 
 	xprintf("Done listing for : %s\n", menuDir);
+
+	// save current directory and reset cursor
+	settings.last_cursor = 0;
+	strcpy(settings.directory, menuDir);
+	syncSettings();
+}
+
+void syncSettings() {
+	memcpy(&menuData[MENU_MEM_ADDR], &settings, sizeof(SettingsRecord));
+	settingsSave(&menuData[MENU_MEM_ADDR]);
 }
 
 /**
@@ -262,7 +325,6 @@ void doChangeDir(char* dirname) {
 void doChangeRom(char* basedir, int i) {
 	char buff[300];
 
-	menuData[menuIndex]=i; //save selection so we can go back there after reset
 	xprintf("Changing to rom no %d in %s\n", i, basedir);
 	sortDirectory(basedir, &c_and_l.listing); // recreate file listing, as loading a cart overwrote the union
 	file_entry f = c_and_l.listing.f_entry[i];
@@ -274,11 +336,17 @@ void doChangeRom(char* basedir, int i) {
 		isItemAFile = true;
 		xprintf("Adding filename [%s] to path\n", f.fname);
 		xsprintf(buff, "%s/%s", basedir, f.fname);
+		
+		// save current cursor position selection
+		settings.last_cursor = i;
+		syncSettings();
 
 		romData=c_and_l.cartData;
 		xprintf("Going to read rom image %s\n", buff);
 		loadRomWithHighScore(buff, true, false);
 	}
+
+
 }
 
 /**
@@ -339,13 +407,13 @@ void loadVersions() {
 // Load sys_opt data starting at address specified, up to 15 bytes specified by size.
 // addr = $7ffd
 // size = $7ffe
-// data returned in $ff0 ~ $ff0+size
+// data returned in $3ffa ~ $3ffa+size
 void loadSysOpt() {
 	int addr = (int)parmRam[0xfd];
 	int size = (int)parmRam[0xfe];
 	if (size > 15) size = 15; // limited to 15 for now
 	for (int i = 0; i < size; i++) {
-		menuData[0xff0 + i] = sysData[addr + i];
+		menuData[MENU_SYS_ADDR + 0x1a + i] = sysData[addr + i];
 		// xprintf("sysData[%x]=%u,checkDevMode=%d\n", addr + i, sysData[addr + i], checkDevMode);
 	}
 }
@@ -354,13 +422,13 @@ void loadSysOpt() {
 // Load parmRam data starting at address specified, up to 15 bytes specified by size.
 // addr = $7ffd
 // size = $7ffe
-// data returned in $fe0 ~ $fe0+size
+// data returned in $3fe0 ~ $3fe0+size
 void loadParmRam() {
 	int addr = (int)parmRam[0xfd];
 	int size = (int)parmRam[0xfe];
 	if (size > 16) size = 16; // limited to 15 for now
 	for (int i = 0; i < size; i++) {
-		menuData[0xfe0 + i] = parmRam[addr + i];
+		menuData[MENU_SYS_ADDR + i] = parmRam[addr + i];
 		// xprintf("parmRam[%x]=%u\n", addr + i, sysData[addr + i]);
 	}
 }
@@ -391,6 +459,24 @@ void dumpMemory() {
 		}
 		xprintf("\n");
 		current_addr += 32;
+	}
+}
+
+// This function to be used by the Menu (menu.asm)
+// Store 1 byte at specified address in ROM address space
+// $7ff0 - Start Address High Byte
+// $7ff1 - Start Address Low  Byte
+// $7ff2 - 1 byte to store
+void storeToRom() {
+	unsigned int addr = ((int)parmRam[0xf0] << 8) + (int)parmRam[0xf1];
+	uint8_t value = parmRam[0xf2];
+	menuData[addr] = value;
+
+	// settings region was updated, apply
+	if(addr >= MENU_MEM_ADDR && addr <= MENU_MEM_ADDR + sizeof(SettingsRecord)) {
+		memcpy(&settings, &menuData[MENU_MEM_ADDR], sizeof(SettingsRecord));
+
+		applyLedSettings(false);
 	}
 }
 
@@ -438,8 +524,8 @@ void doRamDisk() {
 	 * The vectrex should also make sure it only makes one call to RPCFN 10 for each
 	 * operation required (START DEV MODE, EXIT DEV MODE, RUN CART.BIN).
 	 */
-	menuData[0xffc] = 0x01; // make sure we are blocking the RPCFN yield bytes again
-	menuData[0xffd] = 0x01; // This will get overwritten when the cart.bin or menu loads
+	menuData[MENU_SYS_ADDR + 0x1c] = 0x01; // make sure we are blocking the RPCFN yield bytes again
+	menuData[MENU_SYS_ADDR + 0x1d] = 0x01; // This will get overwritten when the cart.bin or menu loads
 	menuData[0x0] = 0x01;   // |
 	menuData[0x1] = 0x01;   // |
 
@@ -449,11 +535,11 @@ void doRamDisk() {
 		case 4: xprintf("RUN DEV\n"); sys_opt.usb_dev = USB_DEV_RUN; break;
 		case 5:
 			if (gpio_get(GPIOA, GPIO9)) {
-				menuData[0xffb] = 0x99; // HIGH:0x99
+				menuData[MENU_SYS_ADDR + 0x1b] = 0x99; // HIGH:0x99
 			} else {
-				menuData[0xffb] = 0x66; // LOW:0x66
+				menuData[MENU_SYS_ADDR + 0x1b] = 0x66; // LOW:0x66
 			}
-			// xprintf("VUSB: %x\n", menuData[0xffb]);
+			// xprintf("VUSB: %x\n", menuData[MENU_SYS_ADDR + 0x1b]);
 			sys_opt.usb_dev = USB_DEV_CHECK;
 			break;
 		default: xprintf("UNKNOWN DEV\n"); sys_opt.usb_dev = USB_DEV_DISABLED; return; break;
@@ -472,8 +558,8 @@ void doRamDisk() {
 		(sys_opt.usb_dev == USB_DEV_WAIT ||
 		 sys_opt.usb_dev == USB_DEV_DISABLED ||
 		 sys_opt.usb_dev == USB_DEV_CHECK)) {
-		menuData[0xffc] = 'v'; // tell the Vectrex time to make one RPCFN call (wait/exit/run)
-		menuData[0xffd] = 'x';
+		menuData[MENU_SYS_ADDR + 0x1c] = 'v'; // tell the Vectrex time to make one RPCFN call (wait/exit/run)
+		menuData[MENU_SYS_ADDR + 0x1d] = 'x';
 		return;
 	} else {
 		// handle errors, if we add some in ramdiskmain()
@@ -499,9 +585,11 @@ void doRamDisk() {
 			sys_opt.usb_dev = USB_DEV_DISABLED;
 
 			(void) highScoreOpenFile(); // Create/Open highscore file
+
 			romData=menuData; // Explicitly setting this here so we know WTF is going on in the background
 			loadMenu();
-			loadListing(menuDir, &c_and_l.listing, menuIndex+1 , menuIndex+1+0x200, romData);
+			loadListing(menuDir, &c_and_l.listing, MENU_DATA_ADDR, 
+									MENU_DATA_ADDR + MENU_DATA_SIZE, romData);
 		}
 	} else if (sys_opt.usb_dev == USB_DEV_EXIT) {
 		xprintf("Exiting Developer mode\n");
@@ -516,7 +604,8 @@ void doRamDisk() {
 		sys_opt.usb_dev = USB_DEV_DISABLED;
 		romData=menuData; // Explicitly setting this here so we know WTF is going on in the background
 		loadMenu();
-		loadListing(menuDir, &c_and_l.listing, menuIndex+1 , menuIndex+1+0x200, romData);
+		loadListing(menuDir, &c_and_l.listing, MENU_DATA_ADDR, 
+		            MENU_DATA_ADDR + MENU_DATA_SIZE, romData);
 	}
 
 	menuData[0] = 'g';   // Fixup the copyright bytes now that we are exiting
@@ -545,6 +634,8 @@ void doHandleEvent(int data) {
 		case 14: highScoreSave(&parmRam[0]); break;
 		case 15: doStartRom(); break; // Finishes changing ROM
 		case 16: loadParmRam(); break;
+		case 17: storeToRom(); break;
+		case 18: settingsSave(&menuData[MENU_MEM_ADDR]); break;
 	}
 }
 
@@ -642,7 +733,7 @@ int main(void) {
 	// For now, this is hard coded to determine LED operation, nothing more.
 	// TODO: uncomment above for system hw_ver, and add .led_hw_ver for LED initialization.
 	sys_opt.hw_ver = 0x0014; // v0.20
-	sys_opt.sw_ver = 0x0018; // v0.24
+	sys_opt.sw_ver = 0x001e; // v0.30
 	sys_opt.rgb_type = RGB_TYPE_10;
 	sys_opt.usb_dev = USB_DEV_DISABLED;
 
@@ -721,12 +812,12 @@ int main(void) {
 		ramdiskmain(RAMDISK_BLOCKING);
 	}
 
-	// Give the cart some color, but after the USB process so we don't load down weak USB sources
-	rainbowStep(4);
+	// // Give the cart some color, but after the USB process so we don't load down weak USB sources
+	// rainbowStep(4);
 
 	xprintf("[ Starting ROM Emulation ]\n");
 	// Load the menu game
-	strncpy(menuDir, "/roms", sizeof(menuDir));
+	// strncpy(menuDir, "/roms", sizeof(menuDir));
 
 	// FRESULT f_mount_res;
 	f_mount(&FatFs, "", 0);
@@ -736,10 +827,31 @@ int main(void) {
 	// Ignore return value for now
 	(void) highScoreOpenFile();
 
+	// load settings from file
+	SettingsRetVal sRet = settingsGet((char *)&settings);
+	settingsReady = sRet == SETTINGS_SUCCESS;
+
+	// set default settings for params used on STM side
+	if(!settingsReady) {
+		settings.led_mode = 1;
+		settings.led_luma = 16;
+	}
+
+	// Give the cart some color, but after the USB process so we don't load down weak USB sources
+	applyLedSettings(true);
+	
+	// set current directory
+	if(settingsReady && isDirectoryExist(settings.directory)) { 
+		strcpy(menuDir, settings.directory);
+	} else {
+		strcpy(menuDir, "/roms");
+	}
+
 	// Load the Menu
 	romData=menuData; // Explicitly setting this here so we know WTF is going on in the background
 	loadMenu();
-	loadListing(menuDir, &c_and_l.listing, menuIndex+1 , menuIndex+1+0x200, romData);
+	loadListing(menuDir, &c_and_l.listing, MENU_DATA_ADDR, 
+	            MENU_DATA_ADDR + MENU_DATA_SIZE, romData);
 	sys_opt.usb_dev = USB_DEV_DISABLED;
 
 	// Load cart.bin and jump straight into Developer Mode if it exists

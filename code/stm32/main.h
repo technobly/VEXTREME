@@ -25,5 +25,8 @@ void ledsOff(void);
 void loadSysOpt(void);
 void dumpMemory(void);
 void loadParmRam(void);
+void storeToRom(void);
+void syncSettings(void);
+void applyLedSettings(bool initial);
 
 #endif
