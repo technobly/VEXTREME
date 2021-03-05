@@ -87,7 +87,7 @@ countinc:
     //str   r5,[r4, 0x18]         // Output to GPIOB_BSRR
 
 check_put_menu_back:
-    cmp   r8,#0x4000
+    cmp   r8,#0x1000
     bne   check_put_cart_back
 
     ldr   r0,=checkDevMode      // Have we checked Dev Mode yet? We care about this on first boot.

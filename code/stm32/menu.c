@@ -160,7 +160,7 @@ bool isDirectoryExist(char *fdir) {
 
 	res = f_opendir(&d, fdir);
 
-	if(res == FR_OK) {
+	if (res == FR_OK) {
 		f_closedir(&d);
 	}
 

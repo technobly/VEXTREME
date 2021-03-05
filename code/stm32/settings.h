@@ -4,11 +4,6 @@
 // Includes
 #include "fatfs/ff.h"
 
-// Constants
-// #define NA
-// #define MAX_GAME_NAME_SIZE	(40 + 1) // Max of 40 ASCII characters + NULL
-// #define MAX_GAME_SCORE_SIZE     (6 + 1)  // Max of 6 ASCII characters + NULL
-
 typedef enum
 {
     SETTINGS_SUCCESS = 0,
@@ -20,7 +15,6 @@ typedef enum
 } SettingsRetVal;
 
 // Sructures
-
 typedef struct
 {
     uint8_t max_lines;
@@ -40,7 +34,6 @@ typedef struct
 // @TODO: detect settings structure change and wipe settings file
 
 // Prototypes
-// FRESULT        settingsOpenFile(void);
 SettingsRetVal settingsGet(char * pSettingsInRom);
 void           settingsSave(const char * pSettingsInRom);
 #endif // SETTINGS_H

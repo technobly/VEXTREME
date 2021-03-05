@@ -32,9 +32,9 @@
 #define DEBUG_SETTINGS (0)
 
 #if (DEBUG_SETTINGS == 1)
-    #define HS_XPRINTF(F, ...)  xprintf(F, ##__VA_ARGS__)
+    #define SET_XPRINTF(F, ...)  xprintf(F, ##__VA_ARGS__)
 #else
-    #define HS_XPRINTF(F, ...)
+    #define SET_XPRINTF(F, ...)
 #endif
 
 // Externs
@@ -79,7 +79,7 @@ SettingsRetVal settingsGet(char * pSettingsInRom)
      */
     if (pSettingsInRom == NULL)
     {
-        HS_XPRINTF("ERROR: no settings pointer passed!\n");
+        SET_XPRINTF("ERROR: no settings pointer passed!\n");
         return (SETTINGS_INVALID_PTR);
     }
 
@@ -89,7 +89,7 @@ SettingsRetVal settingsGet(char * pSettingsInRom)
     if (fResult != FR_OK)
     {
         // Try again!
-        HS_XPRINTF("ERROR: retrying settings.bin file open!\n");
+        SET_XPRINTF("ERROR: retrying settings.bin file open!\n");
         fResult = settingsOpenFile();
         if (fResult != FR_OK) {
             return SETTINGS_FILE_OPEN_FAIL;
@@ -112,7 +112,7 @@ SettingsRetVal settingsGet(char * pSettingsInRom)
      */
     if ((fResult != FR_OK) || (bytesRead != sizeof(SettingsRecord)))
     {
-        HS_XPRINTF("ERROR: f_read(): %u bytesRead: %u\n", fResult, bytesRead);
+        SET_XPRINTF("ERROR: f_read(): %u bytesRead: %u\n", fResult, bytesRead);
         return SETTINGS_READ_FAIL;
     }
 
@@ -137,7 +137,7 @@ static SettingsRetVal settingsStore(const char * pMemoryChunk, size_t size)
     if (fResult != FR_OK)
     {
         // Try again!
-        // HS_XPRINTF("ERROR: retrying settings.bin file open!\n");
+        // SET_XPRINTF("ERROR: retrying settings.bin file open!\n");
         fResult = settingsOpenFile();
         if (fResult != FR_OK) {
             return (SETTINGS_FILE_OPEN_FAIL);
@@ -178,6 +178,6 @@ void settingsSave(const char * pSettingsInRom)
 {
     SettingsRetVal store_ret_val = settingsStore(pSettingsInRom, 
                                                  sizeof(SettingsRecord));
-    HS_XPRINTF("settingsStore result: %d\n", store_ret_val);
+    SET_XPRINTF("settingsStore result: %d\n", store_ret_val);
     (void) store_ret_val;
 }

@@ -54,10 +54,10 @@ extern GameFileRecord* pActiveGameData;
 extern char menu_start;
 extern char menu_end;
 
-#define MENU_DATA_ADDR 		0x4000							   // fixed location in menu.bin
-#define MENU_DATA_SIZE 		0x200							     // size allocated for menu data
-#define MENU_SYS_ADDR			MENU_DATA_ADDR - 0x20  // 32 bytes reserved for system data
-#define MENU_MEM_ADDR			MENU_DATA_ADDR - 0x140 // 32 bytes reserved for settings data (0x3FC0)
+#define MENU_DATA_ADDR 		0x4000							     // fixed location in menu.bin
+#define MENU_DATA_SIZE 		0x200							       // size allocated for menu data
+#define MENU_SYS_ADDR			(MENU_DATA_ADDR - 0x20)  // 32 bytes reserved for system data
+#define MENU_MEM_ADDR			(MENU_DATA_ADDR - 0x140) // 288 bytes reserved for settings data (0x3FC0)
 #define PARM_RAM_ADDR			0x7f00
 #define PARM_RAM_SIZE			0xfe
 
@@ -126,7 +126,7 @@ void applyLedSettings(bool initial) {
 
 	case 1:  // rainbow
 		ledsSetBrightness(l);
-		if(initial){
+		if (initial) {
 			rainbowStep(4);
 		}
 		break;
@@ -159,7 +159,7 @@ void loadRom(char *fn) {
 }
 
 void loadRomWithHighScore(char *fn, bool load_hs_mode, bool use_embedded_menu) {
-	const int score_addr = MENU_SYS_ADDR + 0x10;
+	const int SCORE_ADDR = MENU_SYS_ADDR + 0x10;
 	FIL f;
 	FRESULT fr = FR_NO_FILE; // assume no file, so we can test if we ever opened the file later
 	UINT r = 0;
@@ -219,13 +219,13 @@ void loadRomWithHighScore(char *fn, bool load_hs_mode, bool use_embedded_menu) {
 			}
 
 			// Store high score towards the end of the menu data
-			menuData[score_addr + 0x00] = pActiveGameData->maxScore[0];
-			menuData[score_addr + 0x01] = pActiveGameData->maxScore[1];
-			menuData[score_addr + 0x02] = pActiveGameData->maxScore[2];
-			menuData[score_addr + 0x03] = pActiveGameData->maxScore[3];
-			menuData[score_addr + 0x04] = pActiveGameData->maxScore[4];
-			menuData[score_addr + 0x05] = pActiveGameData->maxScore[5];
-			menuData[score_addr + 0x06] = 0x80;
+			menuData[SCORE_ADDR + 0x00] = pActiveGameData->maxScore[0];
+			menuData[SCORE_ADDR + 0x01] = pActiveGameData->maxScore[1];
+			menuData[SCORE_ADDR + 0x02] = pActiveGameData->maxScore[2];
+			menuData[SCORE_ADDR + 0x03] = pActiveGameData->maxScore[3];
+			menuData[SCORE_ADDR + 0x04] = pActiveGameData->maxScore[4];
+			menuData[SCORE_ADDR + 0x05] = pActiveGameData->maxScore[5];
+			menuData[SCORE_ADDR + 0x06] = 0x80;
 			menuData[MENU_SYS_ADDR] = 0x77; // High Score flag (IDLE:0x66, LOAD2VEC:0x77, SAVE2STM:0x88)
 			// parmRam[0xe0] = 0x77; // High Score flag (IDLE:0x66, LOAD2VEC:0x77, SAVE2STM:0x88)
 
@@ -255,7 +255,7 @@ void loadRomWithHighScore(char *fn, bool load_hs_mode, bool use_embedded_menu) {
 		// 	menuData[MENU_SYS_ADDR] = 0x66;
 		// }
 
-		if(settingsReady) {
+		if (settingsReady) {
 			xprintf("Copying %lu bytes of settings data... ", sizeof(SettingsRecord));
 			// copy setting to ROM
 			memcpy(&menuData[MENU_MEM_ADDR], &settings, sizeof(SettingsRecord));
@@ -473,7 +473,7 @@ void storeToRom() {
 	menuData[addr] = value;
 
 	// settings region was updated, apply
-	if(addr >= MENU_MEM_ADDR && addr <= MENU_MEM_ADDR + sizeof(SettingsRecord)) {
+	if (addr >= MENU_MEM_ADDR && addr <= MENU_MEM_ADDR + sizeof(SettingsRecord)) {
 		memcpy(&settings, &menuData[MENU_MEM_ADDR], sizeof(SettingsRecord));
 
 		applyLedSettings(false);
@@ -832,7 +832,7 @@ int main(void) {
 	settingsReady = sRet == SETTINGS_SUCCESS;
 
 	// set default settings for params used on STM side
-	if(!settingsReady) {
+	if (!settingsReady) {
 		settings.led_mode = 1;
 		settings.led_luma = 16;
 	}
@@ -841,7 +841,7 @@ int main(void) {
 	applyLedSettings(true);
 	
 	// set current directory
-	if(settingsReady && isDirectoryExist(settings.directory)) { 
+	if (settingsReady && isDirectoryExist(settings.directory)) { 
 		strcpy(menuDir, settings.directory);
 	} else {
 		strcpy(menuDir, "/roms");
