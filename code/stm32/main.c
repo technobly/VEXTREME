@@ -812,12 +812,7 @@ int main(void) {
 		ramdiskmain(RAMDISK_BLOCKING);
 	}
 
-	// // Give the cart some color, but after the USB process so we don't load down weak USB sources
-	// rainbowStep(4);
-
 	xprintf("[ Starting ROM Emulation ]\n");
-	// Load the menu game
-	// strncpy(menuDir, "/roms", sizeof(menuDir));
 
 	// FRESULT f_mount_res;
 	f_mount(&FatFs, "", 0);
