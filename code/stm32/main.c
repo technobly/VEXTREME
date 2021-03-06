@@ -309,7 +309,7 @@ void doChangeDir(char* dirname) {
 
 	// save current directory and reset cursor
 	settings.last_cursor = 0;
-	strcpy(settings.directory, menuDir);
+	strncpy(settings.directory, menuDir, sizeof(menuDir));
 	syncSettings();
 }
 
@@ -842,9 +842,9 @@ int main(void) {
 	
 	// set current directory
 	if (settingsReady && isDirectoryExist(settings.directory)) { 
-		strcpy(menuDir, settings.directory);
+		strncpy(menuDir, settings.directory, sizeof(menuDir));
 	} else {
-		strcpy(menuDir, "/roms");
+		strncpy(menuDir, "/roms", sizeof(menuDir));
 	}
 
 	// Load the Menu
