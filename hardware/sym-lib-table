@@ -1,6 +1,3 @@
 (sym_lib_table
-  (lib (name vextreme-rescue)(type Legacy)(uri ${KIPRJMOD}/libs/vextreme-rescue.lib)(options "")(descr ""))
-  (lib (name stm32)(type Legacy)(uri ${KIPRJMOD}/libs/stm32.lib)(options "")(descr ""))
-  (lib (name X)(type Legacy)(uri ${KIPRJMOD}/libs/X.lib)(options "")(descr ""))
-  (lib (name Gekkio_Logic_LevelTranslator)(type Legacy)(uri ${KIPRJMOD}/libs/Gekkio_Logic_LevelTranslator.lib)(options "")(descr ""))
+  (lib (name vextreme)(type Legacy)(uri ${KIPRJMOD}/libs/vextreme.lib)(options "")(descr ""))
 )

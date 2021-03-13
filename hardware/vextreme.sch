@@ -14,7 +14,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L vextreme-rescue:GND-vextreme-rescue #PWR07
+L vextreme:GND #PWR07
 U 1 1 59F16914
 P 1700 5300
 F 0 "#PWR07" H 1700 5050 50  0001 C CNN
@@ -76,7 +76,7 @@ Wire Wire Line
 Wire Wire Line
 	1750 1450 1750 1500
 $Comp
-L Regulator_Linear:LM1117-3.3 U1
+L vextreme:LM1117-3.3 U1
 U 1 1 5D0000A1
 P 4250 5900
 F 0 "U1" H 4250 6142 50  0000 C CNN
@@ -121,7 +121,7 @@ V-PB6
 Wire Wire Line
 	1100 2700 950  2700
 $Comp
-L Device:C C1
+L vextreme:C C1
 U 1 1 5D00D362
 P 3850 6200
 F 0 "C1" H 3965 6246 50  0000 L CNN
@@ -132,7 +132,7 @@ F 3 "~" H 3850 6200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C C2
+L vextreme:C C2
 U 1 1 5D00E0E5
 P 4600 6200
 F 0 "C2" H 4715 6246 50  0000 L CNN
@@ -143,7 +143,7 @@ F 3 "~" H 4600 6200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L vextreme-rescue:GND-vextreme-rescue #PWR0101
+L vextreme:GND #PWR0101
 U 1 1 5D00E463
 P 3850 6350
 F 0 "#PWR0101" H 3850 6100 50  0001 C CNN
@@ -154,7 +154,7 @@ F 3 "" H 3850 6350 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L vextreme-rescue:GND-vextreme-rescue #PWR0102
+L vextreme:GND #PWR0102
 U 1 1 5D00E892
 P 4600 6350
 F 0 "#PWR0102" H 4600 6100 50  0001 C CNN
@@ -167,7 +167,7 @@ $EndComp
 Wire Wire Line
 	4250 6200 4250 6350
 $Comp
-L vextreme-rescue:GND-vextreme-rescue #PWR0103
+L vextreme:GND #PWR0103
 U 1 1 5D00F858
 P 4250 6350
 F 0 "#PWR0103" H 4250 6100 50  0001 C CNN
@@ -185,7 +185,7 @@ Wire Wire Line
 	4600 5900 4600 6050
 Connection ~ 4600 5900
 $Comp
-L Diode:MBR0520 D1
+L vextreme:MBR0520 D1
 U 1 1 5D013F81
 P 3500 5900
 F 0 "D1" H 3500 5684 50  0000 C CNN
@@ -201,7 +201,7 @@ Connection ~ 3850 5900
 Wire Wire Line
 	3850 5900 3950 5900
 $Comp
-L Diode:MBR0520 D2
+L vextreme:MBR0520 D2
 U 1 1 5D017920
 P 1750 1200
 F 0 "D2" V 1704 1279 50  0000 L CNN
@@ -214,7 +214,7 @@ $EndComp
 Text GLabel 4950 2350 2    50   Input ~ 0
 USB-IN
 $Comp
-L vextreme-rescue:GND-vextreme-rescue #PWR0105
+L vextreme:GND #PWR0105
 U 1 1 5D01B9D7
 P 5650 4300
 F 0 "#PWR0105" H 5650 4050 50  0001 C CNN
@@ -242,7 +242,7 @@ DO
 Text GLabel 6950 4300 2    50   Input ~ 0
 DI
 $Comp
-L Device:C C4
+L vextreme:C C4
 U 1 1 5D022EBD
 P 7250 3800
 F 0 "C4" H 7365 3846 50  0000 L CNN
@@ -253,7 +253,7 @@ F 3 "~" H 7250 3800 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L vextreme-rescue:GND-vextreme-rescue #PWR0106
+L vextreme:GND #PWR0106
 U 1 1 5D023148
 P 7250 3950
 F 0 "#PWR0106" H 7250 3700 50  0001 C CNN
@@ -272,7 +272,7 @@ Wire Wire Line
 	7400 3650 7400 3600
 Connection ~ 7250 3650
 $Comp
-L power:+3.3V #PWR0107
+L vextreme:+3.3V #PWR0107
 U 1 1 5D025C55
 P 7400 3600
 F 0 "#PWR0107" H 7400 3450 50  0001 C CNN
@@ -334,7 +334,7 @@ Wire Wire Line
 Wire Wire Line
 	6500 2750 6500 2850
 $Comp
-L power:GND #PWR0108
+L vextreme:GND #PWR0108
 U 1 1 5D040111
 P 6500 2850
 F 0 "#PWR0108" H 6500 2600 50  0001 C CNN
@@ -345,7 +345,7 @@ F 3 "" H 6500 2850 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C C3
+L vextreme:C C3
 U 1 1 5D041D40
 P 5650 950
 F 0 "C3" H 5765 996 50  0000 L CNN
@@ -360,7 +360,7 @@ Wire Wire Line
 Wire Wire Line
 	6300 800  5650 800 
 $Comp
-L power:GND #PWR0109
+L vextreme:GND #PWR0109
 U 1 1 5D046114
 P 5650 1100
 F 0 "#PWR0109" H 5650 850 50  0001 C CNN
@@ -371,7 +371,7 @@ F 3 "" H 5650 1100 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+3.3V #PWR0110
+L vextreme:+3.3V #PWR0110
 U 1 1 5D05BBF8
 P 5650 750
 F 0 "#PWR0110" H 5650 600 50  0001 C CNN
@@ -390,7 +390,7 @@ Connection ~ 6650 1150
 Wire Wire Line
 	6650 1150 6700 1150
 $Comp
-L Device:C C5
+L vextreme:C C5
 U 1 1 5D05F58F
 P 7350 950
 F 0 "C5" H 7465 996 50  0000 L CNN
@@ -401,7 +401,7 @@ F 3 "~" H 7350 950 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR0111
+L vextreme:GND #PWR0111
 U 1 1 5D05F938
 P 7350 1100
 F 0 "#PWR0111" H 7350 850 50  0001 C CNN
@@ -412,7 +412,7 @@ F 3 "" H 7350 1100 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L vextreme-rescue:+5V-vextreme-rescue #PWR0112
+L vextreme:+5V #PWR0112
 U 1 1 5D05FE50
 P 7350 750
 F 0 "#PWR0112" H 7350 600 50  0001 C CNN
@@ -433,7 +433,7 @@ Wire Wire Line
 	4350 1250 4450 1250
 Connection ~ 4450 1250
 $Comp
-L Device:C C10
+L vextreme:C C10
 U 1 1 5D0654C6
 P 4600 950
 F 0 "C10" H 4715 996 50  0000 L CNN
@@ -444,7 +444,7 @@ F 3 "~" H 4600 950 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C C11
+L vextreme:C C11
 U 1 1 5D065855
 P 4950 950
 F 0 "C11" H 5065 996 50  0000 L CNN
@@ -455,7 +455,7 @@ F 3 "~" H 4950 950 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C C12
+L vextreme:C C12
 U 1 1 5D065FA9
 P 5300 950
 F 0 "C12" H 5415 996 50  0000 L CNN
@@ -469,7 +469,7 @@ Connection ~ 4600 800
 Wire Wire Line
 	5300 800  5300 750 
 $Comp
-L power:+3.3V #PWR0113
+L vextreme:+3.3V #PWR0113
 U 1 1 5D06A644
 P 5300 750
 F 0 "#PWR0113" H 5300 600 50  0001 C CNN
@@ -482,7 +482,7 @@ $EndComp
 Wire Wire Line
 	5650 750  5650 800 
 $Comp
-L power:GND #PWR0114
+L vextreme:GND #PWR0114
 U 1 1 5D06DD33
 P 5300 1100
 F 0 "#PWR0114" H 5300 850 50  0001 C CNN
@@ -493,7 +493,7 @@ F 3 "" H 5300 1100 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR0115
+L vextreme:GND #PWR0115
 U 1 1 5D06E1CA
 P 4950 1100
 F 0 "#PWR0115" H 4950 850 50  0001 C CNN
@@ -504,7 +504,7 @@ F 3 "" H 4950 1100 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR0116
+L vextreme:GND #PWR0116
 U 1 1 5D06E51F
 P 4600 1100
 F 0 "#PWR0116" H 4600 850 50  0001 C CNN
@@ -515,7 +515,7 @@ F 3 "" H 4600 1100 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L vextreme-rescue:+5V-vextreme-rescue #PWR0117
+L vextreme:+5V #PWR0117
 U 1 1 5D06ED8C
 P 1750 1050
 F 0 "#PWR0117" H 1750 900 50  0001 C CNN
@@ -545,7 +545,7 @@ Wire Wire Line
 	4250 4750 4350 4750
 Connection ~ 4350 4750
 $Comp
-L vextreme-rescue:GND-vextreme-rescue #PWR0119
+L vextreme:GND #PWR0119
 U 1 1 5D07FB9D
 P 4700 4850
 F 0 "#PWR0119" H 4700 4600 50  0001 C CNN
@@ -563,7 +563,7 @@ Connection ~ 4450 4750
 Wire Wire Line
 	4350 4750 4450 4750
 $Comp
-L Device:C C7
+L vextreme:C C7
 U 1 1 5D0843D4
 P 3400 2000
 F 0 "C7" H 3500 2000 50  0000 L CNN
@@ -574,7 +574,7 @@ F 3 "~" H 3400 2000 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C C6
+L vextreme:C C6
 U 1 1 5D084F4B
 P 3150 2000
 F 0 "C6" H 2950 2000 50  0000 L CNN
@@ -590,7 +590,7 @@ Connection ~ 3400 1850
 Wire Wire Line
 	3400 1850 3550 1850
 $Comp
-L power:GND #PWR0120
+L vextreme:GND #PWR0120
 U 1 1 5D08816F
 P 3150 2150
 F 0 "#PWR0120" H 3150 1900 50  0001 C CNN
@@ -601,7 +601,7 @@ F 3 "" H 3150 2150 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR0121
+L vextreme:GND #PWR0121
 U 1 1 5D088668
 P 3400 2150
 F 0 "#PWR0121" H 3400 1900 50  0001 C CNN
@@ -612,7 +612,7 @@ F 3 "" H 3400 2150 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R3
+L vextreme:R R3
 U 1 1 5D088F54
 P 2800 1800
 F 0 "R3" H 2870 1846 50  0000 L CNN
@@ -625,7 +625,7 @@ $EndComp
 Wire Wire Line
 	2800 1650 3550 1650
 $Comp
-L power:GND #PWR0122
+L vextreme:GND #PWR0122
 U 1 1 5D08BE45
 P 2800 1950
 F 0 "#PWR0122" H 2800 1700 50  0001 C CNN
@@ -636,7 +636,7 @@ F 3 "" H 2800 1950 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:Jumper_NO_Small JP1
+L vextreme:Jumper_NO_Small JP1
 U 1 1 5D08D66D
 P 2800 1550
 F 0 "JP1" V 2846 1502 50  0000 R CNN
@@ -648,7 +648,7 @@ F 3 "~" H 2800 1550 50  0001 C CNN
 $EndComp
 Connection ~ 2800 1650
 $Comp
-L power:+3.3V #PWR0123
+L vextreme:+3.3V #PWR0123
 U 1 1 5D08DC37
 P 2800 1450
 F 0 "#PWR0123" H 2800 1300 50  0001 C CNN
@@ -663,7 +663,7 @@ OSC_IN
 Text GLabel 3550 2650 0    50   Input ~ 0
 OSC_OUT
 $Comp
-L Device:C C8
+L vextreme:C C8
 U 1 1 5D0921F6
 P 8400 1350
 F 0 "C8" V 8148 1350 50  0000 C CNN
@@ -674,7 +674,7 @@ F 3 "~" H 8400 1350 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L Device:C C9
+L vextreme:C C9
 U 1 1 5D093433
 P 8400 1900
 F 0 "C9" V 8148 1900 50  0000 C CNN
@@ -698,7 +698,7 @@ Connection ~ 8150 1900
 Wire Wire Line
 	8150 1900 8150 2000
 $Comp
-L vextreme-rescue:GND-vextreme-rescue #PWR0124
+L vextreme:GND #PWR0124
 U 1 1 5D0A1129
 P 8150 2000
 F 0 "#PWR0124" H 8150 1750 50  0001 C CNN
@@ -733,7 +733,7 @@ V-CE
 Text GLabel 4950 2950 2    50   Input ~ 0
 CSn
 $Comp
-L Device:R R4
+L vextreme:R R4
 U 1 1 5D0E54CA
 P 5250 3150
 F 0 "R4" V 5150 3150 50  0000 C CNN
@@ -744,7 +744,7 @@ F 3 "~" H 5250 3150 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L Device:LED D3
+L vextreme:LED D3
 U 1 1 5D0E67D7
 P 5550 3150
 F 0 "D3" H 5550 3050 50  0000 C CNN
@@ -755,7 +755,7 @@ F 3 "~" H 5550 3150 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L power:GND #PWR0125
+L vextreme:GND #PWR0125
 U 1 1 5D0EA5FD
 P 5700 3250
 F 0 "#PWR0125" H 5700 3000 50  0001 C CNN
@@ -766,7 +766,7 @@ F 3 "" H 5700 3250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L vextreme-rescue:GND-vextreme-rescue #PWR0126
+L vextreme:GND #PWR0126
 U 1 1 5D0F5289
 P 9800 2150
 F 0 "#PWR0126" H 9800 1900 50  0001 C CNN
@@ -777,7 +777,7 @@ F 3 "" H 9800 2150 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L vextreme-rescue:+5V-vextreme-rescue #PWR0127
+L vextreme:+5V #PWR0127
 U 1 1 5D0F55E9
 P 9800 1150
 F 0 "#PWR0127" H 9800 1000 50  0001 C CNN
@@ -788,7 +788,7 @@ F 3 "" H 9800 1150 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L vextreme-rescue:+5V-vextreme-rescue #PWR0128
+L vextreme:+5V #PWR0128
 U 1 1 5D0F60DC
 P 3850 5900
 F 0 "#PWR0128" H 3850 5750 50  0001 C CNN
@@ -805,7 +805,7 @@ Wire Wire Line
 Wire Wire Line
 	5250 3350 5250 3400
 $Comp
-L power:GND #PWR0129
+L vextreme:GND #PWR0129
 U 1 1 5D00E3C7
 P 5250 3400
 F 0 "#PWR0129" H 5250 3150 50  0001 C CNN
@@ -884,7 +884,7 @@ P_D7
 Text GLabel 5800 1450 0    50   Input ~ 0
 P_D7
 $Comp
-L Connector:Conn_01x06_Male J2
+L vextreme:Conn_01x06_Male J2
 U 1 1 5D0ADA96
 P 10700 1600
 F 0 "J2" H 10800 1900 50  0000 R CNN
@@ -897,7 +897,7 @@ $EndComp
 Wire Wire Line
 	10500 1400 10350 1400
 $Comp
-L vextreme-rescue:GND-vextreme-rescue #PWR0130
+L vextreme:GND #PWR0130
 U 1 1 5D0AE42B
 P 10350 1400
 F 0 "#PWR0130" H 10350 1150 50  0001 C CNN
@@ -914,7 +914,7 @@ RXD
 Text GLabel 3200 5900 1    50   Input ~ 0
 USB-IN
 $Comp
-L vextreme-rescue:GND-vextreme-rescue #PWR0118
+L vextreme:GND #PWR0118
 U 1 1 5DEA6FB0
 P 1700 7400
 F 0 "#PWR0118" H 1700 7150 50  0001 C CNN
@@ -925,7 +925,7 @@ F 3 "" H 1700 7400 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L vextreme-rescue:GND-vextreme-rescue #PWR0131
+L vextreme:GND #PWR0131
 U 1 1 5DEA771E
 P 1400 7400
 F 0 "#PWR0131" H 1400 7150 50  0001 C CNN
@@ -966,7 +966,7 @@ Wire Wire Line
 Wire Wire Line
 	3250 6200 3100 6200
 $Comp
-L vextreme-rescue:GND-vextreme-rescue #PWR0132
+L vextreme:GND #PWR0132
 U 1 1 5DF1039D
 P 3450 6100
 F 0 "#PWR0132" H 3450 5850 50  0001 C CNN
@@ -977,7 +977,7 @@ F 3 "" H 3450 6100 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:USB_C_Receptacle_USB2.0 J1
+L vextreme:USB_C_Receptacle_USB2.0 J1
 U 1 1 5D00696D
 P 1700 6500
 F 0 "J1" H 1350 7350 50  0000 C CNN
@@ -988,7 +988,7 @@ F 3 "~" H 1850 6450 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R1
+L vextreme:R R1
 U 1 1 5D076421
 P 2700 6700
 F 0 "R1" V 2600 6700 50  0000 C CNN
@@ -999,7 +999,7 @@ F 3 "~" H 2700 6700 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L Device:R R2
+L vextreme:R R2
 U 1 1 5D076F9A
 P 2700 6400
 F 0 "R2" V 2800 6400 50  0000 C CNN
@@ -1010,7 +1010,7 @@ F 3 "~" H 2700 6400 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L Device:R R5
+L vextreme:R R5
 U 1 1 5DEF494D
 P 2700 6100
 F 0 "R5" V 2600 6100 50  0000 C CNN
@@ -1021,7 +1021,7 @@ F 3 "~" H 2700 6100 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L Device:R R6
+L vextreme:R R6
 U 1 1 5DEFEB29
 P 2950 6200
 F 0 "R6" V 2750 6200 50  0000 C CNN
@@ -1045,7 +1045,7 @@ SCLK
 Text GLabel 7400 4850 0    60   Input ~ 0
 SDAT
 $Comp
-L vextreme-rescue:GND-vextreme-rescue #PWR0135
+L vextreme:GND #PWR0135
 U 1 1 5E1C4F53
 P 7700 5250
 F 0 "#PWR0135" H 7700 5000 50  0001 C CNN
@@ -1056,7 +1056,7 @@ F 3 "" H 7700 5250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L vextreme-rescue:+5V-vextreme-rescue #PWR0136
+L vextreme:+5V #PWR0136
 U 1 1 5E1C55CA
 P 7700 4650
 F 0 "#PWR0136" H 7700 4500 50  0001 C CNN
@@ -1067,7 +1067,7 @@ F 3 "" H 7700 4650 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L vextreme-rescue:GND-vextreme-rescue #PWR0137
+L vextreme:GND #PWR0137
 U 1 1 5E1CFFED
 P 8350 5250
 F 0 "#PWR0137" H 8350 5000 50  0001 C CNN
@@ -1078,7 +1078,7 @@ F 3 "" H 8350 5250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L vextreme-rescue:+5V-vextreme-rescue #PWR0138
+L vextreme:+5V #PWR0138
 U 1 1 5E1CFFF7
 P 8350 4650
 F 0 "#PWR0138" H 8350 4500 50  0001 C CNN
@@ -1093,7 +1093,7 @@ Wire Wire Line
 Wire Wire Line
 	5100 3150 4950 3150
 $Comp
-L vextreme-rescue:GND-vextreme-rescue #PWR0133
+L vextreme:GND #PWR0133
 U 1 1 5E222AFD
 P 9000 5250
 F 0 "#PWR0133" H 9000 5000 50  0001 C CNN
@@ -1104,7 +1104,7 @@ F 3 "" H 9000 5250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L vextreme-rescue:+5V-vextreme-rescue #PWR0134
+L vextreme:+5V #PWR0134
 U 1 1 5E222B03
 P 9000 4650
 F 0 "#PWR0134" H 9000 4500 50  0001 C CNN
@@ -1115,7 +1115,7 @@ F 3 "" H 9000 4650 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L vextreme-rescue:GND-vextreme-rescue #PWR0139
+L vextreme:GND #PWR0139
 U 1 1 5E22D72D
 P 9650 5250
 F 0 "#PWR0139" H 9650 5000 50  0001 C CNN
@@ -1126,7 +1126,7 @@ F 3 "" H 9650 5250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L vextreme-rescue:+5V-vextreme-rescue #PWR0140
+L vextreme:+5V #PWR0140
 U 1 1 5E22D733
 P 9650 4650
 F 0 "#PWR0140" H 9650 4500 50  0001 C CNN
@@ -1137,7 +1137,7 @@ F 3 "" H 9650 4650 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L vextreme-rescue:GND-vextreme-rescue #PWR0141
+L vextreme:GND #PWR0141
 U 1 1 5E232EFC
 P 10300 5250
 F 0 "#PWR0141" H 10300 5000 50  0001 C CNN
@@ -1148,7 +1148,7 @@ F 3 "" H 10300 5250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L vextreme-rescue:+5V-vextreme-rescue #PWR0142
+L vextreme:+5V #PWR0142
 U 1 1 5E232F02
 P 10300 4650
 F 0 "#PWR0142" H 10300 4500 50  0001 C CNN
@@ -1159,7 +1159,7 @@ F 3 "" H 10300 4650 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L vextreme-rescue:GND-vextreme-rescue #PWR0143
+L vextreme:GND #PWR0143
 U 1 1 5E237D78
 P 7700 6300
 F 0 "#PWR0143" H 7700 6050 50  0001 C CNN
@@ -1170,7 +1170,7 @@ F 3 "" H 7700 6300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L vextreme-rescue:+5V-vextreme-rescue #PWR0144
+L vextreme:+5V #PWR0144
 U 1 1 5E237D7E
 P 7700 5700
 F 0 "#PWR0144" H 7700 5550 50  0001 C CNN
@@ -1181,7 +1181,7 @@ F 3 "" H 7700 5700 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L vextreme-rescue:GND-vextreme-rescue #PWR0145
+L vextreme:GND #PWR0145
 U 1 1 5E23C8F2
 P 8350 6300
 F 0 "#PWR0145" H 8350 6050 50  0001 C CNN
@@ -1192,7 +1192,7 @@ F 3 "" H 8350 6300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L vextreme-rescue:+5V-vextreme-rescue #PWR0146
+L vextreme:+5V #PWR0146
 U 1 1 5E23C8F8
 P 8350 5700
 F 0 "#PWR0146" H 8350 5550 50  0001 C CNN
@@ -1203,7 +1203,7 @@ F 3 "" H 8350 5700 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L vextreme-rescue:GND-vextreme-rescue #PWR0147
+L vextreme:GND #PWR0147
 U 1 1 5E241687
 P 9000 6300
 F 0 "#PWR0147" H 9000 6050 50  0001 C CNN
@@ -1214,7 +1214,7 @@ F 3 "" H 9000 6300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L vextreme-rescue:+5V-vextreme-rescue #PWR0148
+L vextreme:+5V #PWR0148
 U 1 1 5E24168D
 P 9000 5700
 F 0 "#PWR0148" H 9000 5550 50  0001 C CNN
@@ -1225,7 +1225,7 @@ F 3 "" H 9000 5700 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L vextreme-rescue:GND-vextreme-rescue #PWR0149
+L vextreme:GND #PWR0149
 U 1 1 5E247B45
 P 9650 6300
 F 0 "#PWR0149" H 9650 6050 50  0001 C CNN
@@ -1236,7 +1236,7 @@ F 3 "" H 9650 6300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L vextreme-rescue:+5V-vextreme-rescue #PWR0150
+L vextreme:+5V #PWR0150
 U 1 1 5E247B4B
 P 9650 5700
 F 0 "#PWR0150" H 9650 5550 50  0001 C CNN
@@ -1247,7 +1247,7 @@ F 3 "" H 9650 5700 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L vextreme-rescue:GND-vextreme-rescue #PWR0151
+L vextreme:GND #PWR0151
 U 1 1 5E24CDAA
 P 10300 6300
 F 0 "#PWR0151" H 10300 6050 50  0001 C CNN
@@ -1258,7 +1258,7 @@ F 3 "" H 10300 6300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L vextreme-rescue:+5V-vextreme-rescue #PWR0152
+L vextreme:+5V #PWR0152
 U 1 1 5E24CDB0
 P 10300 5700
 F 0 "#PWR0152" H 10300 5550 50  0001 C CNN
@@ -1345,7 +1345,7 @@ Wire Wire Line
 	6700 7500 6650 7500
 Connection ~ 6700 7300
 $Comp
-L vextreme-rescue:GND-vextreme-rescue #PWR0153
+L vextreme:GND #PWR0153
 U 1 1 5E4F4996
 P 6700 7500
 F 0 "#PWR0153" H 6700 7250 50  0001 C CNN
@@ -1355,7 +1355,6 @@ F 3 "" H 6700 7500 50  0001 C CNN
 	1    6700 7500
 	1    0    0    -1  
 $EndComp
-Connection ~ 6700 7500
 Wire Wire Line
 	6700 6300 6650 6300
 Wire Wire Line
@@ -1371,7 +1370,7 @@ v0.3 Changelog\n—————————————————————�
 Text Notes 8000 900  0    50   ~ 0
 CL = (C8 * C9)/(C8 + C9) + Cstray\n(324pF/36pF) + 4pF = 13pF (close to 12pF Y1 CL requirement)\n
 $Comp
-L Device:Crystal Y1
+L vextreme:Crystal Y1
 U 1 1 5D00550C
 P 8650 1650
 F 0 "Y1" V 8550 1850 50  0000 C CNN
@@ -1383,7 +1382,7 @@ F 4 "12pF" V 8750 1900 50  0000 C CNN "Cload"
 	0    1    1    0   
 $EndComp
 $Comp
-L 74xx:74LS32 U3
+L vextreme:74LS32 U3
 U 1 1 5E583E79
 P 6350 6400
 F 0 "U3" H 6300 6200 50  0000 C CNN
@@ -1394,7 +1393,7 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT32.pdf" H 6350 640
 	-1   0    0    1   
 $EndComp
 $Comp
-L 74xx:74LS32 U3
+L vextreme:74LS32 U3
 U 4 1 5E4D3564
 P 6350 7400
 F 0 "U3" H 6300 7200 50  0000 C CNN
@@ -1405,7 +1404,7 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT32.pdf" H 6350 740
 	-1   0    0    1   
 $EndComp
 $Comp
-L 74xx:74LS32 U3
+L vextreme:74LS32 U3
 U 2 1 5E4C00D6
 P 6350 6900
 F 0 "U3" H 6300 6700 50  0000 C CNN
@@ -1416,7 +1415,7 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT32.pdf" H 6350 690
 	-1   0    0    1   
 $EndComp
 $Comp
-L 74xx:74LS32 U3
+L vextreme:74LS32 U3
 U 3 1 5CFED423
 P 6100 3250
 F 0 "U3" H 6050 3050 50  0000 C CNN
@@ -1427,7 +1426,7 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT32.pdf" H 6100 325
 	-1   0    0    1   
 $EndComp
 $Comp
-L 74xx:74LS32 U3
+L vextreme:74LS32 U3
 U 5 1 5D0EB89A
 P 9800 1650
 F 0 "U3" H 9900 2000 50  0000 C CNN
@@ -1449,7 +1448,7 @@ F 3 "http://www.st.com/st-web-ui/static/active/en/resource/technical/document/da
 	1    0    0    -1  
 $EndComp
 $Comp
-L Gekkio_Logic_LevelTranslator:SN74LVC8T245DB U4
+L vextreme:SN74LVC8T245DB U4
 U 1 1 5CFEBA56
 P 6500 1950
 F 0 "U4" H 6950 2600 50  0000 C CNN
@@ -1460,7 +1459,7 @@ F 3 "http://www.ti.com/lit/ds/symlink/sn74lvc8t245.pdf" H 6600 2300 50  0001 C C
 	1    0    0    -1  
 $EndComp
 $Comp
-L X:W25Q128 U5
+L vextreme:W25Q128 U5
 U 1 1 5CFEAE1F
 P 6300 4150
 F 0 "U5" H 6300 4450 50  0000 C CNN
@@ -1471,7 +1470,7 @@ F 3 "https://www.pjrc.com/teensy/W25Q128FV.pdf" H 6600 4250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L LED:APA102-2020 D13
+L vextreme:APA102-2020 D13
 U 1 1 5E24CDA4
 P 10300 6000
 F 0 "D13" H 10150 6250 50  0000 C CNN
@@ -1482,7 +1481,7 @@ F 3 "http://www.led-color.com/upload/201604/APA102-2020%20SMD%20LED.pdf" H 10400
 	1    0    0    -1  
 $EndComp
 $Comp
-L LED:APA102-2020 D12
+L vextreme:APA102-2020 D12
 U 1 1 5E247B3F
 P 9650 6000
 F 0 "D12" H 9500 6250 50  0000 C CNN
@@ -1493,7 +1492,7 @@ F 3 "http://www.led-color.com/upload/201604/APA102-2020%20SMD%20LED.pdf" H 9750 
 	1    0    0    -1  
 $EndComp
 $Comp
-L LED:APA102-2020 D11
+L vextreme:APA102-2020 D11
 U 1 1 5E241681
 P 9000 6000
 F 0 "D11" H 8850 6250 50  0000 C CNN
@@ -1504,7 +1503,7 @@ F 3 "http://www.led-color.com/upload/201604/APA102-2020%20SMD%20LED.pdf" H 9100 
 	1    0    0    -1  
 $EndComp
 $Comp
-L LED:APA102-2020 D10
+L vextreme:APA102-2020 D10
 U 1 1 5E23C8EC
 P 8350 6000
 F 0 "D10" H 8200 6250 50  0000 C CNN
@@ -1515,7 +1514,7 @@ F 3 "http://www.led-color.com/upload/201604/APA102-2020%20SMD%20LED.pdf" H 8450 
 	1    0    0    -1  
 $EndComp
 $Comp
-L LED:APA102-2020 D9
+L vextreme:APA102-2020 D9
 U 1 1 5E237D72
 P 7700 6000
 F 0 "D9" H 7550 6250 50  0000 C CNN
@@ -1526,7 +1525,7 @@ F 3 "http://www.led-color.com/upload/201604/APA102-2020%20SMD%20LED.pdf" H 7800 
 	1    0    0    -1  
 $EndComp
 $Comp
-L LED:APA102-2020 D8
+L vextreme:APA102-2020 D8
 U 1 1 5E232EF6
 P 10300 4950
 F 0 "D8" H 10150 5200 50  0000 C CNN
@@ -1537,7 +1536,7 @@ F 3 "http://www.led-color.com/upload/201604/APA102-2020%20SMD%20LED.pdf" H 10400
 	1    0    0    -1  
 $EndComp
 $Comp
-L LED:APA102-2020 D7
+L vextreme:APA102-2020 D7
 U 1 1 5E22D727
 P 9650 4950
 F 0 "D7" H 9500 5200 50  0000 C CNN
@@ -1548,7 +1547,7 @@ F 3 "http://www.led-color.com/upload/201604/APA102-2020%20SMD%20LED.pdf" H 9750 
 	1    0    0    -1  
 $EndComp
 $Comp
-L LED:APA102-2020 D6
+L vextreme:APA102-2020 D6
 U 1 1 5E222AF7
 P 9000 4950
 F 0 "D6" H 8850 5200 50  0000 C CNN
@@ -1559,7 +1558,7 @@ F 3 "http://www.led-color.com/upload/201604/APA102-2020%20SMD%20LED.pdf" H 9100 
 	1    0    0    -1  
 $EndComp
 $Comp
-L LED:APA102-2020 D5
+L vextreme:APA102-2020 D5
 U 1 1 5E1CFFE3
 P 8350 4950
 F 0 "D5" H 8200 5200 50  0000 C CNN
@@ -1570,7 +1569,7 @@ F 3 "http://www.led-color.com/upload/201604/APA102-2020%20SMD%20LED.pdf" H 8450 
 	1    0    0    -1  
 $EndComp
 $Comp
-L vextreme-rescue:vectrex-edge-connector-vextreme-rescue CON1
+L vextreme:vectrex-edge-connector CON1
 U 1 1 59F1631A
 P 1800 3500
 F 0 "CON1" H 1450 5350 60  0000 C CNN
@@ -1581,7 +1580,7 @@ F 3 "" H 1800 4200 60  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L LED:APA102-2020 D4
+L vextreme:APA102-2020 D4
 U 1 1 5E1BB363
 P 7700 4950
 F 0 "D4" H 7550 5200 50  0000 C CNN
@@ -1596,7 +1595,7 @@ Wire Wire Line
 Wire Wire Line
 	4750 5900 4750 5800
 $Comp
-L power:+3.3V #PWR0104
+L vextreme:+3.3V #PWR0104
 U 1 1 5D013933
 P 4750 5800
 F 0 "#PWR0104" H 4750 5650 50  0001 C CNN
@@ -1607,7 +1606,7 @@ F 3 "" H 4750 5800 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C C13
+L vextreme:C C13
 U 1 1 5DEB0479
 P 6800 5100
 F 0 "C13" H 6915 5146 50  0000 L CNN
@@ -1618,7 +1617,7 @@ F 3 "~" H 6800 5100 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L vextreme-rescue:GND-vextreme-rescue #PWR0154
+L vextreme:GND #PWR0154
 U 1 1 5DEB047F
 P 6800 5250
 F 0 "#PWR0154" H 6800 5000 50  0001 C CNN
@@ -1629,7 +1628,7 @@ F 3 "" H 6800 5250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L vextreme-rescue:+5V-vextreme-rescue #PWR0155
+L vextreme:+5V #PWR0155
 U 1 1 5DEB5A91
 P 6800 4950
 F 0 "#PWR0155" H 6800 4800 50  0001 C CNN

@@ -1,0 +1,268 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP +3.3V
+D Power symbol creates a global label with name "+3.3V"
+K power-flag
+$ENDCMP
+#
+$CMP +3V3
+D Power symbol creates a global label with name "+3V3"
+K power-flag
+$ENDCMP
+#
+$CMP +5V
+D Power symbol creates a global label with name "+5V"
+K power-flag
+$ENDCMP
+#
+$CMP 74LS32
+D Quad 2-input OR
+K TTL Or2
+F http://www.ti.com/lit/gpn/sn74LS32
+$ENDCMP
+#
+$CMP 74LVC8T245PW
+D 8-bit dual supply translating transceiver, 3-state, TSSOP-24
+K bus 3state
+F https://assets.nexperia.com/documents/data-sheet/74LVC_LVCH8T245.pdf
+$ENDCMP
+#
+$CMP 74LVCH8T245PW
+D 8-bit dual supply translating transceiver, 3-state, bus hold, TSSOP-24
+K bus 3state hold
+F https://assets.nexperia.com/documents/data-sheet/74LVC_LVCH8T245.pdf
+$ENDCMP
+#
+$CMP APA102-2020
+D RGB LED with integrated controller
+K RGB LED addressable 8bit pwm 5bit greyscale
+F http://www.led-color.com/upload/201604/APA102-2020%20SMD%20LED.pdf
+$ENDCMP
+#
+$CMP BAT42W-V
+D 30V 0.2A Small Signal Schottky diode, SOD-123
+K diode Schottky
+F http://www.vishay.com/docs/85660/bat42.pdf
+$ENDCMP
+#
+$CMP BAT43W-V
+D 30V 0.2A Small Signal Schottky diode, SOD-123
+K diode Schottky
+F http://www.vishay.com/docs/85660/bat42.pdf
+$ENDCMP
+#
+$CMP BAT48ZFILM
+D 40V 0.35A Small Signal Schottky Diode, SOD-123
+K diode Schottky
+F www.st.com/resource/en/datasheet/bat48.pdf
+$ENDCMP
+#
+$CMP C
+D Unpolarized capacitor
+K cap capacitor
+F ~
+$ENDCMP
+#
+$CMP Conn_01x06_Male
+D Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)
+K connector
+F ~
+$ENDCMP
+#
+$CMP Crystal
+D Two pin crystal
+K quartz ceramic resonator oscillator
+F ~
+$ENDCMP
+#
+$CMP GND
+D Power symbol creates a global label with name "GND" , ground
+K power-flag
+$ENDCMP
+#
+$CMP Jumper_NO_Small
+D Jumper, normally open, small symbol
+K jumper link bridge NO
+F ~
+$ENDCMP
+#
+$CMP LED
+D Light emitting diode
+K LED diode
+F ~
+$ENDCMP
+#
+$CMP LM1117-1.8
+D 800mA Low-Dropout Linear Regulator, 1.8V fixed output, TO-220/TO-252/TO-263/SOT-223
+K linear regulator ldo fixed positive
+F http://www.ti.com/lit/ds/symlink/lm1117.pdf
+$ENDCMP
+#
+$CMP LM1117-2.5
+D 800mA Low-Dropout Linear Regulator, 2.5V fixed output, TO-220/TO-252/TO-263/SOT-223
+K linear regulator ldo fixed positive
+F http://www.ti.com/lit/ds/symlink/lm1117.pdf
+$ENDCMP
+#
+$CMP LM1117-3.3
+D 800mA Low-Dropout Linear Regulator, 3.3V fixed output, TO-220/TO-252/TO-263/SOT-223
+K linear regulator ldo fixed positive
+F http://www.ti.com/lit/ds/symlink/lm1117.pdf
+$ENDCMP
+#
+$CMP LM1117-5.0
+D 800mA Low-Dropout Linear Regulator, 5.0V fixed output, TO-220/TO-252/TO-263/SOT-223
+K linear regulator ldo fixed positive
+F http://www.ti.com/lit/ds/symlink/lm1117.pdf
+$ENDCMP
+#
+$CMP MBR0520
+D 20V 0.5A Schottky Power Rectifier Diode, SOD-123
+K diode Schottky
+F http://www.mccsemi.com/up_pdf/MBR0520~MBR0580(SOD123).pdf
+$ENDCMP
+#
+$CMP MBR0520LT
+D 20V 0.5A Schottky Power Rectifier Diode, SOD-123
+K diode Schottky
+F http://www.onsemi.com/pub_link/Collateral/MBR0520LT1-D.PDF
+$ENDCMP
+#
+$CMP MBR0530
+D 30V 0.5A Schottky Power Rectifier Diode, SOD-123
+K diode Schottky
+F http://www.mccsemi.com/up_pdf/MBR0520~MBR0580(SOD123).pdf
+$ENDCMP
+#
+$CMP MBR0540
+D 40V 0.5A Schottky Power Rectifier Diode, SOD-123
+K diode Schottky
+F http://www.mccsemi.com/up_pdf/MBR0520~MBR0580(SOD123).pdf
+$ENDCMP
+#
+$CMP MBR0550
+D 50V 0.5A Schottky Power Rectifier Diode, SOD-123
+K diode Schottky
+F http://www.mccsemi.com/up_pdf/MBR0520~MBR0580(SOD123).pdf
+$ENDCMP
+#
+$CMP MBR0560
+D 60V 0.5A Schottky Power Rectifier Diode, SOD-123
+K diode Schottky
+F http://www.mccsemi.com/up_pdf/MBR0520~MBR0580(SOD123).pdf
+$ENDCMP
+#
+$CMP MBR0570
+D 70V 0.5A Schottky Power Rectifier Diode, SOD-123
+K diode Schottky
+F http://www.mccsemi.com/up_pdf/MBR0520~MBR0580(SOD123).pdf
+$ENDCMP
+#
+$CMP MBR0580
+D 80V 0.5A Schottky Power Rectifier Diode, SOD-123
+K diode Schottky
+F http://www.mccsemi.com/up_pdf/MBR0520~MBR0580(SOD123).pdf
+$ENDCMP
+#
+$CMP R
+D Resistor
+K R res resistor
+F ~
+$ENDCMP
+#
+$CMP SN74LVC8T245DB
+D 8-bit dual supply translating transceiver, 3-state, SSOP-24
+K bus 3state
+F http://www.ti.com/lit/ds/symlink/sn74lvc8t245.pdf
+$ENDCMP
+#
+$CMP SN74LVC8T245DBQ
+D 8-bit dual supply translating transceiver, 3-state, SSOP-24
+K bus 3state
+F http://www.ti.com/lit/ds/symlink/sn74lvc8t245.pdf
+$ENDCMP
+#
+$CMP SN74LVC8T245DGV
+D 8-bit dual supply translating transceiver, 3-state, TVSOP-24
+K bus 3state
+F http://www.ti.com/lit/ds/symlink/sn74lvc8t245.pdf
+$ENDCMP
+#
+$CMP SN74LVC8T245PW
+D 8-bit dual supply translating transceiver, 3-state, TSSOP-24
+K bus 3state
+F http://www.ti.com/lit/ds/symlink/sn74lvc8t245.pdf
+$ENDCMP
+#
+$CMP SN74LVCH8T245DB
+D 8-bit dual supply translating transceiver, 3-state, bus hold, SSOP-24
+K bus 3state hold
+F http://www.ti.com/lit/ds/symlink/sn74lvch8t245.pdf
+$ENDCMP
+#
+$CMP SN74LVCH8T245DGV
+D 8-bit dual supply translating transceiver, 3-state, bus hold, TVSOP-24
+K bus 3state hold
+F http://www.ti.com/lit/ds/symlink/sn74lvch8t245.pdf
+$ENDCMP
+#
+$CMP SN74LVCH8T245PW
+D 8-bit dual supply translating transceiver, 3-state, bus hold, TSSOP-24
+K bus 3state hold
+F http://www.ti.com/lit/ds/symlink/sn74lvch8t245.pdf
+$ENDCMP
+#
+$CMP STM32F411RCTx
+D ARM Cortex-M4 MCU, 256KB flash, 128KB RAM, 100MHz, 1.7-3.6V, 50 GPIO, LQFP-64
+K ARM Cortex-M4 STM32F4 STM32F411
+F http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/DM00115249.pdf
+$ENDCMP
+#
+$CMP STM32F411RETx
+D ARM Cortex-M4 MCU, 512KB flash, 128KB RAM, 100MHz, 1.7-3.6V, 50 GPIO, LQFP-64
+K ARM Cortex-M4 STM32F4 STM32F411
+F http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/DM00115249.pdf
+$ENDCMP
+#
+$CMP TLV1117-15
+D 800mA Low-Dropout Linear Regulator, 1.5V fixed output, TO-220/TO-252/TO-263/SOT-223
+K linear regulator ldo fixed positive
+F http://www.ti.com/lit/ds/symlink/tlv1117.pdf
+$ENDCMP
+#
+$CMP TLV1117-18
+D 800mA Low-Dropout Linear Regulator, 1.8V fixed output, TO-220/TO-252/TO-263/SOT-223
+K linear regulator ldo fixed positive
+F http://www.ti.com/lit/ds/symlink/tlv1117.pdf
+$ENDCMP
+#
+$CMP TLV1117-25
+D 800mA Low-Dropout Linear Regulator, 2.5V fixed output, TO-220/TO-252/TO-263/SOT-223
+K linear regulator ldo fixed positive
+F http://www.ti.com/lit/ds/symlink/tlv1117.pdf
+$ENDCMP
+#
+$CMP TLV1117-33
+D 800mA Low-Dropout Linear Regulator, 3.3V fixed output, TO-220/TO-252/TO-263/SOT-223
+K linear regulator ldo fixed positive
+F http://www.ti.com/lit/ds/symlink/tlv1117.pdf
+$ENDCMP
+#
+$CMP TLV1117-50
+D 800mA Low-Dropout Linear Regulator, 5.0V fixed output, TO-220/TO-252/TO-263/SOT-223
+K linear regulator ldo fixed positive
+F http://www.ti.com/lit/ds/symlink/tlv1117.pdf
+$ENDCMP
+#
+$CMP USB_C_Receptacle_USB2.0
+D USB 2.0-only Type-C Receptacle connector
+K usb universal serial bus type-C USB2.0
+F https://www.usb.org/sites/default/files/documents/usb_type-c.zip
+$ENDCMP
+#
+$CMP W25Q128
+D External EEPROM with SPI interface in 8-pin package
+K EEPROM memory SPI serial
+$ENDCMP
+#
+#End Doc Library
