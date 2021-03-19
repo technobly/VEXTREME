@@ -115,7 +115,7 @@ void applyLedSettings(bool initial) {
 	SettingsRecord *s = &settings;
 	uint8_t i = ledsNumPixels();
 	uint8_t l = settings.led_luma * 8;
-	uint32_t c = (s->led_red << 16) | (s->led_green << 8) | (s->led_blue << 0);
+	uint32_t c = (s->led_red << 16) * 8 | (s->led_green << 8) * 8 | (s->led_blue << 0) * 8;
 
 	switch (settings.led_mode)
 	{
