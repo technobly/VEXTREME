@@ -153,3 +153,16 @@ void sortDirectory(char *fdir, dir_listing *listing) {
 	qsort(listing->f_entry, listing->num_files, sizeof(file_entry), f_entry_compare);
 	// xprintf("Done sorting\n");
 }
+
+bool isDirectoryExist(char *fdir) {
+	DIR     d;
+	FRESULT res;
+
+	res = f_opendir(&d, fdir);
+
+	if (res == FR_OK) {
+		f_closedir(&d);
+	}
+
+	return res == FR_OK;
+}

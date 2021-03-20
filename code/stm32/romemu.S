@@ -144,7 +144,7 @@ waitreset:
     cmp   r0,r7                 // Compare to 6809 reset vector
     beq   waitreset             // Wait for reset vector to clear
     and   r8,#0                 // clear count to reset counter
-    b     ledsrainbow           // set the LEDs back to rainbow and jump back to initloop
+    b     restoreled            // set the LEDs back to rainbow and jump back to initloop
 
 clearcount:
     and   r8,#0
@@ -293,9 +293,9 @@ ledsmagenta:
     blx   r1
     b     initloop
 
-ledsrainbow:
-    mov   r1,#4
-    ldr   r2,=rainbowStep
+restoreled:
+    mov   r1,#1
+    ldr   r2,=applyLedSettings
     blx   r2
     b     initloop
 
