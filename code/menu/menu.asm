@@ -50,7 +50,7 @@ DEBUG_VALUE            equ    #0
 ;***************************************************************************
 MENU_DATA_ADDR         equ    $4000
 MENU_SYS_ADDR          equ    MENU_DATA_ADDR - $20
-MENU_MEM_ADDR          equ    MENU_DATA_ADDR - $140
+MENU_MEM_ADDR          equ    MENU_SYS_ADDR  - $400
 
 ; parmRam
 RPC_ARG_ADDR           equ    $7f00
@@ -72,9 +72,9 @@ RAMDISK_YIELD2_ADDR    equ    MENU_SYS_ADDR  + $1d
 ;                                           ;
 ;                                           ;
 ;                                           ;
-; 0x3FBF                                    ;
+; 0x3BDF                                    ;
 ;-------------------------------------------- 15 KB
-; 0x3FC0                     MENU_MEM_ADDR  ; <- STM 288 bytes of user settings
+; 0x3BE0                     MENU_MEM_ADDR  ; <- STM 1k bytes of user settings
 ; 0x3FE0                     MENU_SYS_ADDR  ; <- STM 32 bytes of system data
 ; 0x3FE0                 HIGHSCORE_RF_ADDR  ; <- STM 1 byte highscore read flag
 ; 0x3FE1                          RESERVED  ; 15 bytes
@@ -1448,7 +1448,7 @@ stars_speed_table
 ;***************************************************************************
 ; Test menu list data. This gets overwritten by the firmware running in the
 ; STM with actual cartridge data.
-  org                  MENU_MEM_ADDR        ; 31 bytes max, 0x3FC1
+  org                  MENU_MEM_ADDR
   IF                   !SETTINGS_IN_RAM
 m_max_lines
   fcb                  5
@@ -1460,13 +1460,13 @@ m_led_mode
   fcb                  1
 
 m_led_luma
-  fcb                  16
+  fcb                  5
 
 m_led_red
-  fcb                  0
+  fcb                  31
 
 m_led_green
-  fcb                  31
+  fcb                  0
 
 m_led_blue
   fcb                  31
@@ -1475,7 +1475,7 @@ m_ss_mode
   fcb                  1
 
 m_ss_delay
-  fcb                  5
+  fcb                  1
 
 m_last_cursor
   fcb                  0

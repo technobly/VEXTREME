@@ -41,16 +41,25 @@
 
 // Globals
 
-static FIL fileSettings;   // Highscore file pointer
-static FRESULT fResult = FR_NO_FILE;     // Highscore file return results
+static FIL fileSettings;    // settings file pointer
+static FILINFO fileInfoSettings;        // settings file info pointer
+static FRESULT fResult = FR_NO_FILE;     // settings file return results
 
 // Local functions
 
 /**
- * Open High score file locted on flash file system.  If it doesn't exist
+ * Check if Settings file exists on flash file system.
+ */
+bool settingsFileExists(void)
+{
+    return f_stat("/settings.bin", &fileInfoSettings) == FR_OK;
+}
+
+/**
+ * Open Settings file located on flash file system.  If it doesn't exist
  * create the file.
  */
-static FRESULT settingsOpenFile(void)
+FRESULT settingsOpenFile(void)
 {
     fResult = f_open(&fileSettings, "/settings.bin", FA_OPEN_ALWAYS | FA_READ | FA_WRITE);
 
@@ -58,19 +67,13 @@ static FRESULT settingsOpenFile(void)
 }
 
 /**
- * Search for the game by name in the highscore file, and if it exists,
- * read the game record associated with the name and store it in the
- * location pointed to by the second parameter (pGameRecord).
+ * Load the settings from file to memory structure
  *
- * @param[in] - pGameName - Points to a 0x80 terminated game name
- * @param[out] - pGameRecord - Location to store game data record, or NULL
- *                             to store in out active game location
+ * @param[in] - pSettingsInRom - Points to settings structure
  *
  * @return - SETTINGS_SUCCESS or error code for failure
- *           pGameRecord = Game record is stored here on success
- *           fileSettings->fptr = EOF or start of record for the game
  */
-SettingsRetVal settingsGet(char * pSettingsInRom)
+SettingsRetVal settingsGet(SettingsRecord* pSettingsInRom)
 {
     unsigned int bytesRead = 0;
 
@@ -127,7 +130,7 @@ SettingsRetVal settingsGet(char * pSettingsInRom)
  *
  * @return - SETTINGS_SUCCESS or SETTINGS_WRITE_FAIL
  */
-static SettingsRetVal settingsStore(const char * pMemoryChunk, size_t size)
+static SettingsRetVal settingsStore(const SettingsRecord* pSettingsInRom, size_t size)
 {
     unsigned int bytesWrote = 0;
 
@@ -137,7 +140,7 @@ static SettingsRetVal settingsStore(const char * pMemoryChunk, size_t size)
     if (fResult != FR_OK)
     {
         // Try again!
-        // SET_XPRINTF("ERROR: retrying settings.bin file open!\n");
+        SET_XPRINTF("ERROR: retrying settings.bin file open!\n");
         fResult = settingsOpenFile();
         if (fResult != FR_OK) {
             return (SETTINGS_FILE_OPEN_FAIL);
@@ -149,7 +152,7 @@ static SettingsRetVal settingsStore(const char * pMemoryChunk, size_t size)
     /**
      * Store settings memory chunk to file
      */
-    fResult = f_write(&fileSettings, pMemoryChunk, size, &bytesWrote);
+    fResult = f_write(&fileSettings, pSettingsInRom, size, &bytesWrote);
 
     if ( (bytesWrote < size) || (fResult != FR_OK) )
     {
@@ -174,7 +177,7 @@ static SettingsRetVal settingsStore(const char * pMemoryChunk, size_t size)
  * Store settings to fs
  * @param[in] - Pointer to memory chunk containing settings
  */
-void settingsSave(const char * pSettingsInRom)
+void settingsSave(const SettingsRecord* pSettingsInRom)
 {
     SettingsRetVal store_ret_val = settingsStore(pSettingsInRom, 
                                                  sizeof(SettingsRecord));

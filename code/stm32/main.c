@@ -56,15 +56,14 @@ extern char menu_end;
 
 #define MENU_DATA_ADDR 		0x4000							     // fixed location in menu.bin
 #define MENU_DATA_SIZE 		0x200							       // size allocated for menu data
-#define MENU_SYS_ADDR			(MENU_DATA_ADDR - 0x20)  // 32 bytes reserved for system data
-#define MENU_MEM_ADDR			(MENU_DATA_ADDR - 0x140) // 288 bytes reserved for settings data (0x3FC0)
+#define MENU_SYS_ADDR			(MENU_DATA_ADDR - 0x20)  // 32 bytes reserved for system data (0x3BF0)
+#define MENU_MEM_ADDR			(MENU_SYS_ADDR - 0x400) //  1k bytes reserved for settings data (0x3BC0)
 #define PARM_RAM_ADDR			0x7f00
 #define PARM_RAM_SIZE			0xfe
 
 //Memory for the menu ROM and the running cartridge.
 //We keep both in memory so we can quickly exchange them when a reset has been detected.
 char menuData[20*1024];				   // 16KB for menu ROM, 4KB for menu data
-char devmodeData[2*1024];
 char* romData = menuData;
 unsigned char parmRam[256];
 
@@ -112,12 +111,11 @@ void uart_output_func(unsigned char c){
 }
 
 void applyLedSettings(bool initial) {
-	SettingsRecord *s = &settings;
 	uint8_t i = ledsNumPixels();
 	uint8_t l = settings.led_luma * 8;
-	uint32_t c =    ((s->led_red   * 8 + 7) << 16)
-								| ((s->led_green * 8 + 7) << 8)
-								| ((s->led_blue  * 8 + 7) << 0);
+	uint32_t c = ((settings.led_red   * 8 + 7) << 16)
+			   | ((settings.led_green * 8 + 7) << 8)
+			   | ((settings.led_blue  * 8 + 7) << 0);
 
 	switch (settings.led_mode)
 	{
@@ -317,7 +315,7 @@ void doChangeDir(char* dirname) {
 
 void syncSettings() {
 	memcpy(&menuData[MENU_MEM_ADDR], &settings, sizeof(SettingsRecord));
-	settingsSave(&menuData[MENU_MEM_ADDR]);
+	settingsSave(&settings);
 }
 
 /**
@@ -428,10 +426,10 @@ void loadSysOpt() {
 void loadParmRam() {
 	int addr = (int)parmRam[0xfd];
 	int size = (int)parmRam[0xfe];
-	if (size > 16) size = 16; // limited to 15 for now
+	if (size > 15) size = 15; // limited to 15 for now
 	for (int i = 0; i < size; i++) {
 		menuData[MENU_SYS_ADDR + i] = parmRam[addr + i];
-		// xprintf("parmRam[%x]=%u\n", addr + i, sysData[addr + i]);
+		// xprintf("parmRam[%x]=%u\n", addr + i, parmRam[addr + i]);
 	}
 }
 
@@ -470,9 +468,10 @@ void dumpMemory() {
 // $7ff1 - Start Address Low  Byte
 // $7ff2 - 1 byte to store
 void storeToRom() {
-	unsigned int addr = ((int)parmRam[0xf0] << 8) + (int)parmRam[0xf1];
-	uint8_t value = parmRam[0xf2];
-	menuData[addr] = value;
+    unsigned int addr = ((int)parmRam[0xf0] << 8) + (int)parmRam[0xf1];
+    uint8_t value = parmRam[0xf2];
+    menuData[addr] = value;
+    // xprintf("storeToRom() menuData[%x]=%u\n", addr, value);
 
 	// settings region was updated, apply
 	if (addr >= MENU_MEM_ADDR && addr <= MENU_MEM_ADDR + sizeof(SettingsRecord)) {
@@ -637,7 +636,7 @@ void doHandleEvent(int data) {
 		case 15: doStartRom(); break; // Finishes changing ROM
 		case 16: loadParmRam(); break;
 		case 17: storeToRom(); break;
-		case 18: settingsSave(&menuData[MENU_MEM_ADDR]); break;
+		case 18: settingsSave(&settings); break;
 	}
 }
 
@@ -735,7 +734,7 @@ int main(void) {
 	// For now, this is hard coded to determine LED operation, nothing more.
 	// TODO: uncomment above for system hw_ver, and add .led_hw_ver for LED initialization.
 	sys_opt.hw_ver = 0x0014; // v0.20
-	sys_opt.sw_ver = 0x001e; // v0.30
+	sys_opt.sw_ver = 0x0028; // v0.40
 	sys_opt.rgb_type = RGB_TYPE_10;
 	sys_opt.usb_dev = USB_DEV_DISABLED;
 
@@ -824,14 +823,41 @@ int main(void) {
 	// Ignore return value for now
 	(void) highScoreOpenFile();
 
-	// load settings from file
-	SettingsRetVal sRet = settingsGet((char *)&settings);
+	// Create/Open settings file, and load settings
+	bool settingsExists = settingsFileExists();
+	(void) settingsOpenFile();
+	if (!settingsExists) {
+		syncSettings(); // initialize the blank file
+	}
+	SettingsRetVal sRet = settingsGet(&settings);
 	settingsReady = sRet == SETTINGS_SUCCESS;
 
 	// set default settings for params used on STM side
-	if (!settingsReady) {
+	if (!settingsReady || !settings.size || !settings.ver) {
+		xprintf("Init settings\n");
+		settings.max_lines = 6;
+		settings.max_chars = 8;
 		settings.led_mode = 1;
-		settings.led_luma = 16;
+		settings.led_luma = 5;
+		settings.led_red = 31;
+		settings.led_green = 0;
+		settings.led_blue = 31;
+		settings.ss_mode = 1;
+		settings.ss_delay = 1;
+		settings.last_cursor = 0;
+		strncpy(settings.directory, "/roms", sizeof(settings.directory));
+		settings.size = sizeof(SettingsRecord);
+		settings.ver = SETTINGS_RECORD_VERSION;
+		memset(settings.reserved, 0, sizeof(settings.reserved));
+		settingsReady = true;
+	}
+	syncSettings();
+	if (settings.ver != SETTINGS_RECORD_VERSION) {
+		// Initialize new variables based on version
+#if (SETTINGS_RECORD_VERSION > 1)
+		#error "add conversions for new SettingsRecord options"
+#endif
+		// TODO: ...
 	}
 
 	// Give the cart some color, but after the USB process so we don't load down weak USB sources

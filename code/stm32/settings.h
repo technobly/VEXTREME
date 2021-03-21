@@ -3,6 +3,7 @@
 
 // Includes
 #include "fatfs/ff.h"
+#include <assert.h>
 
 typedef enum
 {
@@ -15,6 +16,7 @@ typedef enum
 } SettingsRetVal;
 
 // Sructures
+#define SETTINGS_RECORD_VERSION (1)
 typedef struct
 {
     uint8_t max_lines;
@@ -28,13 +30,16 @@ typedef struct
     uint8_t ss_delay; 
     uint8_t last_cursor;
     char    directory[_MAX_LFN + 1];
+    uint16_t size;                      // size of this struct
+    uint16_t ver;                       // SettingsRecord version
+    uint8_t reserved[1024 - (_MAX_LFN+1) - 14];
 } __attribute__((packed))SettingsRecord;
-
-// settings file format reflect the chunk of memory in ROM dedicated to settings vars
-// @TODO: detect settings structure change and wipe settings file
+static_assert(sizeof(SettingsRecord)==1024, "SettingsRecord should be 1024 bytes, check the reserved field.");
 
 // Prototypes
-SettingsRetVal settingsGet(char * pSettingsInRom);
-void           settingsSave(const char * pSettingsInRom);
+bool settingsFileExists(void);
+FRESULT settingsOpenFile(void);
+SettingsRetVal settingsGet(SettingsRecord* pSettingsInRom);
+void           settingsSave(const SettingsRecord* pSettingsInRom);
 #endif // SETTINGS_H
 
