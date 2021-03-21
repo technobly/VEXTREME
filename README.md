@@ -152,6 +152,11 @@ Hall of Fame
 
 If you build one of these, be sure to send me a message with your build pics showing your working VEXTREME multicart!  Or better yet, check out the [hall of fame format here](hall-of-fame/) and submit a PR (please and thank you!)
 
+Credits
+===
+
+Everyone who has contributed to this project, with a short summary of their contributions can be found here [CREDITS](CREDITS.md)
+
 LICENSE
 ===
 
