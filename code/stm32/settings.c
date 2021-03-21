@@ -41,9 +41,9 @@
 
 // Globals
 
-static FIL fileSettings;    // settings file pointer
+static FIL fileSettings;                // settings file pointer
 static FILINFO fileInfoSettings;        // settings file info pointer
-static FRESULT fResult = FR_NO_FILE;     // settings file return results
+static FRESULT fResult = FR_NO_FILE;    // settings file return results
 
 // Local functions
 

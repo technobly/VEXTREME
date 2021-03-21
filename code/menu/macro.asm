@@ -13,22 +13,22 @@
 
 
 ;*******************************************************************************
-; M_LSLD 
+; M_LSLD
 ;
 ; Shift register D one position to the left.
 ;*******************************************************************************
 M_LSLD                 macro
-  lsla                                      ; LSL A 
-  lslb                                      ; LSL B 
+  lsla                                      ; LSL A
+  lslb                                      ; LSL B
   bcc                  >                    ; if no carry, done
-  ora                  #1                   ; otherwise overflow from B to 0bit of A 
-!                   
+  ora                  #1                   ; otherwise overflow from B to 0bit of A
+!
   endm
 
 ;*******************************************************************************
 ; M_VS_ITOA #[font_table]
 ;
-; Integer to char. 
+; Integer to char.
 ; Load vectorlist address into X for corresponding digit in ASCII font table.
 ; IN:
 ;   1 - font table address
@@ -40,7 +40,7 @@ M_LSLD                 macro
 M_VS_ITOA              macro
   addb                 #16                  ; add 16, so ASCII code has 0 offset
   lslb                                      ; * 2 (address is 16bit)
-  ldx                  #\1                  ; and add the abc (table of vector list address of the ASCII chars) 
+  ldx                  #\1                  ; and add the abc (table of vector list address of the ASCII chars)
   ldx                  b,x                  ; load glyph vectorlist into X
   endm
 
@@ -84,7 +84,7 @@ M_IS_FILELIST          macro
 ;*******************************************************************************
 ; M_JSR_IH #[button_id]
 ;
-; Call input handler. 
+; Call input handler.
 ; IN:
 ;   1 - button ID
 ;   m_input_sr_ptr - pointer to input handler
@@ -161,7 +161,7 @@ M_NOP_8                macro
 ;*******************************************************************************
 ; M_DRAW_VLIST #[mode], #[draw_scale], #[move_scale]
 ;
-; Move beam to vector stored in D and draw vectorlist in X using Malban's 
+; Move beam to vector stored in D and draw vectorlist in X using Malban's
 ; optimized routines.
 ; IN:
 ;   1             - mode (2,3 or 4)
@@ -278,7 +278,7 @@ M_DIV_D_TO_B           macro
 ; IN:
 ;   A - scale
 ;*******************************************************************************
-M_SCALE_A              macro    
+M_SCALE_A              macro
   sta                  VIA_t1_cnt_lo        ; set move to time 1 lo (scaling)
   endm
 
@@ -290,22 +290,22 @@ M_SCALE_A              macro
 ;   A - intensity
 ; DESTROYS: D
 ;*******************************************************************************
-M_INTENSITY_A          macro    
-  sta                  <VIA_port_a          ; store intensity in D/A 
+M_INTENSITY_A          macro
+  sta                  <VIA_port_a          ; store intensity in D/A
   ldd                  #$0504               ; A = 0x05, B = 0x04
   sta                  <VIA_port_b          ; mux disabled channel 2
-  stb                  <VIA_port_b          ; mux enabled channel 2 
-  sta                  <VIA_port_b          ; turn off mux 
+  stb                  <VIA_port_b          ; mux enabled channel 2
+  sta                  <VIA_port_b          ; turn off mux
   endm
 
 ;*******************************************************************************
-; M_ZERO_VECTOR_BEAM 
+; M_ZERO_VECTOR_BEAM
 ;
 ; Move beam to 0,0.
 ; DESTROYS: B
-;******************************************************************************* 
-M_ZERO_VECTOR_BEAM     macro    
-  ldb                  #$CC                 ; 
+;*******************************************************************************
+M_ZERO_VECTOR_BEAM     macro
+  ldb                  #$CC                 ;
   stb                  VIA_cntl             ; ZERO = low, BLANK=low
   endm
 
@@ -317,16 +317,16 @@ M_ZERO_VECTOR_BEAM     macro
 ;   D - move vector
 ; DESTROYS: D
 ;*******************************************************************************
-M_MOVE_TO_D_START      macro  
+M_MOVE_TO_D_START      macro
   sta                  <VIA_port_a          ; VIA Y vector = A
   lda                  #$CE                 ; A = 0xCE: ZERO = high, BLANK=low
   sta                  <VIA_cntl            ; VIA control reg = A
   clra                                      ; A = 0
-  sta                  <VIA_port_b          ; enable mux 
-  sta                  <VIA_shift_reg       ; clear shift register 
-  inc                  <VIA_port_b          ; disable mux 
+  sta                  <VIA_port_b          ; enable mux
+  sta                  <VIA_shift_reg       ; clear shift register
+  inc                  <VIA_port_b          ; disable mux
   stb                  <VIA_port_a          ; VIA X vector = B
-  sta                  <VIA_t1_cnt_hi       ; enable timer 
+  sta                  <VIA_t1_cnt_hi       ; enable timer
   endm
 
 ;*******************************************************************************

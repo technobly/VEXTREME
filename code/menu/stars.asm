@@ -12,12 +12,12 @@ StarsInit
 stars_main_loop
   jsr                  Wait_Recal           ; Vectrex BIOS recalibration
   jsr                  Reset0Ref            ;
-  jsr                  Intensity_7F         ; set beam intensity 
+  jsr                  Intensity_7F         ; set beam intensity
   jsr                  Joy_Analog           ; read analog stick
   jsr                  dotsDraw             ; draw stars
   jsr                  dotsMove             ; move stars
   ; exit from loop and go to menu if user pressed button 1-4
-  jsr                  Read_Btns            ; 
+  jsr                  Read_Btns            ;
   anda                 #$0F                 ; ignore second joystick
   beq                  stars_main_loop      ; no button pressed, loop
 
@@ -63,7 +63,7 @@ dotsInitLp
 ;draw our stars
 dotsDraw
   jsr                  Reset0Ref            ; reset beam
-  jsr                  Intensity_7F         ; set beam intensity 
+  jsr                  Intensity_7F         ; set beam intensity
 
   ;init loop
   lda                  #STARS_NUMBER
@@ -98,16 +98,16 @@ dotDraw
   ; avoids a cluster of dots appearing at the center of the screen - adjust to taste
   lda                  m_dot_z
   cmpa                 #15
-  ble                  dotDrawExit  
+  ble                  dotDrawExit
   jsr                  Reset0Ref            ; goto 0,0
 
   ; set scale factor (this scales the coordinates, giving the appearance of 3D)
   lda                  m_dot_z
   sta                  VIA_t1_cnt_lo
 
-  ;set dot intensity - dots closer to the player (higher Z value) get brighter - adjust to taste 
+  ;set dot intensity - dots closer to the player (higher Z value) get brighter - adjust to taste
   lda                  m_dot_z
-  jsr                  Intensity_a          ; set beam intensity 
+  jsr                  Intensity_a          ; set beam intensity
 
   ;move to position
   lda                  m_dot_y              ; to 0 (y)
@@ -124,7 +124,7 @@ dotDrawExit
 ;*******************************************************************************
 dotsMove
   jsr                  Reset0Ref            ;
-  jsr                  Intensity_7F         ; set beam intensity 
+  jsr                  Intensity_7F         ; set beam intensity
   jsr                  dotsJoytoW2          ; get speed from joystick
 
   ; init loop

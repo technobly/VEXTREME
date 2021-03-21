@@ -28,8 +28,8 @@
 ; fcb                  W_NUM                <- number input marker
 ; fcb                  0                    <- minimal value
 ; fcb                  255                  <- maximum value
-; fdb                  pointer              <- pointer to the 8bit number in 
-;                                              RAM or ROM to be changed by 
+; fdb                  pointer              <- pointer to the 8bit number in
+;                                              RAM or ROM to be changed by
 ;                                              input widget
 ; fdb                  0                    <- pointer to the subroutine which will
 ;                                              be called after value was changed
@@ -110,10 +110,10 @@ ssl_mode
   fdb                  ssl_mode_stars
   fdb                  0
 
-ssl_mode_off       
+ssl_mode_off
   fcb                  "OFF", $80
 
-ssl_mode_stars         
+ssl_mode_stars
   fcb                  "STARS", $80
 
 ssl_delay
@@ -144,13 +144,13 @@ sll_mode
   fdb                  sll_mode_color
   fdb                  0
 
-sll_mode_off           
+sll_mode_off
   fcb                  "OFF", $80
 
-sll_mode_rainbow       
+sll_mode_rainbow
   fcb                  "RAINBOW", $80
 
-sll_mode_color         
+sll_mode_color
   fcb                  "COLOR", $80
 
 sll_luma

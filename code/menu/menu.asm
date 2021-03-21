@@ -31,7 +31,7 @@
 ; ASSEMBLY CONFIG SECTION
 ;***************************************************************************
 
-; If enabled, settings data will be placed into RAM, instead of ROM, it is 
+; If enabled, settings data will be placed into RAM, instead of ROM, it is
 ; useful for testing menu in emulators that doesn't allow to write data
 ; to ROM address space.
 SETTINGS_IN_RAM        equ    #0
@@ -39,9 +39,9 @@ SETTINGS_IN_RAM        equ    #0
 ; 1 - scrollbar animation enabled, 0 - disabled
 SCROLLBAR_ANIMATED     equ    #1
 
-; If not zero, the value at the specified address will be printed at the 
+; If not zero, the value at the specified address will be printed at the
 ; bottom of the screen. The value will be treated as unsigned 8bit number.
-; For instance: 
+; For instance:
 ;   DEBUG_VALUE            equ    m_repeat_counter
 DEBUG_VALUE            equ    #0
 
@@ -126,7 +126,7 @@ W_SELECT               equ    #$1F          ; control char for select input
 
 BTN_LEFT               equ    #5            ; constants for joystick direction
 BTN_RIGHT              equ    #6            ;
-BTN_BOTTOM             equ    #7            ; 
+BTN_BOTTOM             equ    #7            ;
 BTN_TOP                equ    #8            ;
 
 STARS_NUMBER           equ    #63           ; number of stars to be drawn in screensaver
@@ -243,7 +243,7 @@ main
 init_settings_in_ram
   lda                  #5                   ; | this section
   sta                  m_max_lines          ; | will be assembled
-  sta                  m_ss_delay           ; | 
+  sta                  m_ss_delay           ; |
   lda                  #8                   ; | only when SETTINGS_IN_RAM
   sta                  m_max_chars          ; | is set to 1
   lda                  #1                   ; |
@@ -285,7 +285,7 @@ init_joystick
   lda                  #3                   ; Vec_Joy_Mux_1_Y = 3
   sta                  Vec_Joy_Mux_1_Y      ; |
   ; 0 disables Joy 2 X & Y, saves a few hundred cycles
-  lda                  #0                   ; 
+  lda                  #0                   ;
   sta                  Vec_Joy_Mux_2_X      ; Vec_Joy_Mux_2_X = 0
   sta                  Vec_Joy_Mux_2_Y      ; Vec_Joy_Mux_2_Y = 0
 
@@ -314,7 +314,7 @@ check_dev_mode
 
 
 ;*******************************************************************************
-; HIGHTSCORE SAVE
+; HIGHSCORE SAVE
 ;*******************************************************************************
 
 check_hs_clear
@@ -355,7 +355,7 @@ hs_return
   sta                  HIGHSCORE_WF_ADDR    ; |
 
 hs_exit
-; END OF HIGHTSCORE SAVE
+; END OF HIGHSCORE SAVE
 
 
 
@@ -476,13 +476,13 @@ menu_loop
 item_anim_visibility
   lda                  m_list_anim_dir      ; if list_anim_dir == 0
   beq                  cursor_begin         ; | skip animation and dim item
-  lda                  m_curpos             ; if curpos == 0 
+  lda                  m_curpos             ; if curpos == 0
   beq                  item_fade_in         ; | do fade in animation
   cmpa                 m_max_lines          ; if curpos == max_lines
   beq                  item_fade_out        ; | do fade out animation
   bra                  cursor_begin         ; skip fade animation
 
-; if animation direction is negative, 'fade in' becomes 'fade out' 
+; if animation direction is negative, 'fade in' becomes 'fade out'
 item_fade_in
   lda                  m_list_anim_step     ; A = list_anim_step * 8
   lsla                                      ; |
@@ -553,7 +553,7 @@ item_position
   exg                  a, b                 ; |
   adda                 m_list_pos_y         ; A(Y axis) += list_pos_y
   ldb                  m_list_anim_dir      ; if list_anim_dir != 0
-  bne                  item_animate_y_pos   ; | 
+  bne                  item_animate_y_pos   ; |
   suba                 #24                  ; shift item downward if not scrolling
 
 item_draw
@@ -608,7 +608,7 @@ scrollbar_begin
   lda                  #SCROLLBAR_POS_Y     ; D = SCROLLBAR_POS
   ldb                  #SCROLLBAR_POS_X     ; |
 
-scrollbar_draw_track     
+scrollbar_draw_track
   M_MOVE_TO_D_NT                            ; MOVE(D)
   lda                  #SCROLLBAR_TRACK_I   ; INTENSITY(SCROLLBAR_TRACK_I)
   M_INTENSITY_A                             ; |
@@ -730,11 +730,11 @@ prev_page
   ble                  prev_page_zero       ; | skip prev_page
   subb                 #1                   ; B = page - 1
   jsr                  CalcScrollOffset     ; B = CalcScrollOffset(B)
-  IF                   SCROLLBAR_ANIMATED   ; 
+  IF                   SCROLLBAR_ANIMATED   ;
   stb                  m_sbt_offset_next    ; sbt_offset_next = B
-  ELSE                                      ; 
+  ELSE                                      ;
   stb                  m_sbt_offset         ; sbt_offset = B
-  ENDIF                                     ; 
+  ENDIF                                     ;
   lda                  #0                   ; list_anim_step = 0
   sta                  m_list_anim_step     ; |
   sta                  m_cursor             ; cursor = 0
@@ -749,8 +749,8 @@ prev_page_zero
   lda                  #0                   ; curosr = 0 (stay at first line while holding joystick)
 
 prev_page_done
-  sta                  m_cursor             ; 
-  bra                  handle_y_end         ; 
+  sta                  m_cursor             ;
+  bra                  handle_y_end         ;
 
 next_page
   ldb                  m_page               ; if page + cursor >= list_size
@@ -762,7 +762,7 @@ next_page
   jsr                  CalcScrollOffset     ; B = CalcScrollOffset(B)
   IF                   SCROLLBAR_ANIMATED   ; conditional assembly
   stb                  m_sbt_offset_next    ; sbt_offset_next = B
-  ELSE                                      ; 
+  ELSE                                      ;
   stb                  m_sbt_offset         ; sbt_offset = B
   ENDIF                                     ; end of conditional assembly
   lda                  #8                   ; list_anim_step = 8
@@ -1262,7 +1262,7 @@ handlepage
   blt                  >                    ; page = 0, done
   sta                  m_page               ; page = a (decrease page)
   bra                  xmovedone            ; done
-! clr                  m_page               ; 
+! clr                  m_page               ;
   bra                  xmovedone
 xneg
   lda                  m_page               ; a = page
@@ -1271,7 +1271,7 @@ xneg
   bge                  xmovedone            ; done
   bra                  donextpage           ; else (increase page)
 
-donextpage          
+donextpage
   lda                  m_max_lines          ;
   adda                 m_page               ;
   sta                  m_page               ;
@@ -1312,7 +1312,7 @@ init_page2
   clr                  m_list_anim_step     ; |
   clr                  m_cursor             ; |
   clr                  m_list_size          ; |
-  
+
   ldu                  m_list_ptr           ; U = list_ptr
   ; calc list Y pos
   lda                  m_max_lines          ; list_pos_y = (max_lines * 10) + 18
@@ -1353,7 +1353,7 @@ calc_thumb_height
   cmpb                 m_max_lines          ; if list_size < max_lines
   bgt                  more_than_one_page   ; | go to scrollbar calculation
   rts                                       ; | else done
-                                            
+
 more_than_one_page
   M_LSLD                                    ; list_size * 16
   M_LSLD                                    ; |
@@ -1393,9 +1393,9 @@ more_than_one_page
 ;***************************************************************************
 ; CODE SECTION
 ;***************************************************************************
-  include  "draw.asm"  
-  include  "list.asm"  
-  include  "stars.asm"  
+  include  "draw.asm"
+  include  "list.asm"
+  include  "stars.asm"
 ;***************************************************************************
 ; DATA SECTION
 ;***************************************************************************
@@ -1427,7 +1427,7 @@ vextreme_tune1
   fcb                  CS5,8
   fcb                  FS5,8
   fcb                  RST,8
-  fcb                  0,$80                ; $80 is end marker for music, frequency is not played so 0
+  fcb                  0,$80 ; $80 is end marker for music, frequency is not played so 0
 
 
 ; STAR SCREENSAVER DATA
@@ -1522,97 +1522,97 @@ filedata
 
 text0
   fcb                  "<CART 1>",$80
-  
+
 text1
   fcb                  "CART 2",$80
-  
+
 text2
   fcb                  "CART 3",$80
-  
+
 text3
   fcb                  "CART 4",$80
-  
+
 text4
   fcb                  "DE VIERDE UNIT",$80
-  
+
 text5
   fcb                  "EENTJE MET EEN LANGE NAAM DUS",$80
-  
+
 text6
   fcb                  "BEN IK HET AL ZAT?",$80
-  
+
 text7
   fcb                  "LALALA",$80
-  
+
 text8
   fcb                  "OMGWTFBB",$80
-  
+
 text9
   fcb                  "GNORK",$80
-  
+
 text10
   fcb                  "EENTJE MET EEN LANGE NAAM DUS",$80
-  
+
 text11
   fcb                  "BEN IK HET AL ZAT?",$80
-  
+
 text12
   fcb                  "LALALA OMG",$80
-  
+
 text13
   fcb                  "OMGWTFBBQ",$80
-  
+
 text14
   fcb                  "GNORK OMGWTFBBQ",$80
-  
+
 text15
   fcb                  "GNORK2 OMGWTFBBQ",$80
-  
+
 text16
   fcb                  "GNORK3 OMGWTFBBQ",$80
-  
+
 text17
   fcb                  "GNORK4 OMGWTFBBQ",$80
-  
+
 text18
   fcb                  "OMGWTFBBQ",$80
-  
+
 text19
   fcb                  "GNORK",$80
-  
+
 font1
   fcb                  "! \"#$%&",$80
-  
+
 font2
   fcb                  "`()*+,-./",$80
-  
+
 font3
   fcb                  "0123456789",$80
-  
+
 font4
   fcb                  ":;<=>?@",$80
-  
+
 font5
   fcb                  "ABCDEFGH",$80
-  
+
 font6
   fcb                  "IJKLMNOP",$80
-  
+
 font7
   fcb                  "QRSTUVW",$80
-  
+
 font8
   fcb                  "YZ[\]^_",$80
-  
+
 font9
   fcb                  "abcdefgh",$80
-  
+
 font10
   fcb                  "ijklmnop",$80
-  
+
 font11
   fcb                  "qrstuvw",$80
-  
+
 font12
   fcb                  "xyz{|}~",$80
-  
+

@@ -26,7 +26,7 @@
 ;   m_tmp_d
 ;   m_tmp_a
 ;*******************************************************************************
-CalcScrollOffset 
+CalcScrollOffset
   lda                  #0                   ; A = 0
   std                  m_tmp_d              ; tmp_d = D (page)
   sta                  m_tmp_a              ; tmp_a = A (0)
@@ -164,7 +164,7 @@ DrawListItem
   subb                 #20                  ; B -= 24 (X axis)
   std                  m_move_vector        ; move_vector = D
 
-draw_next_char 
+draw_next_char
   lda                  #MOVE_SCALE          ; A = MOVE_SCALE
   M_SCALE_A                                 ; SCALE(A)
   ldd                  m_move_vector        ; D = move_vector
@@ -220,7 +220,7 @@ is_not_folder
   stu                  m_input_arg_ptr      ; U = pointer to the start of args sequence
   ldd                  #input_num_bh        ; D = address of num button handler
   std                  m_input_sr_ptr       ; input_sr_ptr = D
-  
+
 input_num_draw_done
   rts                                       ; exit
 
@@ -255,7 +255,7 @@ input_num_bh_store
   ELSE                                      ; STORE IN ROM
   stb                  m_tmp_b              ; | load value into m_tmp_b for M_JSR_RPC_STR
   tfr                  y, d                 ; | load address of value in ROM to D for M_JSR_RPC_STR
-  M_JSR_RPC_STR        m_tmp_b              ; | call storeToRom(), store m_tmp_b in 
+  M_JSR_RPC_STR        m_tmp_b              ; | call storeToRom(), store m_tmp_b in
   ENDIF                                     ;
   ; call external handler if it's not zero
   ldy                  m_input_arg_ptr      ; Y = pointer to input argument
@@ -389,7 +389,7 @@ input_select_bh_dec
   cmpb                 #0                   ; if B(value) <= min
   bls                  input_select_bh_str  ; | done, print option string
   subb                 #1                   ; B -= 1 (decrease option index)
-  
+
 input_select_bh_str
   IF                   SETTINGS_IN_RAM      ; STORE IN RAM
   stb                  ,x                   ; store value at X(pointer to input value in RAM)
@@ -408,7 +408,7 @@ is_not_input
 
 is_not_lower
   CMPB                 # '~'+1              ; if B(char) < tilda
-  blt                  draw_actual_char     ; | draw 
+  blt                  draw_actual_char     ; | draw
   bra                  draw_not_supported   ; draw placeholder for unsupported char
 
 draw_not_supported
@@ -422,14 +422,14 @@ draw_actual_char
   ldx                  #HSFNT               ; X = pointer to the start of the ASCII font table
   LDX                  d,x                  ; X = X[B] (glyph vectorlist)
 
-cont_vp2 
+cont_vp2
   lda                  #16                  ; A = 16 (draw scale)
   M_SCALE_A                                 ; SCALE(A)
   M_MOVE_END                                ; end moveto
   pshs                 u                    ; save U register
   jsr                  myDraw_VL_mode2      ; draw using mode2, scale 16
   puls                 u                    ; restore U register
-  M_ZERO_VECTOR_BEAM                         ; draw each letter with a move from zero, more stable 
+  M_ZERO_VECTOR_BEAM                         ; draw each letter with a move from zero, more stable
   lda                  m_tmp_a              ; if tmp_a == 0 (is not a folder)
   beq                  cont_vp2_not_folder  ; | skip following 3 lines
   ldb                  ,u                   ; else

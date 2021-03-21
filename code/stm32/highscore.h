@@ -6,26 +6,26 @@
 
 // Constants
 #define MAX_GAME_NAME_SIZE	(40 + 1) // Max of 40 ASCII characters + NULL
-#define MAX_GAME_SCORE_SIZE     (6 + 1)  // Max of 6 ASCII characters + NULL
+#define MAX_GAME_SCORE_SIZE (6 + 1)  // Max of 6 ASCII characters + NULL
 
 typedef enum
 {
-    HIGH_SCORE_SUCCESS = 0,
-    HIGH_SCORE_FILE_OPEN_FAIL = 1,
-    HIGH_SCORE_GAME_NOT_FOUND = 2,
-    HIGH_SCORE_GAME_NAME_TOO_LONG = 3,
-    UNUSED1 = 4,
-    HIGH_SCORE_GAME_NAME_SIZE_ZERO = 5,
+    HIGH_SCORE_SUCCESS               = 0,
+    HIGH_SCORE_FILE_OPEN_FAIL        = 1,
+    HIGH_SCORE_GAME_NOT_FOUND        = 2,
+    HIGH_SCORE_GAME_NAME_TOO_LONG    = 3,
+    UNUSED1                          = 4,
+    HIGH_SCORE_GAME_NAME_SIZE_ZERO   = 5,
     HIGH_SCORE_GAME_NAME_INVALID_PTR = 6,
-    UNUSED2 = 5,
-    HIGH_SCORE_WRITE_FAIL = 7,
-    HIGH_SCORE_INVALID_NAME = 8,
-    HIGH_SCORE_FAIL    = 0xFFFFFFFF // 32-bit -1
+    UNUSED2                          = 5,
+    HIGH_SCORE_WRITE_FAIL            = 7,
+    HIGH_SCORE_INVALID_NAME          = 8,
+    HIGH_SCORE_FAIL                  = 0xFFFFFFFF // 32-bit -1
 } HighScoreRetVal;
 
 typedef enum
 {
-    HIGH_SCORES_EQUAL = 6,
+    HIGH_SCORES_EQUAL       = 6,
     HIGH_SCORE1_LESS_SCORE2 = 7,
     HIGH_SCORE2_LESS_SCORE1 = 8
 } HighScoreCompare;
