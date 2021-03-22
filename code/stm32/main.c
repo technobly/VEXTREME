@@ -54,24 +54,24 @@ extern GameFileRecord* pActiveGameData;
 extern char menu_start;
 extern char menu_end;
 
-#define MENU_DATA_ADDR      0x4000                               // fixed location in menu.bin
-#define MENU_DATA_SIZE      0x200                                  // size allocated for menu data
-#define MENU_SYS_ADDR           (MENU_DATA_ADDR - 0x20)  // 32 bytes reserved for system data (0x3BF0)
-#define MENU_MEM_ADDR           (MENU_SYS_ADDR - 0x400) //  1k bytes reserved for settings data (0x3BC0)
-#define PARM_RAM_ADDR           0x7f00
-#define PARM_RAM_SIZE           0xfe
+#define MENU_DATA_ADDR  (0x4000)                // fixed location in menu.bin
+#define MENU_DATA_SIZE  (0x200)                 // size allocated for menu data
+#define MENU_SYS_ADDR   (MENU_DATA_ADDR - 0x20) // 32 bytes reserved for system data (0x3BF0)
+#define MENU_MEM_ADDR   (MENU_SYS_ADDR - 0x400) //  1k bytes reserved for settings data (0x3BC0)
+#define PARM_RAM_ADDR   (0x7f00)
+#define PARM_RAM_SIZE   (0xfe)
 
-//Memory for the menu ROM and the running cartridge.
-//We keep both in memory so we can quickly exchange them when a reset has been detected.
-char menuData[20*1024];                // 16KB for menu ROM, 4KB for menu data
+// Memory for the menu ROM and the running cartridge.
+// We keep both in memory so we can quickly exchange them when a reset has been detected.
+char menuData[20*1024]; // 16KB for menu ROM, 4KB for menu data
 char* romData = menuData;
 unsigned char parmRam[256];
 
 char menuDir[_MAX_LFN + 1];
 static bool isItemAFile = false; // Default to being a directory and not a file
 
-static SettingsRecord settings          = {0};
-static bool                     settingsReady = false;
+static SettingsRecord settings = {0};
+static bool settingsReady = false;
 
 union cart_and_listing {
     dir_listing listing;
@@ -97,12 +97,12 @@ led - PB0
 USBPWR - PA9
 */
 
-#define SYSCFG_MEMRMP           MMIO32(SYSCFG_BASE + 0x00)
+#define SYSCFG_MEMRMP MMIO32(SYSCFG_BASE + 0x00)
 
 // Local functions
 static void doStartRom(void);
 
-void uart_output_func(unsigned char c){
+void uart_output_func(unsigned char c) {
     uint32_t reg;
     do {
         reg = USART_SR(USART1);
@@ -144,7 +144,7 @@ void applyLedSettings(bool initial) {
     }
 }
 
-// Asm function
+// ASM function
 extern void romemu(void);
 
 // Load a ROM into cartridge memory
