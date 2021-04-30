@@ -235,10 +235,10 @@ waitdataloop:
     strb  r5,[r7, r0]
 
     writecart:
-    lsr   r9,r0,#8              // See if it is a write to 2000 - 27ff
+    lsr   r9,r0,#8              // See if it is a write to 2000 - 27ff (really up to 76ff)
     cmp   r9,#0x20              // | TODO: Make this range two variables
     blo   wrdone                // below the range we want, bail
-    cmp   r9,#0x27              // |
+    cmp   r9,#0x7f              // |
     bhi   wrdone                // above the range we want, bail
 
     ldr   r9,=cartData          // Write to cartData[r0] = r5
