@@ -30,3 +30,100 @@ VEXTREME Vectrex Multicart Credits
 - [Brett Walach](https://github.com/technobly) - minor hardware updates
 - [Vasily Kiniv](https://github.com/v-kiniv) - vector font menu redesign, settings and screensaver features
 
+# DEMOS / GAMES / GCE / LED / MUSIC / TOOLS / XMAS
+
+HUGE THANK YOU TO EVERYONE THAT HAS GIVEN PERMISSION TO INCLUDE GAMES ON VEXTREME!!!
+
+```
+- GCE / MB / Jay Smith
+- Brett Walach
+- Chris BinaryStar
+- Chris Parsons
+- Clay Cowgill
+- Graham Toal
+- James Watt
+- John Dondzilla
+- John Reder
+- Malban
+- Michael Simmonds
+- Nathan Hulett
+- Ollie
+- Ralf Kornmann
+- Rob Mitchell
+- Ville Krumlinde
+
+Vectrex Academy
+   ├── 2016
+   │   ├── Absorbtex by Ana Bressel
+   │   ├── Artillery Strike by Jan Langer
+   │   ├── Bacteria by Matthias Bach
+   │   ├── BaseLoot by Jan Hoffmann
+   │   ├── Blox Breaker by Matthias Tiran
+   │   ├── Brick Crusher by Tugce Ünsal, Ersin Dogan
+   │   ├── Headless Runner by Timo Barth
+   │   ├── Hextrex by Michael Tiran
+   │   ├── Hungry Python by Maximilian Schiller
+   │   ├── Hurdles by Marcel Krause
+   │   ├── Laser Wars by Florian Krause
+   │   ├── Last Battle by Jonas Krause
+   │   ├── Robhop by Miss Lissi
+   │   ├── Space Assault by Fabian Pfeifroth
+   │   ├── Space Attack by Abdalla Ifen
+   │   ├── Spikes by Emanuel Blindow
+   │   ├── The Snake by Matthias Schneider
+   │   └── Traffic Race by Dominic
+   ├── 2017
+   │   ├── Block Bomb by Marvin Berstecher
+   │   ├── Curling by Manuel Rettig
+   │   ├── Doodle Jump by Robin Schelling
+   │   ├── Eating Fish by KiriCreamCheese
+   │   ├── Hover Race by Simeon Schüller
+   │   ├── Kingdom Of Heaven by Jan David Kurfiß
+   │   ├── Knight Rider by Blondie
+   │   ├── Lost Souls by Gunterson
+   │   ├── Pac Men by Manuel Debic
+   │   ├── Pipe Race by Ralph Gerath
+   │   ├── Shark Attack by by Maximilian Kellner
+   │   ├── Space Ball by Tim Stiesch
+   │   ├── Space Patrol by Andreas Barth
+   │   ├── Spaceship Centauri by Christoph Bechtle
+   │   ├── Star Fuel by Andreas Bauer
+   │   └── Star War by Marco Schewa
+   ├── 2018
+   │   ├── Asteroid Cowboy by A.B.
+   │   ├── Asteroids by L.D.
+   │   ├── Floor is lava by Volcanus
+   │   ├── Keyboard Hero by W.L.
+   │   ├── Portal Fight by J3W3L5
+   │   ├── Pyoro-Chan by Swagger
+   │   ├── Split Personality by M.S.
+   │   ├── Thirsty Astronaut by Firemedic
+   │   ├── Treasure Diver by Falrahch
+   │   ├── Yarg! (no Overlay) by Germanke
+   │   └── Yarg! by Germanke
+   ├── 2019
+   │   ├── Blox by Whitehat
+   │   ├── Castle Defender by Jumpman
+   │   ├── Castle vs Castle by Hydrochous
+   │   ├── Daisy Land by Princess Daisy
+   │   ├── Dino Runner by Hoid
+   │   ├── Donkey Kong by Lionpride
+   │   ├── Dont fall by Mr. Chomp
+   │   ├── Fencing Simulator by Alberich
+   │   ├── Hole-Run Speedy G.
+   │   ├── Moon Shot by SchellLabs
+   │   ├── Pirates by G. Freeman
+   │   ├── Space Defender by KusoTech
+   │   ├── Unknown by M4K5
+   │   ├── Vec Man by Master Control
+   │   └── Vectroid by NATE 66
+   └─── 2020
+       ├── Climb It by Chris++
+       ├── Crash Trexicoot by LiKa
+       ├── Maze Of Treasures by Sgt. Pepper
+       ├── Number Cruncher by Peer Johannsen Alpha 0.1
+       ├── Rotor by Peer Johannsen Beta RC 1.0
+       ├── Rotor by Peer Johannsen Beta RC 1.1
+       ├── Rush Defense by Compile
+       └── Silver Surfer by Hassel
+```

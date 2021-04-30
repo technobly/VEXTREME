@@ -17,7 +17,7 @@ NOC="\033[0m"
 STM32_DIR=../stm32
 MENU_DIR=../menu
 RELEASE_DIR=../releases
-SOURCE_RELEASE=v0.23
+SOURCE_RELEASE=MAIN
 SOURCE_RELEASE_URL=https://github.com/technobly/VEXTREME/releases/download/v0.23/VEXTREME-v0.23.zip
 : ${USE_SW:?"REQUIRED! Usage: USE_VER=v0.24 ./release.sh"}
 
