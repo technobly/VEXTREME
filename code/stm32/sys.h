@@ -25,7 +25,7 @@ typedef struct {
     uint8_t  rgb_type; // RGB_TYPE
     uint8_t  usb_dev; // USB_DEV
     uint8_t  reserved[128-10];
-} system_options;
+} __attribute__((packed)) system_options;
 static_assert(sizeof(system_options)==128, "system_options should be 128 bytes, check the reserved field.");
 
 #endif

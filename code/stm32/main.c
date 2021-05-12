@@ -32,6 +32,9 @@
 #include <libopencm3/stm32/pwr.h>
 #include <libopencm3/stm32/flash.h>
 #include <libopencm3/cm3/dwt.h>
+
+#include <libopencm3/stm32/crc.h>
+
 #include <stdlib.h>
 #include <string.h>
 
@@ -50,7 +53,7 @@
 #include "fatfs/ff.h"
 
 // Externs
-extern GameFileRecord* pActiveGameData;
+extern GameFileRecordV1* pActiveGameData;
 extern char menu_start;
 extern char menu_end;
 
@@ -164,6 +167,7 @@ void loadRomWithHighScore(char *fn, bool load_hs_mode, bool use_embedded_menu) {
     FRESULT fr = FR_NO_FILE; // assume no file, so we can test if we ever opened the file later
     unsigned int bytesRead = 0;
     int romDataSize = 0;
+    uint32_t crcvx = 0xFFFFFFFF;
     if (romData == c_and_l.cartData) {
         // loaded cart data
         romDataSize = sizeof(c_and_l.cartData);
@@ -176,14 +180,51 @@ void loadRomWithHighScore(char *fn, bool load_hs_mode, bool use_embedded_menu) {
         memcpy(menuData, &menu_start, &menu_end - &menu_start);
         xprintf("OK!\n");
     } else {
+        memset(romData, 0, romDataSize);
         fr = f_open(&f, fn, FA_READ);
         if (fr) {
             xprintf("Error opening file: %d\n", fr);
-        } else {
-            xprintf("Opened file: %s\n", fn);
+            return;
         }
+        xprintf("Opened file: %s\n", fn);
         f_read(&f, romData, 64*1024, &bytesRead);
         xprintf("Read %d bytes of rom data.\n", bytesRead);
+
+        // Check for cart options to enable for this ROM
+        char filename_ini[_MAX_LFN];
+        strncpy(filename_ini, fn, sizeof(filename_ini)-5);
+        // replace extension with .ini
+        const char* extList[2] = { ".bin", ".vec" };
+        (void)checkExtension(filename_ini, extList, 2, true); // check and modify
+        strcat(filename_ini, ".ini");
+        // xprintf("Checking for cart options: %s\n", filename_ini);
+        CartOptionsRetVal cRet = cartOptionsGet(filename_ini, &cart_opt);
+        // xprintf("CartOptionsRetVal: %d\n", cRet);
+        if (cRet != CART_OPTIONS_SUCCESS || cart_opt.size != sizeof(cart_options) || cart_opt.ver != CART_OPTIONS_VERSION) {
+            // No setttings found, make sure we have reset the cart options!
+            memset(&cart_opt, 0, sizeof(cart_opt));
+        }
+        // cart_opt.size = sizeof(cart_options);
+        // cart_opt.ver = 1;
+        // cart_opt.ram_flags      = RAM_ENABLED;
+        // cart_opt.ram_start_addr = 0x20; // RAM starts at 0x2000
+        // cart_opt.ram_end_addr   = 0x27; // RAM ends at 0x27ff
+        xprintf("cart options: size:%d,ver:%02x,flags:%02x,start:%02x,end:%02x\n",
+            cart_opt.size, cart_opt.ver, cart_opt.ram_flags, cart_opt.ram_start_addr, cart_opt.ram_end_addr);
+
+        // CRCVX is CRC32-MPEG2 with 0 byte padding up to even 32-bit boundaries
+        // I.e. If the file ends on an odd non-divisible-by-4 boundary, the file gets padded with 0's until it is.
+        // The = in the <= bytesRead/4 below, and the fact that we memset 0 all 64K of RAM before reading in the file,
+        // ensures that we pad the last 32-bit value if necessary.
+        crc_reset(); // resets the initial CRC value to 0xFFFFFFFF
+        for (uint32_t i = 0; i <= bytesRead/4; i++) {
+            // &romData[i*4] is the address of each 32-bit value
+            // MMIO32() dereferences the pointer to a 32-bit value
+            // __builtin_bswap32() swaps the endianness of the 32-bit value, since CRC32-MPEG2 works as big-endian, and STM32 is little-endian
+            CRC_DR = __builtin_bswap32(MMIO32(&romData[i*4]));
+        }
+        xprintf("CRCVX: %08x\n", CRC_DR);
+        crcvx = CRC_DR;
     }
 
     // It's a game
@@ -222,13 +263,13 @@ void loadRomWithHighScore(char *fn, bool load_hs_mode, bool use_embedded_menu) {
             // the active game high score record.  If the game doesn't exist,
             // then setup record to default values for high score and add the name.
             // A NULL as the second param will use the default active pointer.
-            HighScoreRetVal hs_ret_val = highScoreGet((const unsigned char *)&romData[0x11], NULL);
+            HighScoreRetVal hs_ret_val = highScoreGet((const unsigned char *)&romData[0x11], crcvx, NULL);
             if (hs_ret_val != HIGH_SCORE_SUCCESS) {
-                xprintf("highScoreGet failure: %d, creating default high score for: %s\n", hs_ret_val, fn);
+                // xprintf("highScoreGet failure: %d, creating default high score for: %s\n", hs_ret_val, fn);
                 // Set the active game record to defaults and change name to the current
                 // game we are loading. This will prepare it to be stored once we
                 // acquire a new high score from the game ROM running.
-                hs_ret_val = highScoreSetGameRecordToDefaults((const unsigned char *)&romData[0x11], NULL);
+                hs_ret_val = highScoreSetGameRecordToDefaults((const unsigned char *)&romData[0x11], crcvx, NULL);
                 if (hs_ret_val != HIGH_SCORE_SUCCESS) {
                     xprintf("highScoreSetGameRecordToDefaults failure: %d\n", hs_ret_val);
                 }
@@ -252,7 +293,7 @@ void loadRomWithHighScore(char *fn, bool load_hs_mode, bool use_embedded_menu) {
             romData = menuData;
         } // end if (load_hs_mode)
     }
-    // It's the menu, patch in the HW/SW versions
+    // If it's the menu, patch in the HW/SW versions
     else {
         char* ptr1 = strstr(menuData, "11");
         char* ptr2 = strstr(menuData, "22");
@@ -693,6 +734,7 @@ int main(void) {
     rcc_periph_clock_enable(RCC_GPIOC);
     rcc_periph_clock_enable(RCC_USART1);
     rcc_periph_clock_enable(RCC_SYSCFG);
+    rcc_periph_clock_enable(RCC_CRC);
 
     //Addressable LEDs - output
     gpio_mode_setup(GPIOB, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO13 | GPIO14);
@@ -741,7 +783,7 @@ int main(void) {
 #endif
 
     // TODO: load new options from VEXTREME/options.txt in key=val format
-    sys_opt.size = sizeof(sys_opt);
+    sys_opt.size = sizeof(system_options);
     sys_opt.ver = 1;
 // #if (HW_VER == 1)
 //  sys_opt.hw_ver = 0x000A; // v0.10
@@ -752,8 +794,11 @@ int main(void) {
 // #endif
     // For now, this is hard coded to determine LED operation, nothing more.
     // TODO: uncomment above for system hw_ver, and add .led_hw_ver for LED initialization.
-    sys_opt.hw_ver = 0x0014; // v0.20
-    sys_opt.sw_ver = 0x0028; // v0.40
+    // sys_opt.hw_ver = 0x0014; // v0.20
+    // sys_opt.hw_ver = 0x001e; // v0.30
+    sys_opt.hw_ver = 0x0028; // v0.40
+    sys_opt.sw_ver = 0x0029; // v0.41
+    // sys_opt.rgb_type = RGB_TYPE_4;
     sys_opt.rgb_type = RGB_TYPE_10;
     sys_opt.usb_dev = USB_DEV_DISABLED;
 
@@ -840,9 +885,11 @@ int main(void) {
 
     // Create/Open highscore file
     // Ignore return value for now
+    xprintf("Open high score file\n");
     (void) highScoreOpenFile();
 
     // Create/Open settings file, and load settings
+    xprintf("Open settings file\n");
     bool settingsExists = settingsFileExists();
     (void) settingsOpenFile();
     if (!settingsExists) {
@@ -891,7 +938,9 @@ int main(void) {
 
     // Load the Menu
     romData=menuData; // Explicitly setting this here so we know WTF is going on in the background
+    xprintf("Load menu\n");
     loadMenu();
+    xprintf("Load listing\n");
     loadListing(menuDir, &c_and_l.listing, MENU_DATA_ADDR,
                 MENU_DATA_ADDR + MENU_DATA_SIZE, romData);
     sys_opt.usb_dev = USB_DEV_DISABLED;

@@ -5,8 +5,10 @@
 #include "fatfs/ff.h"
 
 // Constants
-#define MAX_GAME_NAME_SIZE	(40 + 1) // Max of 40 ASCII characters + NULL
-#define MAX_GAME_SCORE_SIZE (6 + 1)  // Max of 6 ASCII characters + NULL
+#define MAX_GAME_NAME_SIZE_V0   (40 + 1)        // Max of 40 ASCII characters + NULL
+#define MAX_GAME_NAME_SIZE_V1   (100 + 1)       // Max of 100 ASCII characters + NULL
+#define MAX_GAME_SCORE_SIZE     (6 + 1)         // Max of 6 ASCII characters + NULL
+#define GAME_RECORD_V1          (0xcafebeef)    // special identifier for v1
 
 typedef enum
 {
@@ -32,12 +34,23 @@ typedef enum
 
 // Sructures
 
-// A fame file record is exactly 48 bytes
+// A high score file record is exactly 41 + 7 bytes
+// GAME_RECORD_VERSION_0
 typedef struct
 {
-    unsigned char name[MAX_GAME_NAME_SIZE];  // NULL terminated name string
+    unsigned char name[MAX_GAME_NAME_SIZE_V0];  // NULL terminated name string
     unsigned char maxScore[MAX_GAME_SCORE_SIZE]; // NULL terminated high score string
-} __attribute__((packed))GameFileRecord;
+} __attribute__((packed))GameFileRecordV0;
+
+// A high score file record is exactly 1 + 101 + 7 + 4 bytes
+// GAME_RECORD_VERSION_1
+typedef struct
+{
+    unsigned char maxScore[MAX_GAME_SCORE_SIZE]; // NULL terminated high score string
+    unsigned char name[MAX_GAME_NAME_SIZE_V1];  // NULL terminated name string
+    uint32_t ver; // high score record version number
+    uint32_t crc; // CRCVX (CRC32-MPEG2 padded with 0's to even 32-bit boundaries)
+} __attribute__((packed))GameFileRecordV1;
 
 
 // The format of the highscore file will be:
@@ -48,10 +61,11 @@ typedef struct
 
 // Prototypes
 FRESULT highScoreOpenFile(void);
-HighScoreRetVal highScoreGet(const unsigned char * pGame, GameFileRecord * pGameRecord);
-HighScoreRetVal highScoreSetGameRecordToDefaults(const unsigned char * pGame, GameFileRecord * pGameRecord);
+bool highScoreCompareName(const unsigned char* gameHeader, const unsigned char* savedHeader, const int gameNameSize);
+HighScoreRetVal highScoreGet(const unsigned char* pGame, const uint32_t crcvx, GameFileRecordV1* pGameRecord);
+HighScoreRetVal highScoreSetGameRecordToDefaults(const unsigned char* pGame, const uint32_t crcvx, GameFileRecordV1* pGameRecord);
 void highScoreSave(unsigned char * pScore);
-HighScoreCompare highScoreCompare(const unsigned char * pScore1, const unsigned char * pScore2);
-HighScoreRetVal highScoreStore(GameFileRecord * pGameRecord);
+HighScoreCompare highScoreCompare(const unsigned char* pScore1, const unsigned char* pScore2);
+HighScoreRetVal highScoreStore(GameFileRecordV1* pGameRecord);
 #endif // HIGHSCORE_H
 

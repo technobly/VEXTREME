@@ -45,13 +45,13 @@ static FIL fileHighScore;   // Highscore file pointer
 static FRESULT fResult;     // Highscore file return results
 
 // Local variables
-static GameFileRecord activeGameData;
+static GameFileRecordV1 activeGameData;
 
 // Global variables
-GameFileRecord * pActiveGameData = &activeGameData;
+GameFileRecordV1* pActiveGameData = &activeGameData;
 
 // Local functions
-static int highScoreGetFileNameSize(const unsigned char * pString);
+static int highScoreGetFileNameSize(const unsigned char* pString);
 
 /**
  * Open High score file locted on flash file system.  If it doesn't exist
@@ -59,17 +59,39 @@ static int highScoreGetFileNameSize(const unsigned char * pString);
  */
 FRESULT highScoreOpenFile(void)
 {
-    fResult = f_open(&fileHighScore, "/hs.bin", FA_OPEN_ALWAYS | FA_READ | FA_WRITE);
+    fResult = f_open(&fileHighScore, "/hs1.bin", FA_OPEN_ALWAYS | FA_READ | FA_WRITE);
 
     return fResult;
 }
 
 /**
- * Search for the game by name in the highscore file, and if it exists,
+ * Compare loaded game header with saved game header.
+ *
+ * @param[in] - gameHeader - Points to loaded game header
+ * @param[in] - savedHeader - Points to saved game header
+ * @param[in] - gameNameSize - Size of loaded game header
+ *
+ * @return - Return true if matches, or false if doesn't match.
+ */
+bool highScoreCompareName(const unsigned char* gameHeader, const unsigned char* savedHeader, const int gameNameSize) {
+    for (int count = 0; (count < MAX_GAME_NAME_SIZE_V1) && (count < gameNameSize); count++)
+    {
+        // When comparing a name from header, prevent position of 0x00 from acting as a null terminator later by
+        // replacing with 0x81 which is an unlikely position.  Maybe we want to convert this back form 0x81 to 0x00 in the future
+        if (savedHeader[count] != ((gameHeader[count] != 0x00) ? gameHeader[count] : 0x81)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+/**
+ * Search for the game by name & CRCVX in the highscore file, and if it exists,
  * read the game record associated with the name and store it in the
  * location pointed to by the second parameter (pGameRecord).
  *
  * @param[in] - pGameName - Points to a 0x80 terminated game name
+ * @param[in] - crcvx - CRCVX 32-bit checksum of the loaded rom
  * @param[out] - pGameRecord - Location to store game data record, or NULL
  *                             to store in out active game location
  *
@@ -77,7 +99,7 @@ FRESULT highScoreOpenFile(void)
  *           pGameRecord = Game record is stored here on success
  *           fileHighScore->fptr = EOF or start of record for the game
  */
-HighScoreRetVal highScoreGet(const unsigned char * pGameName, GameFileRecord * pGameRecord)
+HighScoreRetVal highScoreGet(const unsigned char* pGameName, const uint32_t crcvx, GameFileRecordV1* pGameRecord)
 {
     int retVal = HIGH_SCORE_GAME_NOT_FOUND;
     unsigned int bytesRead = 0;
@@ -98,7 +120,7 @@ HighScoreRetVal highScoreGet(const unsigned char * pGameName, GameFileRecord * p
     if (fResult != FR_OK)
     {
         // Try again!
-        HS_XPRINTF("ERROR: retrying hs.bin file open!\n");
+        HS_XPRINTF("ERROR: retrying hsx.bin file open!\n");
         fResult = highScoreOpenFile();
         if (fResult != FR_OK) {
             return (HIGH_SCORE_FILE_OPEN_FAIL);
@@ -122,7 +144,7 @@ HighScoreRetVal highScoreGet(const unsigned char * pGameName, GameFileRecord * p
     /**
      * Exit if the game name passed to this function is larger than we allow
      */
-    if (gameNameSize > (MAX_GAME_NAME_SIZE - 1))
+    if (gameNameSize > (MAX_GAME_NAME_SIZE_V1 - 1))
     {
         HS_XPRINTF("ERROR: game name too long!\n");
         return (HIGH_SCORE_GAME_NAME_TOO_LONG);
@@ -150,7 +172,7 @@ HighScoreRetVal highScoreGet(const unsigned char * pGameName, GameFileRecord * p
         /**
          * Read a high score record from file
          */
-        fResult = f_read(&fileHighScore, pGameRecord, sizeof(GameFileRecord), &bytesRead);
+        fResult = f_read(&fileHighScore, pGameRecord, sizeof(GameFileRecordV1), &bytesRead);
 
         /**
          * Exit if EOF or another read issue
@@ -166,13 +188,17 @@ HighScoreRetVal highScoreGet(const unsigned char * pGameName, GameFileRecord * p
          */
         if (!exit)
         {
-            if (0 == strncmp((char *)pGameName, (char *)pGameRecord->name, gameNameSize))
+            // if (0 == strncmp((char *)pGameName, (char *)pGameRecord->name, gameNameSize)
+            if ( highScoreCompareName((const unsigned char *)pGameName, (const unsigned char *)pGameRecord->name, gameNameSize)
+                && (crcvx == pGameRecord->crc))
             {
                 /**
                  * Move file pointer back to the beginning of the record for the
                  * game, to prepare writing of the new high score if it is beat.
                  */
-                f_lseek(&fileHighScore, f_tell(&fileHighScore) - sizeof(GameFileRecord));
+                f_lseek(&fileHighScore, f_tell(&fileHighScore) - sizeof(GameFileRecordV1));
+
+                HS_XPRINTF("GAME RECORD: %s,%s,%08x,%08x\n", pGameRecord->maxScore, pGameRecord->name, pGameRecord->crc, pGameRecord->ver);
 
                 /**
                  * Found matching game
@@ -189,11 +215,12 @@ HighScoreRetVal highScoreGet(const unsigned char * pGameName, GameFileRecord * p
 /**
  * Initialize a game record to the defaults and add the name pointed to by pGameName
  * @param[in] - pGameName - Pointer to the game name in the ROM - 0x80 terminated
+ * @param[in] - crcvx - CRCVX 32-bit checksum of the loaded rom
  * @param[in] - pGameRecord - Pointer to a game record, or NULL (If NULL, use active)
  *
  * @return - HIGH_SCORE_SUCCESS, or error code
  */
-HighScoreRetVal highScoreSetGameRecordToDefaults(const unsigned char * pGameName, GameFileRecord * pGameRecord)
+HighScoreRetVal highScoreSetGameRecordToDefaults(const unsigned char* pGameName, const uint32_t crcvx, GameFileRecordV1* pGameRecord)
 {
     int retVal = HIGH_SCORE_SUCCESS;
     char defaultScore[] = {' ', ' ', ' ', ' ', ' ', '0', '\0'};
@@ -234,7 +261,7 @@ HighScoreRetVal highScoreSetGameRecordToDefaults(const unsigned char * pGameName
     /**
      * Exit if the game name passed to this function is larger than we allow
      */
-    if (gameNameSize > (MAX_GAME_NAME_SIZE - 1))
+    if (gameNameSize > (MAX_GAME_NAME_SIZE_V1 - 1))
     {
         HS_XPRINTF("ERROR: game name too long!\n");
         return (HIGH_SCORE_GAME_NAME_TOO_LONG);
@@ -251,9 +278,11 @@ HighScoreRetVal highScoreSetGameRecordToDefaults(const unsigned char * pGameName
      */
     HS_XPRINTF("Creating game high score record for: ");
     int count = 0;
-    for (count = 0; (count < MAX_GAME_NAME_SIZE) && (count < gameNameSize); count++)
+    for (count = 0; (count < MAX_GAME_NAME_SIZE_V1) && (count < gameNameSize); count++)
     {
-        pGameRecord->name[count] = pGameName[count];
+        // When copying name from header, prevent position of 0x00 from acting as a null terminator later by
+        // replacing with 0x81 which is an unlikely position.  Maybe we want to convert this back form 0x81 to 0x00 in the future
+        pGameRecord->name[count] = (pGameName[count] != 0x00) ? pGameName[count] : 0x81;
         HS_XPRINTF("%c", pGameName[count]);
     }
     HS_XPRINTF("\n");
@@ -262,10 +291,16 @@ HighScoreRetVal highScoreSetGameRecordToDefaults(const unsigned char * pGameName
      * NULL terminate the string for storing in our game records
      */
 
-    for (; count < MAX_GAME_NAME_SIZE; count++)
+    for (; count < MAX_GAME_NAME_SIZE_V1; count++)
     {
         pGameRecord->name[count] = '\0';
     }
+
+    /**
+     * Add Game Record VERSION and game CRC info to GameRecord
+     */
+    pGameRecord->ver = GAME_RECORD_V1;
+    pGameRecord->crc = crcvx;
 
     return retVal;
 }
@@ -279,18 +314,18 @@ HighScoreRetVal highScoreSetGameRecordToDefaults(const unsigned char * pGameName
  * TODO - Update to grab the second portion of the string.  Look up to 0x80 0x00
  * then back up to get both strings
  */
-static int highScoreGetFileNameSize(const unsigned char * pString)
+static int highScoreGetFileNameSize(const unsigned char* pString)
 {
     int count = 0;
-    // Iterate to (MAX_GAME_NAME_SIZE - 1) since Vectrex doesn't null terminate
-    for (count = 0; count < (MAX_GAME_NAME_SIZE - 1); count++)
+    // Iterate to (MAX_GAME_NAME_SIZE_V1 - 1) since Vectrex doesn't null terminate
+    for (count = 0; count < (MAX_GAME_NAME_SIZE_V1 - 1); count++)
     {
-        if (pString[count] == 0x80)
+        if (pString[count] == 0x80 && pString[count+1] == 0x00)
         {
             return count;
         }
     }
-    return MAX_GAME_NAME_SIZE;
+    return MAX_GAME_NAME_SIZE_V1-1;
 }
 
 /**
@@ -300,7 +335,7 @@ static int highScoreGetFileNameSize(const unsigned char * pString)
  *
  * @param[in] - Pointer to 0x80 terminated high score
  */
-void highScoreSave(unsigned char * pScore)
+void highScoreSave(unsigned char* pScore)
 {
     int i = 0;
 
@@ -320,17 +355,19 @@ void highScoreSave(unsigned char * pScore)
     if (compare_ret_val == HIGH_SCORE1_LESS_SCORE2)
     {
         /**
-         * Print the "New high score! [GAME_NAME:SCORE]"
+         * Print the "New high score! [GAME_NAME{CRCVX}SCORE]"
          */
         xprintf("New high score! [");
-        for (int count = 0; count < MAX_GAME_NAME_SIZE; count++)
+        for (int count = 0; count < MAX_GAME_NAME_SIZE_V1; count++)
         {
             if (pActiveGameData->name[count] == '\0') {
                 break;
             }
-            xprintf("%c", pActiveGameData->name[count]);
+            xprintf("%02x", pActiveGameData->name[count]);
         }
-        xprintf(":");
+
+        // Print CRCVX
+        xprintf("{%lu}", pActiveGameData->crc);
 
         /**
          * Move new high score into global current game record
@@ -369,7 +406,7 @@ void highScoreSave(unsigned char * pScore)
  *
  * @return - HIGH_SCORE_SUCCESS or HIGH_SCORE_WRITE_FAIL
  */
-HighScoreRetVal highScoreStore(GameFileRecord * pGameRecord)
+HighScoreRetVal highScoreStore(GameFileRecordV1* pGameRecord)
 {
     unsigned int bytesWrote = 0;
 
@@ -390,9 +427,9 @@ HighScoreRetVal highScoreStore(GameFileRecord * pGameRecord)
     /**
      * Store a high score record to the file
      */
-    fResult = f_write(&fileHighScore, pGameRecord, sizeof(GameFileRecord), &bytesWrote);
+    fResult = f_write(&fileHighScore, pGameRecord, sizeof(GameFileRecordV1), &bytesWrote);
 
-    if ( (bytesWrote < sizeof(GameFileRecord)) || (fResult != FR_OK) )
+    if ( (bytesWrote < sizeof(GameFileRecordV1)) || (fResult != FR_OK) )
     {
         return HIGH_SCORE_WRITE_FAIL;
     }
@@ -422,7 +459,7 @@ HighScoreRetVal highScoreStore(GameFileRecord * pGameRecord)
  * HIGH_SCORE2_LESS_SCORE1
  *
  */
-HighScoreCompare highScoreCompare(const unsigned char * pScore1, const unsigned char * pScore2)
+HighScoreCompare highScoreCompare(const unsigned char* pScore1, const unsigned char* pScore2)
 {
     HighScoreCompare retVal = HIGH_SCORES_EQUAL;
 
