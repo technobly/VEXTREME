@@ -18,17 +18,17 @@ STM32_DIR=../stm32
 MENU_DIR=../menu
 RELEASE_DIR=../releases
 SOURCE_RELEASE=MAIN
-SOURCE_RELEASE_URL=https://github.com/technobly/VEXTREME/releases/download/v0.23/VEXTREME-v0.23.zip
+SOURCE_RELEASE_URL=https://github.com/technobly/VEXTREME/releases/download/v0.24/VEXTREME-v0.24.zip
 : ${USE_SW:?"REQUIRED! Usage: USE_VER=v0.24 ./release.sh"}
 
 main() {
     try rm -rf $RELEASE_DIR/$USE_SW
     try rm -f $RELEASE_DIR/vextreme-$USE_SW.zip
     if [ ! -d "$RELEASE_DIR/$SOURCE_RELEASE" ]; then
-        if [ ! -e "$RELEASE_DIR/VEXTREME-v0.23.zip" ]; then
+        if [ ! -e "$RELEASE_DIR/VEXTREME-v0.24.zip" ]; then
             cd $RELEASE_DIR
-            curl -L "$SOURCE_RELEASE_URL" > "VEXTREME-v0.23.zip"
-            unzip VEXTREME-v0.23.zip
+            curl -L "$SOURCE_RELEASE_URL" > "VEXTREME-v0.24.zip"
+            unzip VEXTREME-v0.24.zip
         fi
     fi
 
@@ -45,6 +45,14 @@ main() {
     try cp stm32.list $RELEASE_DIR/$USE_SW/stm32/hardware-$USE_HW/stm32-sw.$USE_SW.hw.$USE_HW.list
 
     USE_HW=v0.3
+    try make clean all -s USE_HW=$USE_HW #&> /dev/null
+    try mkdir -p $RELEASE_DIR/$USE_SW/stm32/hardware-$USE_HW
+    try cp stm32.bin $RELEASE_DIR/$USE_SW/stm32/hardware-$USE_HW/stm32-sw.$USE_SW.hw.$USE_HW.bin
+    try cp stm32.elf $RELEASE_DIR/$USE_SW/stm32/hardware-$USE_HW/stm32-sw.$USE_SW.hw.$USE_HW.elf
+    try cp stm32.hex $RELEASE_DIR/$USE_SW/stm32/hardware-$USE_HW/stm32-sw.$USE_SW.hw.$USE_HW.hex
+    try cp stm32.list $RELEASE_DIR/$USE_SW/stm32/hardware-$USE_HW/stm32-sw.$USE_SW.hw.$USE_HW.list
+
+    USE_HW=v0.4
     try make clean all -s USE_HW=$USE_HW #&> /dev/null
     try mkdir -p $RELEASE_DIR/$USE_SW/stm32/hardware-$USE_HW
     try cp stm32.bin $RELEASE_DIR/$USE_SW/stm32/hardware-$USE_HW/stm32-sw.$USE_SW.hw.$USE_HW.bin

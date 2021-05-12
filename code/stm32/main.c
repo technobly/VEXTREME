@@ -745,8 +745,8 @@ int main(void) {
     // gpio_set_output_options(GPIOB, GPIO_OTYPE_PP, GPIO_OSPEED_2MHZ,  GPIO13 | GPIO14);
     //LED - output
     gpio_mode_setup(GPIOB, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO0);
-    //USB power - input
-    gpio_mode_setup(GPIOA, GPIO_MODE_INPUT, GPIO_PUPD_PULLDOWN, GPIO9);
+    //USB power indication / Vectrex power indication - input (it won't hurt to enable this on old v0.1-v0.3 hardware)
+    gpio_mode_setup(GPIOA, GPIO_MODE_INPUT, GPIO_PUPD_PULLDOWN, GPIO9 | GPIO10);
 
     //PB6/PB7: txd/rxd
     gpio_mode_setup(GPIOB, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO6 | GPIO7);
@@ -783,24 +783,27 @@ int main(void) {
     dwt_enable_cycle_counter();
 
 #if HW_VER == 255
-    #error "USE_HW hardware version not specified, please specify e.g. USE_HW=v0.2 or USE_HW=v0.3"
+    #error "USE_HW hardware version not specified, please specify e.g. USE_HW=v0.2, USE_HW=v0.3 or USE_HW=v0.4"
 #endif
 
     // TODO: load new options from VEXTREME/options.txt in key=val format
     sys_opt.size = sizeof(system_options);
     sys_opt.ver = 1;
-// #if (HW_VER == 1)
-//  sys_opt.hw_ver = 0x000A; // v0.10
-// #elif (HW_VER == 2)
-//  sys_opt.hw_ver = 0x0014; // v0.20
-// #elif (HW_VER == 3)
-//  sys_opt.hw_ver = 0x001e; // v0.30
-// #endif
-    // For now, this is hard coded to determine LED operation, nothing more.
-    // TODO: uncomment above for system hw_ver, and add .led_hw_ver for LED initialization.
-    // sys_opt.hw_ver = 0x0014; // v0.20
-    // sys_opt.hw_ver = 0x001e; // v0.30
+    // Hardware Version (set by USE_HW=v0.4 on command line)
+#if (HW_VER == 1)
+    sys_opt.hw_ver = 0x000A; // v0.10
+    sys_opt.rgb_type = RGB_TYPE_NONE;
+#elif (HW_VER == 2)
+    sys_opt.hw_ver = 0x0014; // v0.20
+    sys_opt.rgb_type = RGB_TYPE_10;
+#elif (HW_VER == 3)
+    sys_opt.hw_ver = 0x001e; // v0.30
+    sys_opt.rgb_type = RGB_TYPE_10;
+#elif (HW_VER == 4)
     sys_opt.hw_ver = 0x0028; // v0.40
+    sys_opt.rgb_type = RGB_TYPE_4;
+#endif
+    // Software Version
     sys_opt.sw_ver = 0x002A; // v0.42
     // sys_opt.rgb_type = RGB_TYPE_4;
     sys_opt.rgb_type = RGB_TYPE_10;
@@ -810,9 +813,9 @@ int main(void) {
     xprintf("[ VEXTREME booted ]\n");
     xprintf("  HW v%01d.%02d | SW v%01d.%02d\n", sys_opt.hw_ver >> 8, sys_opt.hw_ver & 0xFF, sys_opt.sw_ver >> 8, sys_opt.sw_ver & 0xFF);
     xprintf("  LED TYPE: ");
-    // HW version < 0.30
-    if (sys_opt.hw_ver < 0x001e) {
-        // xprintf("HW VER < 0.30\n");
+    // HW version < 0.40
+    if (sys_opt.hw_ver < 0x0028) {
+        // xprintf("HW VER < 0.40\n");
         if (sys_opt.rgb_type == RGB_TYPE_10) {
             xprintf("RGB_TYPE_10\n");
             ledsInitSW(10, GPIOB, GPIO14, GPIOB, GPIO13, RGB_BGR);
@@ -827,12 +830,12 @@ int main(void) {
             ledsSetBrightness(0); // sleeper cart, you'll never see it coming _._
         }
     }
-    // HW version >= 0.30
-    else if (sys_opt.hw_ver >= 0x001e) { // >= 0.30
-        // xprintf("HW VER >= 0.30\n");
-        xprintf("type ignored, we only have 4!\n");
+    // HW version >= 0.40
+    else if (sys_opt.hw_ver >= 0x0028) { // >= 0.40
+        // xprintf("HW VER >= 0.40\n");
+        // xprintf("type ignored, we only have 4!\n");
         ledsInitSW(4, GPIOB, GPIO14, GPIOB, GPIO13, RGB_BGR);
-        ledsSetBrightness(255); // we will be limiting to 4, it's ok to crank them all of the way up!
+        ledsSetBrightness(50); // we will be limiting to 4, it's ok to crank them all of the way up!
     }
 
     // Default Cartridge Options?
@@ -883,7 +886,13 @@ int main(void) {
 #endif // TEST LED CODE END
 
     // If USB power pin is high, boot into USB disk mode
-    if (gpio_get(GPIOA, GPIO9)) {
+    if (gpio_get(GPIOA, GPIO9)
+#if (HW_VER >= 4)
+        // Unless Vectrex is also powered on, then just skip connecting to USB
+        && !gpio_get(GPIOA, GPIO10)
+#endif
+    )
+    {
         xprintf("[ Starting RAMDISK ]\n");
         ramdiskmain(RAMDISK_BLOCKING);
     }

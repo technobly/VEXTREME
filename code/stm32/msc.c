@@ -157,17 +157,30 @@ int ramdiskmain(int blocking) {
     if (blocking == RAMDISK_NON_BLOCKING) nonBlockingRamdiskTimer = millis();
     uint32_t lastFlashTick = 0;
     uint32_t exitTimer = 0; // disabled by default
+#if (HW_VER >= 4)
+    bool vectrexOffOnEntry = !gpio_get(GPIOA, GPIO10);
+#endif
     while (!exit) {
         usbd_poll(msc_dev);
         if (millis() - lastFlashTick >= 20UL) {
             lastFlashTick = millis();
             flashTick();
 
-            // TODO: Every 20ms here check a new GPIO that detects when the Vectrex
+#if (HW_VER >= 4)
+            // Every 20ms here check a new GPIO that detects when the Vectrex
             // is powered on.  Use this to exit the ramdisk when sys_opt.usb_dev == USB_DEV_DISABLED
             // Use case: "Forgetful Developer"
             // Vectrex off, plug in USB, forget to compile/flash cart.bin/eject USB,
             // Power on Vectrex without unplugging USB, USB will unmount automatically.
+            if (vectrexOffOnEntry && gpio_get(GPIOA, GPIO10)) {
+                delay(50); // crude debounce ;-)
+                if (gpio_get(GPIOA, GPIO10)) {
+                    xprintf("Vectrex Powered on - Disconnecting USB\n");
+                    usbd_disconnect(msc_dev, 1); // Disconnect USB
+                    exit = true;
+                }
+            }
+#endif
         }
 
         // Host ejected USB, or Vectrex exited Dev Mode or wants to run cart.bin again

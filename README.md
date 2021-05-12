@@ -147,6 +147,7 @@ Docs
 A nice collection of lessons learned will be [documented here.](docs/)
 
 - [Developer Mode](docs/developer-mode.md)
+- [Lazy Developer](docs/lazy-developer.md)
 - [Cart Options](docs/cart-options.md)
 
 
