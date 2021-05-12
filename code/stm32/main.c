@@ -46,6 +46,7 @@
 #include "msc.h"
 #include "highscore.h"
 #include "settings.h"
+#include "cart_options.h"
 // #include "flash.h"
 
 //#include "rom.h"
@@ -87,6 +88,9 @@ char* cartData = c_and_l.cartData;
 system_options sys_opt;
 char* sysData = (char*)&sys_opt;
 uint8_t checkDevMode = 0;
+
+cart_options cart_opt;
+char* cartOptionsData = (char*)&cart_opt;
 
 FILINFO cart_file_info;
 
@@ -797,7 +801,7 @@ int main(void) {
     // sys_opt.hw_ver = 0x0014; // v0.20
     // sys_opt.hw_ver = 0x001e; // v0.30
     sys_opt.hw_ver = 0x0028; // v0.40
-    sys_opt.sw_ver = 0x0029; // v0.41
+    sys_opt.sw_ver = 0x002A; // v0.42
     // sys_opt.rgb_type = RGB_TYPE_4;
     sys_opt.rgb_type = RGB_TYPE_10;
     sys_opt.usb_dev = USB_DEV_DISABLED;
@@ -830,6 +834,13 @@ int main(void) {
         ledsInitSW(4, GPIOB, GPIO14, GPIOB, GPIO13, RGB_BGR);
         ledsSetBrightness(255); // we will be limiting to 4, it's ok to crank them all of the way up!
     }
+
+    // Default Cartridge Options?
+    // cart_opt.size = sizeof(cart_options);
+    // cart_opt.ver = CART_OPTIONS_VERSION;
+    // cart_opt.ram_flags      = RAM_ENABLED;
+    // cart_opt.ram_start_addr = 0x20; // RAM starts at 0x2000
+    // cart_opt.ram_end_addr   = 0x27; // RAM ends at 0x27ff
 
 #if 0 // TEST LED CODE START
     while (1) {

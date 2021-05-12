@@ -7,7 +7,8 @@
 .global doHandleEvent
 .global doDbgHook
 .global readcnt
-.global sysData // usb_dev is offset of 9 bytes
+.global sysData         // offset: usb_dev=9
+.global cartOptionsData // offset: ram_flags=4, ram_start_addr=5, ram_end_addr=6
 .global checkDevMode
 
 .section .data
@@ -239,11 +240,19 @@ waitdataloop:
     strb  r5,[r7, r0]
 
     writecart:
-    lsr   r9,r0,#8              // See if it is a write to 2000 - 27ff (really up to 76ff)
-    cmp   r9,#0x20              // | TODO: Make this range two variables
-    blo   wrdone                // below the range we want, bail
-    cmp   r9,#0x7f              // |
-    bhi   wrdone                // above the range we want, bail
+    ldr   r7,=cartOptionsData   // Is RAM support enabled?
+    ldr   r7,[r7]               // | dereference cartOptionsData pointer
+    ldrb  r6,[r7, #4]           // | ram_flags is 1 byte at offset 4
+    cmp   r6,#1                 // | RAM_ENABLED = 1
+    bne   wrdone                // No, skip RAM write
+
+    ldrb  r6,[r7, #5]           // | ram_start_addr is 1 byte at offset 5
+    lsr   r9,r0,#8              // See if it is a write to eg. >= [0x20]00 and <= [0x27]ff
+    cmp   r9,r6                 // | compare write HIGH byte to ram_start_addr
+    blo   wrdone                // below the range we want, skip RAM write
+    ldrb  r6,[r7, #6]           // | ram_end_addr is 1 byte at offset 6
+    cmp   r9,r6                 // | compare write HIGH byte to ram_end_addr
+    bhi   wrdone                // above the range we want, skip RAM write
 
     ldr   r9,=cartData          // Write to cartData[r0] = r5
     ldr   r9,[r9]               // |

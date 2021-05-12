@@ -146,6 +146,9 @@ Docs
 
 A nice collection of lessons learned will be [documented here.](docs/)
 
+- [Developer Mode](docs/developer-mode.md)
+- [Cart Options](docs/cart-options.md)
+
 
 Hall of Fame
 ===
