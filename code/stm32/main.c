@@ -816,7 +816,7 @@ int main(void) {
         } else if (sys_opt.rgb_type == RGB_TYPE_4) {
             xprintf("RGB_TYPE_4\n");
             ledsInitSW(10, GPIOB, GPIO14, GPIOB, GPIO13, RGB_BGR);
-            ledsSetBrightness(255); // we will be limiting to 4, it's ok to crank them all of the way up!
+            ledsSetBrightness(50); // we will be limiting to 4, it's ok to crank them all of the way up!
         } else if (sys_opt.rgb_type == RGB_TYPE_NONE) {
             xprintf("RGB_TYPE_NONE\n");
             ledsInitSW(10, GPIOB, GPIO14, GPIOB, GPIO13, RGB_BGR);
