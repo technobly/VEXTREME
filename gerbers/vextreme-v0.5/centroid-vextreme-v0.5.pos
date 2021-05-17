@@ -1,0 +1,44 @@
+### Module positions - created on Saturday, May 15, 2021 at 10:51:32 PM ###
+### Printed by Pcbnew version kicad (5.1.6-87-g1447494bc)
+## Unit = mm, Angle = deg.
+## Side : All
+# Ref     Val                      Package                                             PosX       PosY       Rot  Side
+C1        2.2u                     C_0805_2012Metric_Pad1.15x1.40mm_HandSolder     154.9000  -108.2500   90.0000  bottom
+C2        2.2u                     C_0805_2012Metric_Pad1.15x1.40mm_HandSolder     154.9000  -112.1000  270.0000  bottom
+C3        100nF                    C_0805_2012Metric_Pad1.15x1.40mm_HandSolder     121.5000   -99.0000  270.0000  bottom
+C4        100nF                    C_0805_2012Metric_Pad1.15x1.40mm_HandSolder     154.2500  -104.0000  270.0000  bottom
+C5        100nF                    C_0805_2012Metric_Pad1.15x1.40mm_HandSolder     121.5000  -104.1000   90.0000  bottom
+C6        2.2u                     C_0805_2012Metric_Pad1.15x1.40mm_HandSolder     135.8000   -92.0000   90.0000  bottom
+C7        2.2u                     C_0805_2012Metric_Pad1.15x1.40mm_HandSolder     138.0000   -92.0000   90.0000  bottom
+C8        18pF                     C_0805_2012Metric_Pad1.15x1.40mm_HandSolder     136.2750  -114.2000  315.0000  bottom
+C9        18pF                     C_0805_2012Metric_Pad1.15x1.40mm_HandSolder     133.3000  -111.2250  135.0000  bottom
+C10       100nF                    C_0805_2012Metric_Pad1.15x1.40mm_HandSolder     144.1000  -111.2000   90.0000  bottom
+C11       100nF                    C_0805_2012Metric_Pad1.15x1.40mm_HandSolder     150.2500   -99.5250   90.0000  bottom
+C12       100nF                    C_0805_2012Metric_Pad1.15x1.40mm_HandSolder     140.2000   -92.0000   90.0000  bottom
+C13       10u                      C_0805_2012Metric_Pad1.15x1.40mm_HandSolder     149.2000   -72.7750   90.0000  bottom
+D1        MBR0520                  D_SOD-123                                       148.8100   -78.2500  270.0000  bottom
+D2        MBR0520                  D_SOD-123                                       157.3000  -117.8000  270.0000  bottom
+D8        MBR0520                  D_SOD-123                                       155.0800  -116.9500  270.0000  bottom
+J1        USB_C_Receptacle_USB2.0  USB_C_Receptacle_HRO_TYPE-C-31-M-12             141.7000   -72.8000    0.0000  bottom
+R1        22                       R_0805_2012Metric_Pad1.15x1.40mm_HandSolder     142.1000   -83.3000   90.0000  bottom
+R2        22                       R_0805_2012Metric_Pad1.15x1.40mm_HandSolder     140.3000   -83.3000  270.0000  bottom
+R3        10k                      R_0805_2012Metric_Pad1.15x1.40mm_HandSolder     147.9000  -111.2000  270.0000  bottom
+R4        220                      R_0805_2012Metric_Pad1.15x1.40mm_HandSolder     133.6000   -92.0000  270.0000  bottom
+R5        5.1k                     R_0805_2012Metric_Pad1.15x1.40mm_HandSolder     138.2000   -83.3000   90.0000  bottom
+R6        5.1k                     R_0805_2012Metric_Pad1.15x1.40mm_HandSolder     144.2500   -83.3000   90.0000  bottom
+R7        0                        R_0805_2012Metric_Pad1.15x1.40mm_HandSolder     146.0000  -111.2000   90.0000  bottom
+SW1       TS-1002S-12026C          SW_Push_1P1T_NO_6x6mm_H12.0mm                   153.7000   -78.6000   90.0000  bottom
+SW2       TS-1002S-12026C          SW_Push_1P1T_NO_6x6mm_H12.0mm                   162.7000   -80.6000   90.0000  bottom
+U1        LM1117-3.3               SOT-223-3_TabPin2                               160.5000  -111.1000    0.0000  bottom
+U2        STM32F411RCTx            LQFP-64_10x10mm_P0.5mm                          141.7000  -101.5000   45.0000  bottom
+U3        74LVC1G32                SOT-23-5_HandSoldering                          124.9000   -92.5000  270.0000  bottom
+U4        SN74LVC8T245DB           SSOP-24_5.3x8.2mm_P0.65mm                       127.0000  -101.5000  270.0000  bottom
+U5        W25Q128                  SOIC-8_5.23x5.23mm_P1.27mm                      158.1000  -101.5000   90.0000  bottom
+U6        TPD4E02B04DQA            USON-10_2.5x1.0mm_P0.5mm_passthrough            141.9500   -80.0500   90.0000  bottom
+Y1        8MHz                     Crystal_SMD_5032-2Pin_5.0x3.2mm_HandSoldering   136.6615  -110.8615  135.0000  bottom
+D3        LED                      LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder   141.7750   -77.0000  180.0000  top
+D4        APA102-2020              LED-APA102-2020_6_REV_2                         162.7000   -73.0000    0.0000  top
+D5        APA102-2020              LED-APA102-2020_6_REV_2                         148.7000   -73.0000    0.0000  top
+D6        APA102-2020              LED-APA102-2020_6_REV_2                         134.7000   -73.0000    0.0000  top
+D7        APA102-2020              LED-APA102-2020_6_REV_2                         120.7000   -73.0000    0.0000  top
+## End

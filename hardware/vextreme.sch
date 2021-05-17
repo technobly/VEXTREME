@@ -5,8 +5,8 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title "VEXTREME Vectrex Multicart"
-Date "2020-09-11"
-Rev "v0.4"
+Date "2021-05-15"
+Rev "v0.5"
 Comp ""
 Comment1 ""
 Comment2 ""
@@ -634,6 +634,7 @@ F 0 "JP1" V 2846 1402 50  0000 R CNN
 F 1 "Jumper" V 2750 1400 50  0000 R CNN
 F 2 "vextreme:PinHeader_1x02_P2.54mm_Vertical_Odd_Even" H 2800 1450 50  0001 C CNN
 F 3 "~" H 2800 1450 50  0001 C CNN
+F 4 "DNP" V 2650 1300 50  0000 C CNN "Field4"
 	1    2800 1450
 	0    -1   -1   0   
 $EndComp
@@ -871,14 +872,14 @@ P_D7
 Text GLabel 5750 1450 0    50   Input ~ 0
 P_D7
 $Comp
-L Connector:Conn_01x03_Male J2
+L Connector:Conn_01x04_Male J2
 U 1 1 5D0ADA96
-P 10850 5100
-F 0 "J2" H 10900 5350 50  0000 R CNN
-F 1 "Conn_01x03_Male" H 11250 4900 50  0000 R CNN
-F 2 "vextreme:PinHeader_1x03_P2.54mm_Vertical_Odd_Even" H 10850 5100 50  0001 C CNN
-F 3 "~" H 10850 5100 50  0001 C CNN
-	1    10850 5100
+P 10850 5000
+F 0 "J2" H 10900 5250 50  0000 R CNN
+F 1 "Conn_01x04_Male" H 11250 4700 50  0000 R CNN
+F 2 "vextreme:PinHeader_1x04_P2.54mm_Vertical_Odd_Even" H 10850 5000 50  0001 C CNN
+F 3 "~" H 10850 5000 50  0001 C CNN
+	1    10850 5000
 	-1   0    0    -1  
 $EndComp
 $Comp
@@ -1288,7 +1289,7 @@ Wire Wire Line
 Wire Wire Line
 	9750 5850 9850 5850
 Wire Wire Line
-	10350 5000 10650 5000
+	10350 4900 10650 4900
 $Comp
 L Connector:Conn_01x03_Male J3
 U 1 1 5EEA03A9
@@ -1450,17 +1451,6 @@ F 3 "~" H 4850 5900 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	4650 5900 4600 5900
-$Comp
-L Graphic:Logo_Open_Hardware_Small #LOGO1
-U 1 1 5EE7732D
-P 7300 6850
-F 0 "#LOGO1" H 7300 7125 50  0001 C CNN
-F 1 "Logo_Open_Hardware_Small" H 7300 6625 50  0001 C CNN
-F 2 "" H 7300 6850 50  0001 C CNN
-F 3 "~" H 7300 6850 50  0001 C CNN
-	1    7300 6850
-	1    0    0    -1  
-$EndComp
 Connection ~ 5800 3600
 Wire Wire Line
 	5800 2450 5800 3600
@@ -1640,6 +1630,7 @@ F 0 "J4" H 8200 5050 50  0000 C CNN
 F 1 "FTSH-105-01-F-DV-K" H 8600 4950 50  0000 C CNN
 F 2 "vextreme:CONN5X2_1.27" H 8200 4650 50  0001 C CNN
 F 3 "~" H 8200 4650 50  0001 C CNN
+F 4 "DNP" H 8250 4350 50  0000 C CNN "Field4"
 	1    8200 4650
 	1    0    0    -1  
 $EndComp
@@ -1770,4 +1761,30 @@ Wire Wire Line
 	8000 5050 8500 5050
 Wire Wire Line
 	8000 5150 8500 5150
+Wire Wire Line
+	10350 5000 10650 5000
+$Comp
+L vextreme-rescue:+5V-vextreme-rescue #PWR0135
+U 1 1 60A19939
+P 10350 4900
+F 0 "#PWR0135" H 10350 4750 50  0001 C CNN
+F 1 "+5V" H 10350 5040 50  0000 C CNN
+F 2 "" H 10350 4900 50  0001 C CNN
+F 3 "" H 10350 4900 50  0001 C CNN
+	1    10350 4900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Graphic:Logo_Open_Hardware_Small #LOGO1
+U 1 1 5EE7732D
+P 7300 6850
+F 0 "#LOGO1" H 7300 7125 50  0001 C CNN
+F 1 "Logo_Open_Hardware_Small" H 7300 6625 50  0001 C CNN
+F 2 "Symbol:OSHW-Logo_5.7x6mm_SilkScreen" H 7300 6850 50  0001 C CNN
+F 3 "~" H 7300 6850 50  0001 C CNN
+	1    7300 6850
+	1    0    0    -1  
+$EndComp
+Text Notes 7950 3500 0    50   ~ 0
+v0.5 Changelog\n——————————————————————\n- Added a location for the Wi-Fi Module\n- Changed J2 to support +5V for the Wi-Fi Module\n- Changed the artwork a bit and side up/down text.
 $EndSCHEMATC
