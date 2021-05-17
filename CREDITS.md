@@ -30,6 +30,10 @@ VEXTREME Vectrex Multicart Credits
 - [Brett Walach](https://github.com/technobly) - minor hardware updates
 - [Vasily Kiniv](https://github.com/v-kiniv) - vector font menu redesign, settings and screensaver features
 
+# v0.5
+
+- [Brett Walach](https://github.com/technobly) - minor hardware updates for Wi-Fi module
+
 # DEMOS / GAMES / GCE / LED / MUSIC / TOOLS / XMAS
 
 HUGE THANK YOU TO EVERYONE THAT HAS GIVEN PERMISSION TO INCLUDE GAMES ON VEXTREME!!!
