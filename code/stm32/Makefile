@@ -4,6 +4,10 @@
 VERBOSE=@
 VERBOSE_REDIRECT= > /dev/null 2>&1
 
+DOCKER_ARGS=--rm -t -v `pwd`:/build/stm32 -u `id -u ${USER}`:`id -g ${USER}`
+STM_DOCKER=docker run ${DOCKER_ARGS} stm32-build
+STM_DOCKER_I=docker run -i ${DOCKER_ARGS} stm32-build
+
 # define a symbol MAKE_OS for the current operating system
 # WINDOWS | LINUX | OSX
 ifeq ($(OS),Windows_NT)
@@ -43,6 +47,16 @@ endif
 CFLAGS += -DHW_VER=$(HW_VER_VAL)
 ASFLAGS += -DHW_VER=$(HW_VER_VAL)
 
+ifeq ($(USE_UF2),1)
+UF2_VAL=1
+UF2_ARGS="USE_UF2=1"
+LDSCRIPT=stm32f411rct6-uf2.ld
+else
+UF2_VAL=0
+UF2_ARGS="USE_UF2=0"
+LDSCRIPT=stm32f411rct6.ld
+endif
+
 BINARY=stm32
 OBJS=main.o menu.o romemu.o msc.o xprintf.o usb_msc.o ff_diskio.o \
 		fatfs/ff.o fatfs/option/unicode.o flash.o led.o delay.o \
@@ -63,9 +77,6 @@ CFLAGS		+= -O3 -g -Wextra -Wshadow -Wimplicit-function-declaration -Wredundant-d
 		-Wmissing-prototypes -Wstrict-prototypes -fno-common -ffunction-sections -fdata-sections \
 		-MD -Wall -Wundef -I$(TOOLCHAIN_DIR)/include $(ARCH_FLAGS)
 ASFLAGS	+= $(ARCH_FLAGS)
-
-LDSCRIPT	= stm32f411rct6.ld
-#../libopencm3/lib/lib$(LIBNAME).ld
 
 LDFLAGS		+= --static -nostartfiles -L$(TOOLCHAIN_DIR)/lib  \
 		   -Xlinker -Map=$(BINARY).map -T$(LDSCRIPT) -Wl,--gc-sections -mthumb $(CFLAGS) -lm \
@@ -94,11 +105,14 @@ docker-build: Dockerfile
 	docker build . -t stm32-build
 
 docker:
-	docker run --rm -t -v `pwd`:/build/stm32 -u `id -u ${USER}`:`id -g ${USER}` stm32-build make images $(HW_VER_ARGS)
+	${STM_DOCKER} make images $(HW_VER_ARGS) $(UF2_ARGS)
+
+uf2: $(BINARY).bin
+	${STM_DOCKER} uf2conv.py -b 0x08008000 -o $(BINARY).uf2 -c $(BINARY).bin
 
 # '$ make bash' puts you in the docker container interactive shell for debugging
 bash:
-	docker run --rm -it -v `pwd`:/build/stm32 -u `id -u ${USER}`:`id -g ${USER}` stm32-build bash
+	${STM_DOCKER_I} bash
 
 images: $(BINARY).images
 flash: $(BINARY).flash
