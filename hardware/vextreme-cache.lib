@@ -605,11 +605,11 @@ X GND 1 0 0 0 D 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #
-# vextreme-rescue_+5V-vextreme-rescue
+# vextreme-rescue_+5V-vextreme-rescue-vextreme-rescue
 #
-DEF vextreme-rescue_+5V-vextreme-rescue #PWR 0 0 Y Y 1 F P
+DEF vextreme-rescue_+5V-vextreme-rescue-vextreme-rescue #PWR 0 0 Y Y 1 F P
 F0 "#PWR" 0 -150 50 H I C CNN
-F1 "vextreme-rescue_+5V-vextreme-rescue" 0 140 50 H V C CNN
+F1 "vextreme-rescue_+5V-vextreme-rescue-vextreme-rescue" 0 140 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -620,11 +620,11 @@ X +5V 1 0 0 0 U 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #
-# vextreme-rescue_GND-vextreme-rescue
+# vextreme-rescue_GND-vextreme-rescue-vextreme-rescue
 #
-DEF vextreme-rescue_GND-vextreme-rescue #PWR 0 0 Y Y 1 F P
+DEF vextreme-rescue_GND-vextreme-rescue-vextreme-rescue #PWR 0 0 Y Y 1 F P
 F0 "#PWR" 0 -250 50 H I C CNN
-F1 "vextreme-rescue_GND-vextreme-rescue" 0 -150 50 H V C CNN
+F1 "vextreme-rescue_GND-vextreme-rescue-vextreme-rescue" 0 -150 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -633,11 +633,11 @@ X GND 1 0 0 0 D 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #
-# vextreme-rescue_vectrex-edge-connector-vextreme-rescue
+# vextreme-rescue_vectrex-edge-connector-vextreme-rescue-vextreme-rescue
 #
-DEF vextreme-rescue_vectrex-edge-connector-vextreme-rescue CON 0 40 Y Y 1 F N
+DEF vextreme-rescue_vectrex-edge-connector-vextreme-rescue-vextreme-rescue CON 0 40 Y Y 1 F N
 F0 "CON" 400 -1600 60 H V C CNN
-F1 "vextreme-rescue_vectrex-edge-connector-vextreme-rescue" -800 1950 60 H V C CNN
+F1 "vextreme-rescue_vectrex-edge-connector-vextreme-rescue-vextreme-rescue" -800 1950 60 H V C CNN
 F2 "" 0 700 60 H I C CNN
 F3 "" 0 700 60 H I C CNN
 DRAW
