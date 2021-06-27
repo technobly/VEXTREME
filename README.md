@@ -73,9 +73,10 @@ Found DFU: [0483:df11] ver=2200, devnum=22, cfg=1, intf=0, path="20-1.4.3", alt=
 
 ### Build and flash the STM32 image via dfu-util
 ```
-code/stm32 $ make clean all flash USE_HW=v0.3
+code/stm32 $ make clean all flash USE_HW=v1.0
 
-// NOTE: Use v0.2 above if you have v0.2 HW, or you may use v0.3 if you make the proper mods to your board.  See "Modifying v0.2 to v0.3"
+// NOTE: Use either v0.2, v0.3, v0.4 or v1.0 above depending on which hardware version you have.
+// NOTE: You may use v0.3 if you make the proper mods to your v0.2 board.  See "Modifying v0.2 to v0.3"
 
 // You should end up with something like this
 

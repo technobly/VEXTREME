@@ -17,7 +17,7 @@
 // Main rom emulation code
 
 #if HW_VER == 255
-    #error "USE_HW hardware version not specified, please specify e.g. USE_HW=v0.2 or USE_HW=v0.3"
+    #error "USE_HW hardware version not specified, please specify e.g. USE_HW=v0.2|v0.3|v0.4|v1.0"
 #endif
 
 romemu:

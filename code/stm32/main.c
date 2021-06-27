@@ -783,13 +783,13 @@ int main(void) {
     dwt_enable_cycle_counter();
 
 #if HW_VER == 255
-    #error "USE_HW hardware version not specified, please specify e.g. USE_HW=v0.2, USE_HW=v0.3 or USE_HW=v0.4"
+    #error "USE_HW hardware version not specified, please specify e.g. USE_HW=v0.2|v0.3|v0.4|v1.0"
 #endif
 
     // TODO: load new options from VEXTREME/options.txt in key=val format
     sys_opt.size = sizeof(system_options);
     sys_opt.ver = 1;
-    // Hardware Version (set by USE_HW=v0.4 on command line)
+    // Hardware Version (set by USE_HW=v1.0 on command line)
 #if (HW_VER == 1)
     sys_opt.hw_ver = 0x000A; // v0.10
     sys_opt.rgb_type = RGB_TYPE_NONE;
@@ -802,11 +802,14 @@ int main(void) {
 #elif (HW_VER == 4)
     sys_opt.hw_ver = 0x0028; // v0.40
     sys_opt.rgb_type = RGB_TYPE_4;
+#elif (HW_VER == 10)
+    sys_opt.hw_ver = 0x0100; // v1.00
+    sys_opt.rgb_type = RGB_TYPE_4;
 #endif
     // Software Version
-    sys_opt.sw_ver = 0x002A; // v0.42
+    sys_opt.sw_ver = 0x0100; // v1.00
     // sys_opt.rgb_type = RGB_TYPE_4;
-    sys_opt.rgb_type = RGB_TYPE_10;
+    // sys_opt.rgb_type = RGB_TYPE_10;
     sys_opt.usb_dev = USB_DEV_DISABLED;
 
     xprintf("\n");

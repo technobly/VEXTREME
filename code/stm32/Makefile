@@ -33,6 +33,7 @@ endif
 # USAGE: make clean all USE_HW=v0.2 for v0.2 VEXTREME build
 # USAGE: make clean all USE_HW=v0.3 for v0.3 VEXTREME build
 # USAGE: make clean all USE_HW=v0.4 for v0.4 VEXTREME build
+# USAGE: make clean all USE_HW=v1.0 for v1.0 VEXTREME build
 ifndef HW_VER_VAL
 HW_VER_VAL?=255
 endif
@@ -48,6 +49,9 @@ HW_VER_ARGS="USE_HW=v0.3"
 else ifeq ($(USE_HW),v0.4)
 HW_VER_VAL = 4
 HW_VER_ARGS="USE_HW=v0.4"
+else ifeq ($(USE_HW),v1.0)
+HW_VER_VAL = 10
+HW_VER_ARGS="USE_HW=v1.0"
 endif
 CFLAGS += -DHW_VER=$(HW_VER_VAL)
 ASFLAGS += -DHW_VER=$(HW_VER_VAL)
