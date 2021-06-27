@@ -164,6 +164,7 @@ clean:
 	rm -f *.list
 	rm -f *.map
 	rm -rf *.d
+	rm -f *.uf2
 
 %.flash: %.bin
 	dfu-util -a 0 -d 0483:df11 -s 0x08000000 -D $(*).bin

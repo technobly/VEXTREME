@@ -2,6 +2,7 @@
 *.srec
 *.list
 *.bin
+*.uf2
 
 # Prerequisites
 *.d
