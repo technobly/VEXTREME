@@ -290,7 +290,6 @@ HighScoreRetVal highScoreSetGameRecordToDefaults(const unsigned char* pGameName,
     /**
      * NULL terminate the string for storing in our game records
      */
-
     for (; count < MAX_GAME_NAME_SIZE_V1; count++)
     {
         pGameRecord->name[count] = '\0';

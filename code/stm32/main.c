@@ -44,6 +44,7 @@
 #include "main.h"
 #include "menu.h"
 #include "msc.h"
+#include "wifi.h"
 #include "highscore.h"
 #include "settings.h"
 #include "cart_options.h"
@@ -649,6 +650,10 @@ void doRamDisk() {
             xprintf("Sorry, didn't find /cart.bin\n");
             sys_opt.usb_dev = USB_DEV_DISABLED;
 
+            // Setup wi-fi credentials if wifi.txt exists
+            // Ignore return value for now
+            (void) wifiSetup();
+
             (void) highScoreOpenFile(); // Create/Open highscore file
 
             romData=menuData; // Explicitly setting this here so we know WTF is going on in the background
@@ -664,6 +669,10 @@ void doRamDisk() {
             f_unlink("/cart.bin");
             // xprintf("f_unlink result: %d\n", f_unlink_res);
         }
+
+        // Setup wi-fi credentials if wifi.txt exists
+        // Ignore return value for now
+        (void) wifiSetup();
 
         (void) highScoreOpenFile(); // Create/Open highscore file
         sys_opt.usb_dev = USB_DEV_DISABLED;
@@ -905,6 +914,10 @@ int main(void) {
     // FRESULT f_mount_res;
     f_mount(&FatFs, "", 0);
     // xprintf("f_mount result: %d\n", f_mount_res);
+
+    // Setup wi-fi credentials if wifi.txt exists
+    // Ignore return value for now
+    (void) wifiSetup();
 
     // Create/Open highscore file
     // Ignore return value for now
