@@ -52,6 +52,14 @@ main() {
     try cp stm32.hex $RELEASE_DIR/$USE_SW/stm32/hardware-$USE_HW/stm32-sw.$USE_SW.hw.$USE_HW.hex
     try cp stm32.list $RELEASE_DIR/$USE_SW/stm32/hardware-$USE_HW/stm32-sw.$USE_SW.hw.$USE_HW.list
 
+    USE_HW=v0.4
+    try make clean all -s USE_HW=$USE_HW #&> /dev/null
+    try mkdir -p $RELEASE_DIR/$USE_SW/stm32/hardware-$USE_HW
+    try cp stm32.bin $RELEASE_DIR/$USE_SW/stm32/hardware-$USE_HW/stm32-sw.$USE_SW.hw.$USE_HW.bin
+    try cp stm32.elf $RELEASE_DIR/$USE_SW/stm32/hardware-$USE_HW/stm32-sw.$USE_SW.hw.$USE_HW.elf
+    try cp stm32.hex $RELEASE_DIR/$USE_SW/stm32/hardware-$USE_HW/stm32-sw.$USE_SW.hw.$USE_HW.hex
+    try cp stm32.list $RELEASE_DIR/$USE_SW/stm32/hardware-$USE_HW/stm32-sw.$USE_SW.hw.$USE_HW.list
+
     USE_HW=v1.0
     try make clean all -s USE_HW=$USE_HW #&> /dev/null
     try mkdir -p $RELEASE_DIR/$USE_SW/stm32/hardware-$USE_HW
