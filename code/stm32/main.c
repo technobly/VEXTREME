@@ -219,10 +219,14 @@ void loadRomWithHighScore(char *fn, bool load_hs_mode, bool use_embedded_menu) {
 
         // CRCVX is CRC32-MPEG2 with 0 byte padding up to even 32-bit boundaries
         // I.e. If the file ends on an odd non-divisible-by-4 boundary, the file gets padded with 0's until it is.
-        // The = in the <= bytesRead/4 below, and the fact that we memset 0 all 64K of RAM before reading in the file,
+        // The fact that we memset 0 all 64K of RAM before reading in the file,
         // ensures that we pad the last 32-bit value if necessary.
         crc_reset(); // resets the initial CRC value to 0xFFFFFFFF
-        for (uint32_t i = 0; i <= bytesRead/4; i++) {
+        uint32_t maxCrcBytes = bytesRead / 4;
+        if (bytesRead % 4 != 0) {
+            maxCrcBytes++; // add extra zero bytes if required
+        }
+        for (uint32_t i = 0; i < maxCrcBytes; i++) {
             // &romData[i*4] is the address of each 32-bit value
             // MMIO32() dereferences the pointer to a 32-bit value
             // __builtin_bswap32() swaps the endianness of the 32-bit value, since CRC32-MPEG2 works as big-endian, and STM32 is little-endian
@@ -816,7 +820,7 @@ int main(void) {
     sys_opt.rgb_type = RGB_TYPE_4;
 #endif
     // Software Version
-    sys_opt.sw_ver = 0x0100; // v1.00
+    sys_opt.sw_ver = 0x0101; // v1.01
     // sys_opt.rgb_type = RGB_TYPE_4;
     // sys_opt.rgb_type = RGB_TYPE_10;
     sys_opt.usb_dev = USB_DEV_DISABLED;
