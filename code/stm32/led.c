@@ -206,7 +206,17 @@ void colorWipe(bool dir, uint32_t c, uint8_t wait) {
 }
 
 uint32_t dimColor(uint32_t color, uint8_t width) {
-   return (((color&0xFF0000)/width)&0xFF0000) + (((color&0x00FF00)/width)&0x00FF00) + (((color&0x0000FF)/width)&0x0000FF);
+    // uint32_t c = (((color&0xFF0000)/width)&0xFF0000) + (((color&0x00FF00)/width)&0x00FF00) + (((color&0x0000FF)/width)&0x0000FF);
+    uint32_t r = (((color&0xFF0000)/(width*2))&0xFF0000);
+    uint32_t g = (((color&0x00FF00)/(width*2))&0x00FF00);
+    uint32_t b = (((color&0x0000FF)/(width*2))&0x0000FF);
+    // if ((r < 0x660000) && (g < 0x006600) && (b < 0x000066)) {
+    //     // xprintf("BLAH %06x %06x %06x\r\n", r, g, b);
+    //     r = 0;
+    //     g = 0;
+    //     b = 0;
+    // }
+    return r + g + b;
 }
 
 // Using a counter and for() loop, input a value 0 to 251 to get a color value.
@@ -231,6 +241,19 @@ uint32_t colorWheel(uint8_t WheelPos) {
   }
 }
 
+
+
+// 0 1 2 3
+// =======
+// 2 0 0 0
+// 1 2 0 0
+// 0 1 2 0
+// 0 0 1 2
+// 0 0 0 2
+// 0 0 2 1
+// 0 2 1 0
+// 2 1 0 0
+
 // Cycles - one cycle is scanning through all pixels left then right (or right then left)
 // Speed - how fast one cycle is (32 with 16 pixels is default KnightRider speed)
 // Width - how wide the trail effect is on the fading out LEDs.  The original display used
@@ -238,31 +261,68 @@ uint32_t colorWheel(uint8_t WheelPos) {
 //         Effective range is 2 - 8, 4 is default for 16 pixels.  Play with this.
 // Color - 32-bit packed RGB color value.  All pixels will be this color.
 // knightRider(cycles, speed, width, color);
-void __attribute__((optimize("O0"))) knightRider(uint16_t cycles, uint16_t speed, uint8_t width, uint16_t first, uint16_t last, uint32_t color) {
-  uint32_t old_val[last+1]; // up to 256 lights!
-  // Larson time baby!
-  for (int i = 0; i < cycles; i++) {
-    for (int count = first+1; count<last+1; count++) {
-      ledsSetPixelColor(count, color);
-      old_val[count] = color;
-      for (int x = count; x>0; x--) {
-        old_val[x-1] = dimColor(old_val[x-1], width);
-        ledsSetPixelColor(x-1, old_val[x-1]);
-      }
-      ledsUpdate();
-      delay(speed);
+void /*__attribute__((optimize("O0")))*/ knightRider(uint16_t cycles, uint16_t speed, uint8_t width, uint16_t first, uint16_t last, uint32_t color) {
+    uint32_t old_val[last + 1]; // up to 256 lights!
+    // Larson time baby!
+    for (int i = 0; i < cycles; i++) {
+        // if (i < 0) {
+        //     old_val[first + 1] = dimColor(old_val[first + 1], width);
+        //     ledsSetPixelColor(first + 1, old_val[first + 1]);
+        //     // ledsUpdate();
+        //     // delay(speed);
+        //     // xprintf("%06X %06X %06X %06X\r\n", old_val[0], old_val[1], old_val[2], old_val[3]);
+        // }
+        for (int count = first+1; count <= last; count++) {
+            ledsSetPixelColor(count, color);
+            old_val[count] = color;
+            for (int x = count; x > first; x--) {
+                old_val[x - 1] = dimColor(old_val[x - 1], width);
+                ledsSetPixelColor(x - 1, old_val[x - 1]);
+            }
+            ledsUpdate();
+            delay(speed);
+            xprintf("%06X %06X %06X %06X\r\n", old_val[0], old_val[1], old_val[2], old_val[3]);
+        }
+        // old_val[last - 1] = dimColor(old_val[last - 1], width);
+        // ledsSetPixelColor(last - 1, old_val[last - 1]);
+        // ledsUpdate();
+        // delay(speed);
+        // xprintf("%06X %06X %06X %06X\r\n", old_val[0], old_val[1], old_val[2], old_val[3]);
+        
+        // for (int y = 0; y < width/2; y++) {
+        //     for (int x = last; x > first; x--) {
+        //         old_val[x - 1] = dimColor(old_val[x - 1], width);
+        //         ledsSetPixelColor(x - 1, old_val[x - 1]);
+        //     }
+        //     ledsUpdate();
+        //     delay(speed);
+        // }
+        for (int count = last-1; count >= first; count--) {
+            ledsSetPixelColor(count, color);
+            old_val[count] = color;
+            for (int x = count; x < last; x++) {
+                old_val[x + 1] = dimColor(old_val[x + 1], width);
+                ledsSetPixelColor(x + 1, old_val[x + 1]);
+            }
+            ledsUpdate();
+            delay(speed);
+            xprintf("%06X %06X %06X %06X\r\n", old_val[0], old_val[1], old_val[2], old_val[3]);
+        }
+        // old_val[first + 1] = dimColor(old_val[first + 1], width);
+        // ledsSetPixelColor(first + 1, old_val[first + 1]);
+        // ledsUpdate();
+        // delay(speed);
+        // xprintf("%06X %06X %06X %06X\r\n", old_val[0], old_val[1], old_val[2], old_val[3]);
+        
+        // for (int y = 0; y < width/2; y++) {
+        //     for (int x = first; x < last; x++) {
+        //         old_val[x + 1] = dimColor(old_val[x + 1], width);
+        //         ledsSetPixelColor(x + 1, old_val[x + 1]);
+        //     }
+        //     ledsUpdate();
+        //     delay(speed);
+        // }
     }
-    for (int count = last+1-1; count>=first; count--) {
-      ledsSetPixelColor(count, color);
-      old_val[count] = color;
-      for (int x = count; x<=last+1 ;x++) {
-        old_val[x-1] = dimColor(old_val[x-1], width);
-        ledsSetPixelColor(x+1, old_val[x+1]);
-      }
-      ledsUpdate();
-      delay(speed);
-    }
-  }
 }
 
 // Rainbow-enhanced theater marquee. Pass delay time (in ms) between frames.

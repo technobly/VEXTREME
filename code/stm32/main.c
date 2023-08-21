@@ -885,45 +885,69 @@ int main(void) {
     // cart_opt.ram_start_addr = 0x20; // RAM starts at 0x2000
     // cart_opt.ram_end_addr   = 0x27; // RAM ends at 0x27ff
 
-#if 0 // TEST LED CODE START
-    while (1) {
-        // color wipe back and fourth through the list of colors
-        ledsClear();
-        ledsSetBrightness(150);
-        bool dir = true;
-        for (int x = 1; x < sizeof(colors)/sizeof(*colors); x++) {
-            colorWipe(dir, colors[x], 50);
-            dir = !dir;
-        }
+    // ledsClear();
+    // ledsUpdate();
+    // ledsSetBrightness(255);
+    // while(1) {
+    //     knightRider(10, 128, 2, 0, 3, 0x0000FF); // Cycles, Speed, Width, First, Last, RGB Color (original orange-red)
+    //     knightRider(10, 128, 2, 0, 3, 0xFF00FF); // Cycles, Speed, Width, First, Last, RGB Color (purple)
 
-        ledsClear();
-        ledsSetBrightness(255);
-        rainbowCycle(10);
-        rainbowCycle(10);
+    //     if (millis() > 10000) {
+    //         resetIntoBootloader();
+    //     }
+    // }
 
-        ledsClear();
-        knightRider(6, 64, 4, 3, 9, 0xFF7700); // Cycles, Speed, Width, First, Last, RGB Color (original orange-red)
-        knightRider(3, 32, 4, 3, 9, 0xFF00FF); // Cycles, Speed, Width, First, Last, RGB Color (purple)
-        knightRider(3, 32, 4, 3, 9, 0x0000FF); // Cycles, Speed, Width, First, Last, RGB Color (blue)
-        knightRider(3, 32, 5, 3, 9, 0x00FF00); // Cycles, Speed, Width, First, Last, RGB Color (green)
-        knightRider(3, 32, 5, 3, 9, 0xFFFF00); // Cycles, Speed, Width, First, Last, RGB Color (yellow)
-        knightRider(3, 32, 7, 3, 9, 0x00FFFF); // Cycles, Speed, Width, First, Last, RGB Color (cyan)
-        knightRider(3, 32, 7, 3, 9, 0xFFFFFF); // Cycles, Speed, Width, First, Last, RGB Color (white)
+    // If /HALT line is LOW, run the fancy display code
+    if (!gpio_get(GPIOB, GPIO12)) {
+        // Set the pull up and double check that it's not just floating
+        gpio_mode_setup(GPIOB, GPIO_MODE_INPUT, GPIO_PUPD_PULLUP, GPIO12);
+        delay(30);
+        if (!gpio_get(GPIOB, GPIO12)) {
+            // Re-disable the pull up
+            gpio_mode_setup(GPIOB, GPIO_MODE_INPUT, GPIO_PUPD_NONE, GPIO12);
+            while (1) {
+                // color wipe back and fourth through the list of colors
+                // ledsClear();
+                // ledsSetBrightness(150);
+                // bool dir = true;
+                // for (int i = 0; i < 2; i++) {
+                //     for (int x = 1; x < sizeof(colors)/sizeof(*colors); x++) {
+                //         colorWipe(dir, colors[x], 100);
+                //         dir = !dir;
+                //     }
+                // }
 
-        // Iterate through a whole rainbow of colors
-        for(uint8_t j=0; j<252; j+=7) {
-            knightRider(1, 16, 2, 0, 10, colorWheel(j)); // Cycles, Speed, Width, RGB Color
-        }
+                // ledsClear();
+                // ledsSetBrightness(255);
+                // for (int x = 0; x < 5; x++) {
+                //     rainbowCycle(10);
+                // }
 
-        ledsClear();
-        ledsSetBrightness(255);
-        int y = 10;
-        for (int x=0; x<10; x++) {
-            theaterChaseRainbow(y);
-            y += 5;
-        }
-    }
-#endif // TEST LED CODE END
+                ledsClear();
+                ledsSetBrightness(255);
+                knightRider(10, 128, 2, 0, 3, 0xFF7700); // Cycles, Speed, Width, First, Last, RGB Color (original orange-red)
+                knightRider(10, 128, 2, 0, 3, 0xFF00FF); // Cycles, Speed, Width, First, Last, RGB Color (purple)
+                knightRider(5, 128, 2, 0, 3, 0x0000FF); // Cycles, Speed, Width, First, Last, RGB Color (blue)
+                knightRider(5, 128, 2, 0, 3, 0x00FF00); // Cycles, Speed, Width, First, Last, RGB Color (green)
+                knightRider(5, 128, 2, 0, 3, 0xFFFF00); // Cycles, Speed, Width, First, Last, RGB Color (yellow)
+                knightRider(5, 128, 2, 0, 3, 0x00FFFF); // Cycles, Speed, Width, First, Last, RGB Color (cyan)
+                knightRider(5, 128, 2, 0, 3, 0xFFFFFF); // Cycles, Speed, Width, First, Last, RGB Color (white)
+
+                // Iterate through a whole rainbow of colors
+                for (uint8_t j = 0; j < 252; j += 7) {
+                    knightRider(1, 64, 2, 0, 3, colorWheel(j)); // Cycles, Speed, Width, RGB Color
+                }
+
+                ledsClear();
+                ledsSetBrightness(255);
+                int y = 10;
+                for (int x = 0; x < 5; x++) {
+                    theaterChaseRainbow(y);
+                    y += 10;
+                }
+            }
+        } // If /HALT line is LOW re-check after pullup set
+    } // If /HALT line is LOW, run the fancy display code
 
     // If USB power pin is high, boot into USB disk mode
     if (gpio_get(GPIOA, GPIO9)
