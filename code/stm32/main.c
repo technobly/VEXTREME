@@ -32,6 +32,7 @@
 #include <libopencm3/stm32/pwr.h>
 #include <libopencm3/stm32/flash.h>
 #include <libopencm3/cm3/dwt.h>
+#include <libopencm3/cm3/scb.h>
 
 #include <libopencm3/stm32/crc.h>
 
@@ -583,6 +584,28 @@ void ledsOff() {
     ledsUpdate();
 }
 
+void resetIntoBootloader() {
+    #define BOOT_RTC_SIGNATURE (0x71a21877)
+    #define BOOT_RTC_REG MMIO32(RTC_BASE + 0x50)
+    #define ARG_RTC_REG MMIO32(RTC_BASE + 0x54)
+
+    /* enable the backup registers */
+    PWR_CR |= PWR_CR_DBP;
+    RCC_BDCR |= RCC_BDCR_RTCEN;
+
+    BOOT_RTC_REG = BOOT_RTC_SIGNATURE;
+    ARG_RTC_REG = 0;
+
+    /* disable the backup registers */
+    RCC_BDCR &= RCC_BDCR_RTCEN;
+    PWR_CR &= ~PWR_CR_DBP;
+
+    ledsClear();
+    ledsUpdate();
+
+    scb_reset_system();
+}
+
 static FATFS FatFs;
 FIL cart_file;
 void doRamDisk() {
@@ -714,6 +737,7 @@ void doHandleEvent(int data) {
         case 16: loadParmRam(); break;
         case 17: storeToRom(); break;
         case 18: settingsSave(&settings); break;
+        case 19: resetIntoBootloader(); break;
     }
 }
 
@@ -913,6 +937,8 @@ int main(void) {
         ramdiskmain(RAMDISK_BLOCKING);
     }
 
+    
+
     xprintf("[ Starting ROM Emulation ]\n");
 
     // FRESULT f_mount_res;
@@ -984,6 +1010,15 @@ int main(void) {
     loadListing(menuDir, &c_and_l.listing, MENU_DATA_ADDR,
                 MENU_DATA_ADDR + MENU_DATA_SIZE, romData);
     sys_opt.usb_dev = USB_DEV_DISABLED;
+
+    if (f_stat("/stm32.uf2", &cart_file_info) == FR_OK) {
+        xprintf("Deleting /stm32.uf2 ...\n");
+        // FRESULT f_unlink_res;
+        f_unlink("/stm32.uf2");
+        // xprintf("f_unlink result: %d\n", f_unlink_res);
+        xprintf("Resetting into UF2 BOOTLOADER, please copy stm32.uf2 again!\n");
+        resetIntoBootloader();
+    }
 
     // Load cart.bin and jump straight into Developer Mode if it exists
     if (f_stat("/cart.bin", &cart_file_info) == FR_OK) {

@@ -63,18 +63,16 @@
 ; SETTINGS SCREEN
 ;*******************************************************************************
 settings_list
-  fdb                  sl_lines
-  fdb                  sl_chars
+  fdb                  sl_system
   fdb                  sl_screensaver
   fdb                  sl_led
   fdb                  sl_back
   fdb                  0
   fdb                  filedata
 
-sl_lines
-  fcb                  "LINES", W_NUM, 3, 6
-  fdb                  #m_max_lines
-  fdb                  #init_page
+sl_system
+  fcb                  "SYSTEM", W_LINK
+  fdb                  #settings_system_list
 
 sl_chars
   fcb                  "CHARACTERS", W_NUM, 4, 16
@@ -92,6 +90,52 @@ sl_screensaver
 sl_back
   fcb                  "EXIT",  W_LINK
   fdb                  #filedata
+
+;*******************************************************************************
+; SETTINGS->SYSTEM
+;*******************************************************************************
+settings_system_list
+  fdb                  ssysl_lines
+  fdb                  ssysl_chars
+  fdb                  ssysl_update
+  fdb                  ssysl_back
+  fdb                  0
+  fdb                  settings_list
+
+ssysl_lines
+  fcb                  "LINES", W_NUM, 3, 6
+  fdb                  #m_max_lines
+  fdb                  #init_page
+
+ssysl_chars
+  fcb                  "CHARACTERS", W_NUM, 4, 16
+  fdb                  #m_max_chars
+  fdb                  0
+
+ssysl_update
+  fcb                  "UPDATE FIRMWARE", W_LINK
+  fdb                  #settings_firmware_update_list
+
+ssysl_back
+  fcb                  "BACK", W_LINK
+  fdb                  settings_list
+
+;*******************************************************************************
+; SETTINGS->SYSTEM->FIRMWARE UPDATE
+;*******************************************************************************
+settings_firmware_update_list
+  fdb                  sful_fw_update
+  fdb                  sful_back
+  fdb                  0
+  fdb                  settings_list
+
+sful_fw_update
+  fcb                  "PROCEED?", W_LINK
+  fdb                  #loaddevmode
+
+sful_back
+  fcb                  "BACK", W_LINK
+  fdb                  settings_list
 
 ;*******************************************************************************
 ; SETTINGS->SCREENSAVER

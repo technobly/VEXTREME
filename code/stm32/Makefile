@@ -117,7 +117,7 @@ docker:
 	${STM_DOCKER} make images $(HW_VER_ARGS) $(UF2_ARGS)
 
 uf2: $(BINARY).bin
-	${STM_DOCKER} uf2conv.py -b 0x08008000 -o $(BINARY).uf2 -c $(BINARY).bin
+	${STM_DOCKER} uf2conv.py -b 0x08004000 -o $(BINARY).uf2 -c $(BINARY).bin
 
 # '$ make bash' puts you in the docker container interactive shell for debugging
 bash:

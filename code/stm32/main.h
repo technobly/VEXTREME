@@ -28,5 +28,6 @@ void loadParmRam(void);
 void storeToRom(void);
 void syncSettings(void);
 void applyLedSettings(bool initial);
+void resetIntoBootloader(void);
 
 #endif

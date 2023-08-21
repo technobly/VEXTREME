@@ -294,6 +294,10 @@ input_link_bh
   ldd                  m_input_arg_ptr      ; D = another list pointer stored in input arguments
   std                  m_list_ptr           ; list_ptr = D
   jsr                  init_page            ; initialize page
+  M_IS_LOADDEVMODE                          ; if up is NOT loaddevmode
+  bne                  input_link_next      ; | check next
+  M_JSR_RPC            #19                  ; RPC call to resetInBootloader()
+input_link_next
   M_IS_FILELIST                             ; if up is NOT filelist
   bne                  input_link_bh_done   ; | done
   M_JSR_RPC            #18                  ; RPC call to settingsSave()

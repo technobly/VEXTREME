@@ -82,6 +82,22 @@ M_IS_FILELIST          macro
   endm
 
 ;*******************************************************************************
+; M_IS_LOADDEVMODE
+;
+; Compare current list pointer with #loaddevmode
+; IN:
+;   loaddevmode
+;   m_list_ptr
+; OUT:
+;   CC
+; DESTROYS: D
+;*******************************************************************************
+M_IS_LOADDEVMODE       macro
+  ldd                  #loaddevmode         ; D = filelist pointer
+  cmpd                 m_list_ptr           ; if list_ptr == D
+  endm
+
+;*******************************************************************************
 ; M_JSR_IH #[button_id]
 ;
 ; Call input handler.
