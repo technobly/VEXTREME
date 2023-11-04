@@ -10,13 +10,13 @@ VEXTREME Vectrex Multicart Credits
 
 # v0.1
 
-- [Braydon Kanyid](https://github.com/rattboi) - all hardware design files and software build
+- [Bradon Kanyid](https://github.com/rattboi) - all hardware design files and software build
 - [Brett Walach](https://github.com/technobly) - minor changes to hardware and software
 
 # v0.2
 
 - [Brett Walach](https://github.com/technobly) - lead VEXTREME developer, hardware & software updates
-- [Braydon Kanyid](https://github.com/rattboi) - menu system w/directories, integrating menu.bin into STM binary.
+- [Bradon Kanyid](https://github.com/rattboi) - menu system w/directories, integrating menu.bin into STM binary.
 - Tony Lindberg - VEXTREME logo design, machining consulting
 - [Malban](https://github.com/malbanGit) - VEXTREME logo optimization, font-5, Vide (used to create and debug VEXTREME), Asteroids emulation
 - [Tyler Brymer](https://github.com/TylerBrymer) - High score feature
