@@ -162,15 +162,14 @@ void loadRomWithHighScore(char *fn, bool load_hs_mode, bool use_embedded_menu) {
     const int SCORE_ADDR = MENU_SYS_ADDR + 0x10;
     FIL f;
     FRESULT fr = FR_NO_FILE; // assume no file, so we can test if we ever opened the file later
-    UINT r = 0;
-    int n;
-    UINT x;
+    unsigned int bytesRead = 0;
+    int romDataSize = 0;
     if (romData == c_and_l.cartData) {
         // loaded cart data
-        n = sizeof(c_and_l.cartData);
+        romDataSize = sizeof(c_and_l.cartData);
     } else {
         // loaded menu data
-        n = sizeof(menuData);
+        romDataSize = sizeof(menuData);
     }
     if (romData == menuData && use_embedded_menu == true) {
         xprintf("Copying %lu bytes of menu data... ", &menu_end - &menu_start);
@@ -183,20 +182,39 @@ void loadRomWithHighScore(char *fn, bool load_hs_mode, bool use_embedded_menu) {
         } else {
             xprintf("Opened file: %s\n", fn);
         }
-        f_read(&f, romData, 64*1024, &r);
-        xprintf("Read %d bytes of rom data.\n", r);
+        f_read(&f, romData, 64*1024, &bytesRead);
+        xprintf("Read %d bytes of rom data.\n", bytesRead);
     }
-    // It's a game and it's <= 32KB
-    if (n > 32*1024 && r <= 32*1024) {
+
+    // It's a game
+    if (romData != menuData) {
+        unsigned int x;
+        unsigned int maxCartSize;
+        char swapByte;
+        if (bytesRead <= 32*1024) {
+            maxCartSize = 32*1024; // 32KB game
+        } else {
+            maxCartSize = 64*1024; // 64KB game
+        }
         // pad with 0x01 for Mine Storm II and Polar Rescue (and any
         // other buggy game that reads outside its program space)
-        for (x = r; x < 32*1024; x++) {
+        for (x = bytesRead; x < maxCartSize; x++) {
             romData[x] = 0x01;
         }
-        xprintf("Padded remaining %d bytes of rom data with 0x01\n", x - r);
-        //Duplicate bank to upper bank
-        for (n = 0; n < 32*1024; n++) {
-            romData[n+32*1024] = romData[n];
+        xprintf("Padded remaining %d bytes of rom data with 0x01\n", x - bytesRead);
+        if (maxCartSize == 32*1024) {
+            // Duplicate lower 32KB bank to upper 32KB bank, just for safety in case something in the 32KB game toggles PB6
+            for (x = 0; x < maxCartSize; x++) {
+                romData[(32*1024) + x] = romData[x];
+            }
+        } else {
+            // Swap banks for 64KB games (copy upper 32KB bank to lower, and lower 32KB to upper)
+            // This is because we invert PB6 in romemu.S:166 to make loading the menu a bit easier.
+            for (x = 0; x < 32*1024; x++) {
+                swapByte = romData[x];
+                romData[x] = romData[(32*1024) + x];
+                romData[(32*1024) + x] = swapByte;
+            }
         }
 
         if (load_hs_mode) {
@@ -235,7 +253,7 @@ void loadRomWithHighScore(char *fn, bool load_hs_mode, bool use_embedded_menu) {
         } // end if (load_hs_mode)
     }
     // It's the menu, patch in the HW/SW versions
-    else if (romData == menuData) {
+    else {
         char* ptr1 = strstr(menuData, "11");
         char* ptr2 = strstr(menuData, "22");
         char* ptr3 = strstr(menuData, "33");
@@ -262,6 +280,7 @@ void loadRomWithHighScore(char *fn, bool load_hs_mode, bool use_embedded_menu) {
             xprintf("OK!\n");
         }
     }
+
     if (fr != FR_NO_FILE) {
         f_close(&f);
     }

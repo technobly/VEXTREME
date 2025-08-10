@@ -162,7 +162,11 @@ resetexit:
 
     // Handle read: load address, get byte, send to Vectrex
     ldr   r0,[r1, 0x10]         // Load addr pins
-    eor   r0, r0, #0x8000       // Invert software-controlled line: it is high per default
+    eor   r0, r0, #0x8000       // PB6 is inverted here, this makes handling the menu a bit easier.
+                                //  | PB6 is high by default on the Vectrex, so 32k games would normally run in the upper bank of a 64k cart.
+                                //  | However, since we are inverting PB6, 32k games will load from the lower bank.
+                                //  | This also makes 64k bankswitched games a little tricky. When we load those
+                                //  | we have to swap the upper and lower banks, due to PB6 being inverted.
 
     // IF WE CLOBBER R2, RELOAD IT
     //ldr   r6,=romData           // Load ROM data array addr in scratch r0
