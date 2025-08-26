@@ -124,8 +124,8 @@ ssysl_back
 ; SETTINGS->SYSTEM->FIRMWARE UPDATE
 ;*******************************************************************************
 settings_firmware_update_list
-  fdb                  sful_fw_update
   fdb                  sful_back
+  fdb                  sful_fw_update
   fdb                  0
   fdb                  settings_list
 

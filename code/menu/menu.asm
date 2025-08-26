@@ -132,6 +132,7 @@ BTN_TOP                equ    #8            ;
 STARS_NUMBER           equ    #63           ; number of stars to be drawn in screensaver
 
 DEVMODE_TEXT_SIZE      equ    #$F660
+UPDATEFW_TEXT_SIZE     equ    #$F750
 
 ;***************************************************************************
 ; USER RAM SECTION ($C880-$CBEA)
@@ -1241,6 +1242,54 @@ y_pos_vals
   fcb                  $90,$80,$98,$8E,$8A,$9A,$88,$9C,$94,$8C,$92,$96,$86,$84,$82,$9D
 
 rpcfndatend3
+
+;***************************************************************************
+; RPC function for SYSTEM UPDATE - will be copied to RAM - call as rpcfn4
+; Since we are low on RAM, this is copied over the USB DEV routine at m_rpcfn3
+;***************************************************************************
+; (needed to skip init_page conditionally)
+rpcfndat4
+  sta                  $7fff
+
+rpcwaitloop4
+
+  jsr                  Wait_Recal           ; wait for recalibration
+  jsr                  Intensity_5F         ; set intensity
+
+  ldu  #m_rpcfn3+(plugusb_str-rpcfndat4)    ; relative to ram
+  lda                  #40                  ;
+  ldb                  #-60                 ;
+  jsr                  Print_Str_d          ;
+
+  ldu  #m_rpcfn3+(opendrive_str-rpcfndat4)  ; relative to ram
+  lda                  #10                  ;
+  ldb                  #-90                 ;
+  jsr                  Print_Str_d          ;
+
+  ldu   #m_rpcfn3+(copyfile_str-rpcfndat4)  ; relative to ram
+  lda                  #-20                 ;
+  ldb                  #-85                 ;
+  jsr                  Print_Str_d          ;
+
+  lda                  $0                   ;
+  cmpa                 # 'g'                ;
+  bne                  rpcwaitloop4         ;
+  lda                  $1                   ;
+  cmpa                 # ' '                ;
+  bne                  rpcwaitloop4         ;
+  jmp                  $f000                ; reset
+
+; ====== RAM DATA ======
+plugusb_str
+  fcb                  "PLUG IN USB", $80
+
+opendrive_str
+  fcb                  "OPEN VX-BOOT DRIVE", $80
+
+copyfile_str
+  fcb                  "COPY VEXTREME.UF2", $80
+
+rpcfndatend4
 ;***************************************************************************
 ; RPC FUNCTION END
 ;***************************************************************************

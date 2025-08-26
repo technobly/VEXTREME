@@ -585,6 +585,11 @@ void ledsOff() {
 }
 
 void resetIntoBootloader() {
+    // Make sure the RAM routine that displays help message stays put until we reset
+    // This removes the copyright bytes that the RAM routine is looking for
+    menuData[0x0] = 0x01;
+    menuData[0x1] = 0x01;
+
     #define BOOT_RTC_SIGNATURE (0x71a21877)
     #define BOOT_RTC_REG MMIO32(RTC_BASE + 0x50)
     #define ARG_RTC_REG MMIO32(RTC_BASE + 0x54)
@@ -673,6 +678,14 @@ void doRamDisk() {
                 loadRom("/cart.bin");
                 sys_opt.usb_dev = USB_DEV_RUN;
             }
+        } else if (f_stat("/stm32.uf2", &cart_file_info) == FR_OK) {
+            xprintf("Deleting /stm32.uf2 ...\n");
+            // FRESULT f_unlink_res;
+            f_unlink("/stm32.uf2");
+            // xprintf("f_unlink result: %d\n", f_unlink_res);
+            xprintf("Resetting into UF2 BOOTLOADER, please copy stm32.uf2 again!\n");
+            resetIntoBootloader();
+            // Should not get here!
         } else {
             xprintf("Sorry, didn't find /cart.bin\n");
             sys_opt.usb_dev = USB_DEV_DISABLED;
@@ -844,7 +857,7 @@ int main(void) {
     sys_opt.rgb_type = RGB_TYPE_4;
 #endif
     // Software Version
-    sys_opt.sw_ver = 0x0101; // v1.01
+    sys_opt.sw_ver = 0x0102; // v1.02
     // sys_opt.rgb_type = RGB_TYPE_4;
     // sys_opt.rgb_type = RGB_TYPE_10;
     sys_opt.usb_dev = USB_DEV_DISABLED;

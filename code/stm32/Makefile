@@ -66,7 +66,7 @@ UF2_ARGS="USE_UF2=0"
 LDSCRIPT=stm32f411rct6.ld
 endif
 
-BINARY=stm32
+BINARY=VEXTREME
 OBJS=main.o menu.o romemu.o msc.o xprintf.o usb_msc.o ff_diskio.o \
 		fatfs/ff.o fatfs/option/unicode.o flash.o led.o delay.o \
 		wifi.o highscore.o settings.o cart_options.o
@@ -101,12 +101,12 @@ LDFLAGS		+= --static -nostartfiles -L$(TOOLCHAIN_DIR)/lib  \
 # Specify release version like so
 # make flash-bin HW_VER=v0.3 SW_VER=v0.24
 flash-release:
-	dfu-util -a 0 -d 0483:df11 -s 0x08000000 -D ../releases/$(SW_VER)/stm32/hardware-$(HW_VER)/stm32-sw.$(SW_VER)-test.hw.$(HW_VER).bin
+	dfu-util -a 0 -d 0483:df11 -s 0x08000000:leave -D ../releases/$(SW_VER)/stm32/hardware-$(HW_VER)/stm32-sw.$(SW_VER)-test.hw.$(HW_VER).bin
 
 # Specify bin like so
 # make flash-bin BIN=../releases/v0.24/stm32/hardware-v0.3/stm32-sw.v0.24-test.hw.v0.3.bin
 flash-bin:
-	dfu-util -a 0 -d 0483:df11 -s 0x08000000 -D $(BIN)
+	dfu-util -a 0 -d 0483:df11 -s 0x08000000:leave -D $(BIN)
 
 all: menu.ld docker
 
@@ -118,6 +118,9 @@ docker:
 
 uf2: $(BINARY).bin
 	${STM_DOCKER} uf2conv.py -b 0x08004000 -o $(BINARY).uf2 -c $(BINARY).bin
+
+flash-uf2: $(BINARY).bin
+	dfu-util -a 0 -d 0483:df11 -s 0x08004000:leave -D $(BINARY).bin
 
 # '$ make bash' puts you in the docker container interactive shell for debugging
 bash:
@@ -171,6 +174,6 @@ clean:
 	rm -f *.uf2
 
 %.flash: %.bin
-	dfu-util -a 0 -d 0483:df11 -s 0x08000000 -D $(*).bin
+	dfu-util -a 0 -d 0483:df11 -s 0x08000000:leave -D $(*).bin
 
 .PHONY: images clean flash dummy

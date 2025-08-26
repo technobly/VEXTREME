@@ -296,7 +296,13 @@ input_link_bh
   jsr                  init_page            ; initialize page
   M_IS_LOADDEVMODE                          ; if up is NOT loaddevmode
   bne                  input_link_next      ; | check next
-  M_JSR_RPC            #19                  ; RPC call to resetInBootloader()
+  M_MEMCPY             #m_rpcfn3, #rpcfndat4, #rpcfndatend4
+  ldd                  #UPDATEFW_TEXT_SIZE  ; Set Text Size
+  std                  Vec_Text_HW          ; |
+  lda                  #19                  ; RPC call to resetInBootloader(),
+  jmp                  m_rpcfn3             ; | called from RAM routine m_rpcfn4 that displays help (located at m_rpcfn3)
+                                            ; | m_rpcfn4 will jump to reset when SYSTEM UPDATE is finished
+                                            ;
 input_link_next
   M_IS_FILELIST                             ; if up is NOT filelist
   bne                  input_link_bh_done   ; | done
