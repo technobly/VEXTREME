@@ -918,6 +918,12 @@ int main(void) {
         if (!gpio_get(GPIOB, GPIO12)) {
             // Re-disable the pull up
             gpio_mode_setup(GPIOB, GPIO_MODE_INPUT, GPIO_PUPD_NONE, GPIO12);
+            int first_led = 0;
+            int last_led = 3;
+            if (sys_opt.rgb_type == RGB_TYPE_10) {
+                first_led = 3;
+                last_led = 9;
+            }
             while (1) {
                 // color wipe back and fourth through the list of colors
                 // ledsClear();
@@ -938,17 +944,17 @@ int main(void) {
 
                 ledsClear();
                 ledsSetBrightness(255);
-                knightRider(10, 128, 2, 0, 3, 0xFF7700); // Cycles, Speed, Width, First, Last, RGB Color (original orange-red)
-                knightRider(10, 128, 2, 0, 3, 0xFF00FF); // Cycles, Speed, Width, First, Last, RGB Color (purple)
-                knightRider(5, 128, 2, 0, 3, 0x0000FF); // Cycles, Speed, Width, First, Last, RGB Color (blue)
-                knightRider(5, 128, 2, 0, 3, 0x00FF00); // Cycles, Speed, Width, First, Last, RGB Color (green)
-                knightRider(5, 128, 2, 0, 3, 0xFFFF00); // Cycles, Speed, Width, First, Last, RGB Color (yellow)
-                knightRider(5, 128, 2, 0, 3, 0x00FFFF); // Cycles, Speed, Width, First, Last, RGB Color (cyan)
-                knightRider(5, 128, 2, 0, 3, 0xFFFFFF); // Cycles, Speed, Width, First, Last, RGB Color (white)
+                knightRider(10, 128, 2, first_led, last_led, 0xFF7700); // Cycles, Speed, Width, First, Last, RGB Color (original orange-red)
+                knightRider(10, 128, 2, first_led, last_led, 0xFF00FF); // Cycles, Speed, Width, First, Last, RGB Color (purple)
+                knightRider(5, 128, 2, first_led, last_led, 0x0000FF); // Cycles, Speed, Width, First, Last, RGB Color (blue)
+                knightRider(5, 128, 2, first_led, last_led, 0x00FF00); // Cycles, Speed, Width, First, Last, RGB Color (green)
+                knightRider(5, 128, 2, first_led, last_led, 0xFFFF00); // Cycles, Speed, Width, First, Last, RGB Color (yellow)
+                knightRider(5, 128, 2, first_led, last_led, 0x00FFFF); // Cycles, Speed, Width, First, Last, RGB Color (cyan)
+                knightRider(5, 128, 2, first_led, last_led, 0xFFFFFF); // Cycles, Speed, Width, First, Last, RGB Color (white)
 
                 // Iterate through a whole rainbow of colors
                 for (uint8_t j = 0; j < 252; j += 7) {
-                    knightRider(1, 64, 2, 0, 3, colorWheel(j)); // Cycles, Speed, Width, RGB Color
+                    knightRider(1, 64, 2, first_led, last_led, colorWheel(j)); // Cycles, Speed, Width, RGB Color
                 }
 
                 ledsClear();
