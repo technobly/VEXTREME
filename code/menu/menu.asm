@@ -222,7 +222,7 @@ m_rpcfn3               equ    m_rpcfn1+(rpcfndatend2-rpcfndat1)
 ;***************************************************************************
   code
   org                  0
-  fcb                  "g GCE 2025", $80    ; 'g' is copyright sign
+  fcb                  "g GCE 2026", $80    ; 'g' is copyright sign
   fdb                  vextreme_tune1       ; catchy intro music to get stuck in your head
   fcb                  $F6, $60, $20, -$42  ;
   fcb                  "VEXTREME",$80       ; some game information ending with $80
