@@ -1,9 +1,0 @@
-EESchema-DOCLIB  Version 2.0
-#
-$CMP TPD4E02B04DQA_passthrough
-D 4-Channel ESD Protection Diode for USB Type-C and HDMI 2.0, USON-10
-K ESD protection USB HDMI
-F http://www.ti.com/lit/ds/symlink/tpd4e02b04.pdf
-$ENDCMP
-#
-#End Doc Library
