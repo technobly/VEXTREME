@@ -31,3 +31,5 @@ code/releases/
 
 # Built binaries
 *.bin
+# Exception: keep the prebuilt UF2 bootloader
+!code/uf2-stm32f/bootloader.bin

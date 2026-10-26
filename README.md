@@ -6,12 +6,12 @@ We're carrying on and pushing forward the amazing work of [Sprite_tm](http://spr
 :warning: Please read this NOTICE of Current Development :warning:
 ===
 
-**This project is a work in progress, and is not ready for mass production.**  Please observe the currently [posted issues](https://github.com/technobly/vextreme/issues) and there may be more lurking that are not yet identified.  The hardware and software is evolving.  You are free to build any version, contribute and/or follow along.  Please note that support of these pre-releases will be very limited and if you embark on an epic adventure to build one or a few, you should feel comfortable with this type of embedded hardware and software development.  There will be road bumps, but the journey is half the fun of the destination.  When things appear to be stable and we've worked out most of the kinks, we'll change the version to v1.0.  Only then is it advisable to mass produce.
+**This project is a work in progress, and is not ready for mass production.**  Please observe the currently [posted issues](https://github.com/technobly/vextreme/issues) and there may be more lurking that are not yet identified.  The hardware and software is evolving.  You are free to build any version, contribute and/or follow along.  Please note that support of these pre-releases will be very limited and if you embark on an epic adventure to build one or a few, you should feel comfortable with this type of embedded hardware and software development.  There will be road bumps, but the journey is half the fun of the destination.  When things appear to be stable and we've worked out most of the kinks, we'll change the version to v1.0.  Only then is it advisable to mass produce, after building and testing a prototype first... so you know what you are getting yourself into.
 
 3D Renders
 ===
 
-![v0.2 Render](images/vextreme-v0.2-white.gif)
+![v1.0 Render](images/vextreme-v1.0-white.gif)
 
 Video Updates
 ===
@@ -42,7 +42,7 @@ Building and Flashing STM firmware
 ### This assumes you have these prerequisits installed:
 
 - Docker
-- dfu-util v0.9
+- dfu-util
 - Make
 - Windows will also require these [Zadig instructions](https://github.com/profezzorn/ProffieOS/wiki/zadig)
 
@@ -51,7 +51,7 @@ Building and Flashing STM firmware
 code/stm32 $ make docker-build
 ```
 
-### Connect the 2-pin jumper and then connect the cart to USB
+### Connect the 2-pin jumper JP1 and then connect the cart to USB
 
 ### Check if your computer sees the STM32
 ```
@@ -71,69 +71,28 @@ Found DFU: [0483:df11] ver=2200, devnum=22, cfg=1, intf=0, path="20-1.4.3", alt=
 Found DFU: [0483:df11] ver=2200, devnum=22, cfg=1, intf=0, path="20-1.4.3", alt=0, name="@Internal Flash  /0x08000000/04*016Kg,01*064Kg,03*128Kg", serial="123412341234"
 ```
 
-### Build and flash the STM32 image via dfu-util
+### Flash the UF2 Bootloader via dfu-util
 ```
-code/stm32 $ make clean all flash USE_HW=v1.0
+uf2-stm32f $ dfu-util -a 0 -d 0483:df11 -s 0x08000000:leave -D bootloader.bin
+```
+
+
+### Build and flash the STM32 UF2 image via dfu-util
+```
+code/stm32 $ make clean all uf2 flash-uf2 USE_HW=v1.0 USE_UF2=1
 
 // NOTE: Use either v0.2, v0.3, v0.4 or v1.0 above depending on which hardware version you have.
 // NOTE: You may use v0.3 if you make the proper mods to your v0.2 board.  See "Modifying v0.2 to v0.3"
 
 // You should end up with something like this
 
-Downloading to address = 0x08000000, size = 23536
-Download    [=========================] 100%        23536 bytes
+Downloading to address = 0x08004000, size = 134144
+Download    [=========================] 100%        134144 bytes
 Download done.
 File downloaded successfully
 ```
 
 ### Remove the cart from USB and remove the jumper (install it on one pin so you don't lose it)
-
-
-Building and Flashing the multicart's menu
-===
-
-### Build the asm6809 docker image
-```
-code/menu $ make docker-build
-```
-
-### Connect the cart to USB with the 2-pin jumper removed
-
-- The first time you do this you will likely have to format the USB drive
-
-  - Name: VEXTREME
-  - Format: MS-DOS (FAT)
-  - Scheme: Master Boot Record
-  - 512 byte page size
-
-- Be patient, it's slow!  Don't worry, copying binaries later will be fast!!
-
-### Build and flash the multicart menu binary
-```
-// Mac OS
-code/menu $ make clean all && cp menu.bin /Volumes/VEXTREME/
-
-// optionally add this to the above command to unmount, after you figure out which drive it is
-$ diskutil list
-&& diskutil unmountDisk /dev/disk3
-
-// Linux
-code/menu $ make copy
-
-// You should end up with something like this, and the binary should have been copied to the root of your multicart drive
-
-asm6809  -B -o menu.bin menu.asm
-```
-
-Modifying v0.2 to v0.3
-===
-
-![v0.3 Mod 1](images/v0.3-mod1.png)
-
-- To get the new reset feature of v0.3, as of v0.24 software you will need to jumper V-OE pin 12 of the cart fingers (or U3 pin 9) to STM32 pin 29 (PB10).  This may change in the future, don't sell your soldering iron!
-- The wire mod above also allows you to play Animaction on VEXTREME!
-- More TBD
-
 
 Adding Vectrex Game ROMs (Binaries)
 ===
@@ -141,16 +100,6 @@ Adding Vectrex Game ROMs (Binaries)
 - Create a directory on your multicart called `roms/`
 
 - Add your first binaries there, may I suggest: [Beluga Dreams](https://8-bit-waves.itch.io/beluga-dreams) and [Vec-Man](http://eiti.fh-pforzheim.de/personen/johannsen/projektlabor/vectrex_2019/vectrex_game_vec_man.htm) ?
-
-Docs
-===
-
-A nice collection of lessons learned will be [documented here.](docs/)
-
-- [Developer Mode](docs/developer-mode.md)
-- [Lazy Developer](docs/lazy-developer.md)
-- [Cart Options](docs/cart-options.md)
-
 
 Hall of Fame
 ===
@@ -166,3 +115,14 @@ LICENSE
 ===
 
 GPLv3 - essentially you must keep this open, all changes must be disclosed and shared.  Full [LICENSE here](LICENSE) and [TL;DR summary here](https://tldrlegal.com/license/gnu-general-public-license-v3-(gpl-3))
+
+Docs
+===
+
+A collection of how-tos and lessons learned lives in [docs/](docs/):
+
+- [Firmware Updates](docs/firmware-updates.md) - update VEXTREME firmware over USB with a `VEXTREME.uf2` file
+- [Developer Mode](docs/developer-mode.md) - flash a single game over USB and run it immediately
+- [Lazy Developer](docs/lazy-developer.md) - automatically ejects the USB drive when the Vectrex is turned on
+- [Cart Options](docs/cart-options.md) - per-game `.ini` files to enable cartridge RAM
+- [Datasheets](docs/datasheets/) - STM32F411 datasheet and reference manual

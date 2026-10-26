@@ -678,12 +678,12 @@ void doRamDisk() {
                 loadRom("/cart.bin");
                 sys_opt.usb_dev = USB_DEV_RUN;
             }
-        } else if (f_stat("/stm32.uf2", &cart_file_info) == FR_OK) {
-            xprintf("Deleting /stm32.uf2 ...\n");
+        } else if (f_stat("/VEXTREME.uf2", &cart_file_info) == FR_OK) {
+            xprintf("Deleting /VEXTREME.uf2 ...\n");
             // FRESULT f_unlink_res;
-            f_unlink("/stm32.uf2");
+            f_unlink("/VEXTREME.uf2");
             // xprintf("f_unlink result: %d\n", f_unlink_res);
-            xprintf("Resetting into UF2 BOOTLOADER, please copy stm32.uf2 again!\n");
+            xprintf("Resetting into UF2 BOOTLOADER, please copy VEXTREME.uf2 again!\n");
             resetIntoBootloader();
             // Should not get here!
         } else {
@@ -1054,12 +1054,12 @@ int main(void) {
                 MENU_DATA_ADDR + MENU_DATA_SIZE, romData);
     sys_opt.usb_dev = USB_DEV_DISABLED;
 
-    if (f_stat("/stm32.uf2", &cart_file_info) == FR_OK) {
-        xprintf("Deleting /stm32.uf2 ...\n");
+    if (f_stat("/VEXTREME.uf2", &cart_file_info) == FR_OK) {
+        xprintf("Deleting /VEXTREME.uf2 ...\n");
         // FRESULT f_unlink_res;
-        f_unlink("/stm32.uf2");
+        f_unlink("/VEXTREME.uf2");
         // xprintf("f_unlink result: %d\n", f_unlink_res);
-        xprintf("Resetting into UF2 BOOTLOADER, please copy stm32.uf2 again!\n");
+        xprintf("Resetting into UF2 BOOTLOADER, please copy VEXTREME.uf2 again!\n");
         resetIntoBootloader();
     }
 

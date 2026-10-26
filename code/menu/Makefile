@@ -10,7 +10,7 @@ docker-build: Dockerfile
 all: docker
 
 docker:
-	docker run --rm -v `pwd`:/build -u `id -u ${USER}`:`id -g ${USER}` asm6809 make menu.bin
+	docker run --rm -v "$(CURDIR)":/build -u `id -u ${USER}`:`id -g ${USER}` asm6809 make menu.bin
 
 menu.bin: menu.asm
 	$(AS)  -B -o $@ $^

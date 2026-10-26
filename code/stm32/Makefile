@@ -4,7 +4,7 @@
 VERBOSE=@
 VERBOSE_REDIRECT= > /dev/null 2>&1
 
-DOCKER_ARGS=--rm -t -v `pwd`:/build/stm32 -u `id -u ${USER}`:`id -g ${USER}`
+DOCKER_ARGS=--rm -t -v "$(CURDIR)":/build/stm32 -u `id -u ${USER}`:`id -g ${USER}`
 STM_DOCKER=docker run ${DOCKER_ARGS} stm32-build
 STM_DOCKER_I=docker run -i ${DOCKER_ARGS} stm32-build
 
