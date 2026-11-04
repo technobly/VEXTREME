@@ -54,6 +54,10 @@
 //#include "rom.h"
 #include "xprintf.h"
 #include "fatfs/ff.h"
+#include "vxe_config.h"
+#if VXE_ENABLED
+#include "vxe/vxe_api.h"   // VXE: loadable co-op game payloads (docs/vxe/SDK_GUIDE.md)
+#endif
 
 // Externs
 extern GameFileRecordV1* pActiveGameData;
@@ -156,6 +160,15 @@ void applyLedSettings(bool initial) {
 // ASM function
 extern void romemu(void);
 
+#if VXE_ENABLED
+// Does `fn` name a .vxe co-op game bundle?
+static bool isVxeBundle(const char *fn) {
+    size_t n = strlen(fn);
+    return n > 4 && fn[n - 4] == '.' && (fn[n - 3] | 0x20) == 'v'
+                 && (fn[n - 2] | 0x20) == 'x' && (fn[n - 1] | 0x20) == 'e';
+}
+#endif
+
 // Load a ROM into cartridge memory
 void loadMenu() {
     bool use_embedded_menu = (f_stat("/menu.bin", &cart_file_info) != FR_OK);
@@ -185,6 +198,21 @@ void loadRomWithHighScore(char *fn, bool load_hs_mode, bool use_embedded_menu) {
         xprintf("Copying %lu bytes of menu data... ", &menu_end - &menu_start);
         memcpy(menuData, &menu_start, &menu_end - &menu_start);
         xprintf("OK!\n");
+#if VXE_ENABLED
+    } else if (romData != menuData && isVxeBundle(fn)) {
+        // A co-op game bundle: installs its STM32 payload if needed and puts its 6809 image here
+        // (vxe/vxe_install.c). On failure stay in the menu rather than start a cartridge of padding bytes.
+        // A bundle has no <name>.ini, and cart_opt is otherwise only reset in the plain-ROM branch below:
+        // without this, a .vxe launched after a ROM that enabled cart RAM would inherit that RAM window.
+        memset(&cart_opt, 0, sizeof(cart_opt));
+        bytesRead = vxeKernelLoadBundle(fn, romData, 64*1024);
+        xprintf("VXE bundle: %d bytes of 6809 image\n", bytesRead);
+        if (bytesRead == 0) {
+            isItemAFile = false;
+            romData = menuData;
+            return;
+        }
+#endif
     } else {
         memset(romData, 0, romDataSize);
         fr = f_open(&f, fn, FA_READ);
@@ -242,6 +270,12 @@ void loadRomWithHighScore(char *fn, bool load_hs_mode, bool use_embedded_menu) {
         unsigned int x;
         unsigned int maxCartSize;
         char swapByte;
+#if VXE_ENABLED
+        // Remember where this game came from, so a co-op game's own files are kept beside it, and the
+        // high-score key's CRC (vxe/vxe_kernel.c).
+        vxeKernelSetGamePath(fn);
+        vxeKernelSetCrcvx(crcvx);
+#endif
         if (bytesRead <= 32*1024) {
             maxCartSize = 32*1024; // 32KB game
         } else {
@@ -336,6 +370,16 @@ void loadRomWithHighScore(char *fn, bool load_hs_mode, bool use_embedded_menu) {
         f_close(&f);
     }
 }
+
+#if VXE_ENABLED
+// The menu's "native register" score: 6 ASCII digits + $80 at the same address/format that
+// loadRomWithHighScore()'s load_hs_mode branch fills for a classic cartridge, so exiting a co-op game back to
+// the menu shows its score the way a real cart's would (VxeKernelApi.k_menuScoreSet).
+void vxeKernelMenuScoreSet(const unsigned char score7[7]) {
+    const int SCORE_ADDR = MENU_SYS_ADDR + 0x10;
+    memcpy(&menuData[SCORE_ADDR], score7, 7);
+}
+#endif
 
 //Stream data, for the Bad Apple demo
 //Name of the file sucks and I'd like to make a rpc function that's a bit
@@ -729,6 +773,13 @@ void doRamDisk() {
 // Handle an RPC event
 void doHandleEvent(int data) {
     // xprintf("[E:%d,A:%02X]\n", data, (int)parmRam[254]);
+#if VXE_ENABLED
+    // RPC ids 64-79 belong to the loaded VXE payload (no firmware case uses them).
+    if (data >= VXE_RPC_FIRST && data <= VXE_RPC_LAST) {
+        vxeKernelDispatch(data);
+        return;
+    }
+#endif
     switch (data) {
         default:
         case 0: break;
@@ -1073,6 +1124,27 @@ int main(void) {
             checkDevMode = 0;
         }
     }
+#if VXE_ENABLED
+    else {
+        // The same developer mode for a co-op bundle: /cart.vxe boots straight into that game, installing its
+        // payload first if needed. Probed with f_open, never a bare FILINFO (convention 20). If the bundle is
+        // refused, loadRomWithHighScore() leaves romData on the menu and the menu simply comes up.
+        FIL vxef;
+        if (f_open(&vxef, "/cart.vxe", FA_READ) == FR_OK) {
+            f_close(&vxef);
+            xprintf("Loading /cart.vxe ...\n");
+            romData=c_and_l.cartData;
+            loadRom("/cart.vxe");
+            if (romData == c_and_l.cartData) {
+                sys_opt.usb_dev = USB_DEV_RUN;
+                checkDevMode = 0;
+            }
+        }
+    }
+
+    // Start the VXE payload (if one is installed): registers its RPCs before ROM emulation begins.
+    vxeKernelStart();
+#endif
 
     // Go emulate a ROM.
     SYSCFG_MEMRMP=0x3; //mak ram at 0

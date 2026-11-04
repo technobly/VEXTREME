@@ -71,6 +71,21 @@ OBJS=main.o menu.o romemu.o msc.o xprintf.o usb_msc.o ff_diskio.o \
 		fatfs/ff.o fatfs/option/unicode.o flash.o led.o delay.o \
 		wifi.o highscore.o settings.o cart_options.o
 
+# VXE: loadable co-op game payloads (docs/vxe/SDK_GUIDE.md). VXE=1 builds the VXE kernel (this firmware plus the payload
+# loader) and enables the vxe-* targets; VXE=0 (the default) builds the regular firmware exactly as without VXE - the
+# source hooks are all behind VXE_ENABLED, which only this switch turns on. Asking for a vxe-* target turns VXE on.
+# config/profile.mk (optional) can set VXE, VXE_LAYOUT, ...
+-include config/profile.mk
+ifneq ($(filter vxe vxe-%,$(MAKECMDGOALS)),)
+VXE := 1
+endif
+VXE ?= 0
+export VXE
+DOCKER_ARGS += -e VXE=$(VXE)
+ifeq ($(VXE),1)
+include vxe_config.mk
+endif
+
 LIBNAME = opencm3_stm32f4
 ARCH_FLAGS = -mfloat-abi=hard -mfpu=fpv4-sp-d16 -mthumb -mcpu=cortex-m4 -DSTM32F4
 
@@ -177,3 +192,7 @@ clean:
 	dfu-util -a 0 -d 0483:df11 -s 0x08000000:leave -D $(*).bin
 
 .PHONY: images clean flash dummy
+
+ifeq ($(VXE),1)
+include vxe_rules.mk
+endif

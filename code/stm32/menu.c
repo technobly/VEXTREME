@@ -1,4 +1,5 @@
 #define _GNU_SOURCE // required for strcasestr
+#include "vxe_config.h"
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
@@ -38,8 +39,12 @@ void loadListing(char *fdir, dir_listing *listing, const int fnptrs, const int s
         romData[ptrpos++]=strpos&0xff;
 
         // remove extensions
-        const char* extList[2] = { ".bin", ".vec" };
-        int is_game = checkExtension(name, extList, 2, true); // check and modify
+        const char* extList[] = { ".bin", ".vec"
+#if VXE_ENABLED
+            , ".vxe"      // VXE co-op game bundles
+#endif
+        };
+        int is_game = checkExtension(name, extList, sizeof(extList)/sizeof(extList[0]), true); // check and modify
         if (!is_game && !is_dir) {
             continue; // If not a game, don't list it in the menu
         }
@@ -132,8 +137,12 @@ void sortDirectory(char *fdir, dir_listing *listing) {
         if (name==NULL || name[0]==0) name=fi.fname; //use short name if no long name available
 
         // check extensions and ignore all non case insensitive .bin/.vec files
-        const char* extList[2] = { ".bin", ".vec" };
-        int is_game = checkExtension(name, extList, 2, false); // check only
+        const char* extList[] = { ".bin", ".vec"
+#if VXE_ENABLED
+            , ".vxe"      // VXE co-op game bundles
+#endif
+        };
+        int is_game = checkExtension(name, extList, sizeof(extList)/sizeof(extList[0]), false); // check only
         if (!is_game && !is_dir) {
             continue; // If not a game or directory, don't list it in the menu
         }

@@ -5,6 +5,8 @@
 #ifndef _STRFUNC
 #define _STRFUNC
 
+#include "vxe_config.h"
+
 #define _USE_XFUNC_OUT	1	/* 1: Use output functions */
 #define	_CR_CRLF		1	/* 1: Convert \n ==> \r\n in the output char */
 
@@ -19,6 +21,10 @@ void xputc (char c);
 void xputs (const char* str);
 void xfputs (void (*func)(unsigned char), const char* str);
 void xprintf (const char* fmt, ...);
+#if VXE_ENABLED
+#include <stdarg.h>
+void xvprintf (const char* fmt, va_list arp);   /* exported to the loaded VXE payload (vxe/vxe_kernel.c) */
+#endif
 void xsprintf (char* buff, const char* fmt, ...);
 void xfprintf (void (*func)(unsigned char), const char*	fmt, ...);
 void put_dump (const void* buff, unsigned long addr, int len, int width);

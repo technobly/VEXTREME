@@ -3,6 +3,8 @@ VEXTREME Vectrex Multicart
 
 We're carrying on and pushing forward the amazing work of [Sprite_tm](http://spritesmods.com/?art=veccart&page=1) and his Extreme Vectrex Multicart. He posted the code (GPLv3 License) and lots of screens of the PCB/initial schematic, but he never released the PCB. It's a great base for an inexpensive and open vectrex multicart, for developers and players alike!
 
+> **This fork adds VXE** - loadable co-op game payloads, so a game is one `.vxe` file on the card instead of a firmware rebuild. It is a build option (`VXE=0` builds the regular firmware as upstream). See [docs/vxe/](docs/vxe/README.md).
+
 :warning: Please read this NOTICE of Current Development :warning:
 ===
 
@@ -126,3 +128,4 @@ A collection of how-tos and lessons learned lives in [docs/](docs/):
 - [Lazy Developer](docs/lazy-developer.md) - automatically ejects the USB drive when the Vectrex is turned on
 - [Cart Options](docs/cart-options.md) - per-game `.ini` files to enable cartridge RAM
 - [Datasheets](docs/datasheets/) - STM32F411 datasheet and reference manual
+- [VXE](docs/vxe/README.md) - loadable co-op game payloads: how they work, the two flash layouts, how to build a game

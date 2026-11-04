@@ -11,6 +11,7 @@
 /
 /-------------------------------------------------------------------------*/
 
+#include "vxe_config.h"
 #include "xprintf.h"
 
 
@@ -84,7 +85,9 @@ void xfputs (					/* Put a string to the specified device */
     xprintf("%f", 10.0);            <xprintf lacks floating point support>
 */
 
-static
+#if !VXE_ENABLED
+static   /* VXE exports xvprintf to the loaded payload (vxe/vxe_kernel.c) */
+#endif
 void xvprintf (
 	const char*	fmt,	/* Pointer to the format string */
 	va_list arp			/* Pointer to arguments */
